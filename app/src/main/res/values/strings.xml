@@ -1,0 +1,57 @@
+<resources>
+    <string name="app_name">Aqe365</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <!---->
+    <string name="login_name">用户登录</string>
+    <string name="login_phone">请输入您的用户名/手机号码</string>
+    <string name="login_pwd">请输入密码</string>
+    <string name="login_phone_login">手机验证登录</string>
+    <string name="login_forget_pwd">找回密码</string>
+    <string name="login_login">登录</string>
+    <string name="login_register">注册</string>
+    <string name="login_third_login">第三方登录</string>
+    <string name="login_qq_login">QQ登录</string>
+    <string name="login_wechat_login">微信登录</string>
+    <string name="register_phone">请输入您的手机号码</string>
+    <string name="register_code">请输入手机验证码</string>
+    <string name="register_pwd">请输入密码</string>
+    <string name="register_pwd_">请再次输入密码</string>
+    <string name="register_clinic_name">诊所名称</string>
+    <string name="register_name">请输入昵称</string>
+    <string name="third_login_now">立即登录</string>
+    <string name="login_send_code">发送验证码</string>
+    <string name="login_confirm">确定</string>
+    <string name="login_details">为了给您更好的服务，请关联一个奥泉医销网帐号</string>
+    <string name="login_register_quick">快速注册</string>
+    <string name="login_quick_relevance">立即关联</string>
+    <string name="login_relevance">关联</string>
+
+    <!--首页-->
+    <string name="app_m_home">首页</string>
+    <string name="app_m_sort">分类</string>
+    <string name="app_m_brand">品牌库</string>
+    <string name="app_m_cart">购物车</string>
+    <string name="app_m_people">我的</string>
+    <!--个人中心-->
+    <string name="app_people_test">Test测试</string>
+    <string name="app_people_test_number">12</string>
+    <string name="app_people_realName">[实名认证]</string>
+    <string name="app_people_goodsAttention">商品关注</string>
+    <string name="app_people_shopAttention">店铺关注</string>
+    <string name="app_people_brandAttention">品牌关注</string>
+    <string name="app_people_footprint">我的足迹</string>
+    <string name="app_people_all_order">全部订单</string>
+    <string name="app_people_looker_all">查看全部</string>
+    <string name="app_people_obligation">待付款</string>
+    <string name="app_people_shipments">待发货</string>
+    <string name="app_people_Receiving">待收货</string>
+    <string name="app_people_after_sale">退换/售后</string>
+    <string name="app_people_asset">我的资产</string>
+    <string name="app_people_change">我的零钱</string>
+    <string name="app_people_coupon">我的优惠卷</string>
+    <string name="app_people_integral">我的积分</string>
+    <string name="app_people_statistics">我的积分</string>
+
+</resources>
