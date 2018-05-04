@@ -63,7 +63,7 @@ public class MainPeopleFragment extends BaseFragment {
         mGridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                switch (view.getId()) {
+                switch (position) {
                     case 0: //我的社区
                         break;
                     case 1:// 积分商城
@@ -75,7 +75,7 @@ public class MainPeopleFragment extends BaseFragment {
                     case 4://发票服务
                         break;
                     case 5://报表统计
-                        startFrameActivity(Constants.FRAGMENT_FORGET_PWD);
+                        startFrameActivity(Constants.FRAGMENT_PEOPLE_STATISTICS);
                         break;
                     case 6://意见反馈
                         break;

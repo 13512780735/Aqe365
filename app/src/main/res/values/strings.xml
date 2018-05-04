@@ -53,5 +53,8 @@
     <string name="app_people_coupon">我的优惠卷</string>
     <string name="app_people_integral">我的积分</string>
     <string name="app_people_statistics">我的积分</string>
+    <!--报表统计-->
+    <string name="app_statistics_month">月度消费报表统计</string>
+    <string name="app_statistics_month_total">总消费：</string>
 
 </resources>
