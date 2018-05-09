@@ -15,6 +15,8 @@ import android.widget.ToggleButton;
 
 import com.king.base.BaseFragment;
 import com.likeit.aqe365.R;
+import com.likeit.aqe365.listener.IEditTextChangeListener;
+import com.likeit.aqe365.utils.EditTextSizeCheckUtil;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -22,7 +24,7 @@ import com.likeit.aqe365.R;
 public class ForgetPwdFragment extends BaseFragment implements View.OnClickListener {
     ToggleButton tb_re_pwd;
     EditText et_pwd;
-    EditText et_pwd_confirm;
+    EditText et_pwd_confirm,et_phone,et_code;
     ToggleButton tb_re_pwd_confirm;
     private TextView tv_confirm;
 
@@ -44,10 +46,26 @@ public class ForgetPwdFragment extends BaseFragment implements View.OnClickListe
         setBackView();
         setTitle("找回密码");
         tb_re_pwd = findView(R.id.tb_re_pwd);
+        et_phone = findView(R.id.forget_pwd_et_phone);
+        et_code = findView(R.id.forget_pwd_et_code);
         et_pwd = findView(R.id.register_et_pwd);
         et_pwd_confirm = findView(R.id.register_et_pwd_confirm);
         tb_re_pwd_confirm = findView(R.id.tb_re_pwd_confirm);
         tv_confirm = findView(R.id.tv_confirm);
+        EditTextSizeCheckUtil.textChangeListener textChangeListener=new EditTextSizeCheckUtil.textChangeListener(tv_confirm);
+        textChangeListener.addAllEditText(et_pwd,et_pwd_confirm,et_phone,et_code);
+        EditTextSizeCheckUtil.setChangeListener(new IEditTextChangeListener() {
+            @Override
+            public void textChange(boolean isHasContent) {
+                if (isHasContent) {
+                    tv_confirm.setBackgroundResource(R.drawable.shape_round_blue_bg);
+                    tv_confirm.setOnClickListener(ForgetPwdFragment.this);
+                } else {
+                    tv_confirm.setBackgroundResource(R.drawable.shape_round_grey_bg);
+                }
+            }
+        });
+
     }
 
     @Override
@@ -57,7 +75,7 @@ public class ForgetPwdFragment extends BaseFragment implements View.OnClickListe
 
     @Override
     public void addListeners() {
-        tv_confirm.setOnClickListener(this);
+
         tb_re_pwd.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {

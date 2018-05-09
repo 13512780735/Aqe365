@@ -46,6 +46,7 @@
             </LinearLayout>
 
             <ImageView
+                android:id="@+id/iv_setting"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
@@ -62,6 +63,7 @@
             android:paddingTop="8dp">
 
             <RelativeLayout
+                android:id="@+id/rl_goodsAttention"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1">
@@ -84,6 +86,7 @@
             </RelativeLayout>
 
             <RelativeLayout
+                android:id="@+id/rl_tv_shopAttention"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1">
@@ -106,6 +109,7 @@
             </RelativeLayout>
 
             <RelativeLayout
+                android:id="@+id/rl_brandAttention"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1">
@@ -128,6 +132,7 @@
             </RelativeLayout>
 
             <RelativeLayout
+                android:id="@+id/rl_footprint"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1">
@@ -324,9 +329,35 @@
             android:layout_height="wrap_content"
             android:background="@color/white"
             android:numColumns="4"
-            android:layout_marginBottom="@dimen/width50"
             android:padding="@dimen/dp_10"
             android:verticalSpacing="5dip"></com.likeit.aqe365.view.MyGridView>
-    </LinearLayout>
+        <TextView
+            android:id="@+id/tv_edit_pwd"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dip_xxlarge"
+            android:layout_marginLeft="@dimen/dip_xxlarge"
+            android:layout_marginRight="@dimen/dip_xxlarge"
+            android:background="@drawable/shape_round_blue_bg"
+            android:gravity="center"
+            android:layout_marginBottom="@dimen/dp_10"
+            android:layout_marginTop="@dimen/dp_30"
+            android:padding="8dip"
+            android:text="@string/app_people_edit_pwd"
+            android:textColor="@color/white" />
+        <TextView
+            android:id="@+id/tv_logout"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dip_xxlarge"
+            android:layout_marginLeft="@dimen/dip_xxlarge"
+            android:layout_marginRight="@dimen/dip_xxlarge"
+            android:background="@drawable/shape_round_blue_bg"
+            android:gravity="center"
+            android:layout_marginTop="@dimen/dp_10"
+            android:padding="8dip"
+            android:text="@string/app_people_logout"
+            android:layout_marginBottom="@dimen/width50"
+            android:textColor="@color/white" />
 
+    </LinearLayout>
+        
 </ScrollView>

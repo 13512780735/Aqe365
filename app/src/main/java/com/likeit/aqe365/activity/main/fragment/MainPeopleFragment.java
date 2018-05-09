@@ -2,18 +2,20 @@ package com.likeit.aqe365.activity.main.fragment;
 
 
 import android.content.Intent;
-import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.SimpleAdapter;
+import android.widget.TextView;
 
+import com.king.base.AppManager;
 import com.king.base.BaseFragment;
 import com.likeit.aqe365.R;
 import com.likeit.aqe365.activity.FrameActivity;
+import com.likeit.aqe365.activity.login.activity.LoginActivity;
+import com.likeit.aqe365.activity.people.UserInfoActivity;
 import com.likeit.aqe365.constants.Constants;
 import com.likeit.aqe365.view.MyGridView;
 
@@ -25,7 +27,7 @@ import java.util.Map;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class MainPeopleFragment extends BaseFragment {
+public class MainPeopleFragment extends BaseFragment implements View.OnClickListener {
 
 
     private MyGridView mGridView;
@@ -34,10 +36,10 @@ public class MainPeopleFragment extends BaseFragment {
     private String[] iconName = {"我的社区", "积分商城", "我的邀请", "邀请二维码", "发票服务", "报表统计", "意见反馈", "常购商品"};
     private List<Map<String, Object>> dataList;
     private SimpleAdapter simpleAdapter;
-
-    public MainPeopleFragment() {
-        // Required empty public constructor
-    }
+    private RelativeLayout mRlGoodsAttention, mRlShopAttention, mRlBrandAttention, mRlFootprint;
+    private TextView mTvChange, mTvIntegral, mTvCoupon;
+    private ImageView mIvSetting;
+    private TextView tv_logout,tv_edit_pwd;
 
 
     @Override
@@ -48,12 +50,21 @@ public class MainPeopleFragment extends BaseFragment {
     @Override
     public void initUI() {
         mGridView = findView(R.id.MyGridView);
-
+        mRlGoodsAttention = findView(R.id.rl_goodsAttention);
+        mRlShopAttention = findView(R.id.rl_tv_shopAttention);
+        mRlBrandAttention = findView(R.id.rl_brandAttention);
+        mRlFootprint = findView(R.id.rl_footprint);
+        mTvChange = findView(R.id.tv_change);
+        mTvCoupon = findView(R.id.tv_coupon);
+        mTvIntegral = findView(R.id.tv_integral);
+        mIvSetting = findView(R.id.iv_setting);
+        tv_logout = findView(R.id.tv_logout);
+        tv_edit_pwd = findView(R.id.tv_edit_pwd);
     }
 
     @Override
     public void initData() {
-        dataList = new ArrayList<Map<String, Object>>();
+        dataList = new ArrayList<>();
         getData();
         String[] from = {"img", "name"};
         final int[] to = {R.id.iv_people_avatar, R.id.tv_people_name};
@@ -85,14 +96,25 @@ public class MainPeopleFragment extends BaseFragment {
             }
         });
     }
+
     private void startFrameActivity(int keyFragment) {
         Intent intent = new Intent(getActivity(), FrameActivity.class);
         intent.putExtra(KEY_FRAGMENT, keyFragment);
         startActivity(intent);
     }
+
     @Override
     public void addListeners() {
-
+        mRlGoodsAttention.setOnClickListener(this);
+        mRlShopAttention.setOnClickListener(this);
+        mRlBrandAttention.setOnClickListener(this);
+        mRlFootprint.setOnClickListener(this);
+        mTvChange.setOnClickListener(this);
+        mTvCoupon.setOnClickListener(this);
+        mTvIntegral.setOnClickListener(this);
+        mIvSetting.setOnClickListener(this);
+        tv_logout.setOnClickListener(this);
+        tv_edit_pwd.setOnClickListener(this);
     }
 
     private List<Map<String, Object>> getData() {
@@ -103,5 +125,42 @@ public class MainPeopleFragment extends BaseFragment {
             dataList.add(map);
         }
         return dataList;
+    }
+
+    @Override
+    public void onClick(View view) {
+        switch (view.getId()) {
+            case R.id.iv_setting://我的设置
+                startActivity(new Intent(getActivity(), UserInfoActivity.class));
+                break;
+            case R.id.rl_goodsAttention://商品关注
+                startFrameActivity(Constants.FRAGMENT_PEOPLE_GOODS_ATTENTION);
+                break;
+            case R.id.rl_tv_shopAttention://店铺关注
+                startFrameActivity(Constants.FRAGMENT_PEOPLE_SHOP_ATTENTION);
+                break;
+            case R.id.rl_brandAttention://品牌关注
+                startFrameActivity(Constants.FRAGMENT_PEOPLE_BRAND_ATTENTION);
+                break;
+            case R.id.rl_footprint://我的足迹
+                startFrameActivity(Constants.FRAGMENT_PEOPLE_FOOTPRINT);
+                break;
+            case R.id.tv_change://我的零钱
+                startFrameActivity(Constants.FRAGMENT_PEOPLE_CHANGE);
+                break;
+            case R.id.tv_coupon://我的优惠卷
+                startFrameActivity(Constants.FRAGMENT_PEOPLE_COUPON);
+                break;
+            case R.id.tv_integral://我的积分
+                startFrameActivity(Constants.FRAGMENT_PEOPLE_INTEGRAL);
+                break;
+            case R.id.tv_edit_pwd://修改密码
+               // startFrameActivity(Constants.FRAGMENT_PEOPLE_INTEGRAL);
+                break;
+            case R.id.tv_logout://退出登录
+                startActivity(new Intent(getActivity(), LoginActivity.class));
+                AppManager.getAppManager().finishAllActivity();
+                break;
+        }
     }
 }

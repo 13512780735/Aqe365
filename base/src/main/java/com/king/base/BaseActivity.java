@@ -71,14 +71,7 @@ public abstract class BaseActivity extends AppCompatActivity implements BaseInte
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         // ButterKnife.bind(this);
-//        Window window = this.getWindow();
-//        // 透明状态栏
-//        window.addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
-//        // 透明导航栏
-//        window.addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
-//        if (AndroidWorkaround.checkDeviceHasNavigationBar(this)) {
-//            AndroidWorkaround.assistActivity(findViewById(android.R.id.content));
-//        }
+
         AppManager.getAppManager().addActivity(this);
         StatusBarUtil.transparencyBar(this); //设置状态栏全透明
         StatusBarUtil.StatusBarLightMode(this); //设置白底黑字

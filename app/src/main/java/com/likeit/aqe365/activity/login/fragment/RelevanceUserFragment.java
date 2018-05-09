@@ -20,6 +20,8 @@ import com.likeit.aqe365.activity.FrameActivity;
 import com.likeit.aqe365.activity.main.MainActivity;
 import com.likeit.aqe365.constants.Constants;
 import com.king.base.AppManager;
+import com.likeit.aqe365.listener.IEditTextChangeListener;
+import com.likeit.aqe365.utils.EditTextSizeCheckUtil;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -30,7 +32,7 @@ public class RelevanceUserFragment extends BaseFragment implements View.OnClickL
     private TextView tv_relevance_forget_pwd;
     private TextView tv_relevance;
     private ToggleButton tb_re_pwd;
-    private EditText et_pwd;
+    private EditText et_pwd,et_phone;
 
     public static RelevanceUserFragment newInstance() {
         Bundle bundle = new Bundle();
@@ -53,6 +55,20 @@ public class RelevanceUserFragment extends BaseFragment implements View.OnClickL
         tv_relevance = findView(R.id.tv_relevance);
         tb_re_pwd = findView(R.id.tb_re_pwd);
         et_pwd = findView(R.id.RelevanceUser_et_pwd);
+        et_phone = findView(R.id.RelevanceUser_et_phone);
+        EditTextSizeCheckUtil.textChangeListener textChangeListener=new EditTextSizeCheckUtil.textChangeListener(tv_relevance);
+        textChangeListener.addAllEditText(et_pwd,et_phone);
+        EditTextSizeCheckUtil.setChangeListener(new IEditTextChangeListener() {
+            @Override
+            public void textChange(boolean isHasContent) {
+                if (isHasContent) {
+                    tv_relevance.setBackgroundResource(R.drawable.shape_round_blue_bg);
+                    tv_relevance.setOnClickListener(RelevanceUserFragment.this);
+                } else {
+                    tv_relevance.setBackgroundResource(R.drawable.shape_round_grey_bg);
+                }
+            }
+        });
     }
 
     @Override
@@ -63,7 +79,6 @@ public class RelevanceUserFragment extends BaseFragment implements View.OnClickL
     @Override
     public void addListeners() {
         tv_relevance_forget_pwd.setOnClickListener(this);
-        tv_relevance.setOnClickListener(this);
         tb_re_pwd.setOnCheckedChangeListener(this);
     }
 

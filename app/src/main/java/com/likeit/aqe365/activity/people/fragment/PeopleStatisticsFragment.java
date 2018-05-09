@@ -1,4 +1,4 @@
-package com.likeit.aqe365.activity.people;
+package com.likeit.aqe365.activity.people.fragment;
 
 
 import android.os.Bundle;
@@ -10,6 +10,7 @@ import com.likeit.aqe365.R;
 import com.likeit.aqe365.view.piechart.PieChartView;
 
 /**
+ * 报表统计
  * A simple {@link Fragment} subclass.
  */
 public class PeopleStatisticsFragment extends BaseFragment {

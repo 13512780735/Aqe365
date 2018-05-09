@@ -19,4 +19,11 @@ public class Constants {
      * 个人中心
      */
     public static final int FRAGMENT_PEOPLE_STATISTICS = 0X09;//注册协议
+    public static final int FRAGMENT_PEOPLE_GOODS_ATTENTION = 0X10;//商品关注
+    public static final int FRAGMENT_PEOPLE_SHOP_ATTENTION = 0X11;//店铺关注
+    public static final int FRAGMENT_PEOPLE_BRAND_ATTENTION = 0X12;//品牌关注
+    public static final int FRAGMENT_PEOPLE_FOOTPRINT = 0X13;//我的足迹
+    public static final int FRAGMENT_PEOPLE_CHANGE = 0X14;//我的零钱
+    public static final int FRAGMENT_PEOPLE_COUPON = 0X15;//我的优惠卷
+    public static final int FRAGMENT_PEOPLE_INTEGRAL = 0X16;//我的积分
 }

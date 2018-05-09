@@ -21,6 +21,8 @@ import com.likeit.aqe365.activity.FrameActivity;
 import com.likeit.aqe365.activity.main.MainActivity;
 import com.likeit.aqe365.constants.Constants;
 import com.king.base.AppManager;
+import com.likeit.aqe365.listener.IEditTextChangeListener;
+import com.likeit.aqe365.utils.EditTextSizeCheckUtil;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -28,7 +30,7 @@ import com.king.base.AppManager;
 public class RegisterFragment extends BaseFragment implements View.OnClickListener {
     ToggleButton tb_re_pwd;
     EditText et_pwd;
-    EditText et_pwd_confirm;
+    EditText et_pwd_confirm, et_phone, et_code, et_clinic, et_name;
     ToggleButton tb_re_pwd_confirm;
     CheckBox checkBox;
     private TextView protocol_tv01;
@@ -53,6 +55,10 @@ public class RegisterFragment extends BaseFragment implements View.OnClickListen
         setBackView();
         setTitle("立即注册");
         tb_re_pwd = findView(R.id.tb_re_pwd);
+        et_phone = findView(R.id.register_et_phone);
+        et_code = findView(R.id.register_et_code);
+        et_clinic = findView(R.id.register_et_clinic);
+        et_name = findView(R.id.register_et_name);
         et_pwd = findView(R.id.register_et_pwd);
         et_pwd_confirm = findView(R.id.register_et_pwd_confirm);
         tb_re_pwd_confirm = findView(R.id.tb_re_pwd_confirm);
@@ -63,6 +69,20 @@ public class RegisterFragment extends BaseFragment implements View.OnClickListen
             showProgress("請同意條款");
             return;
         }
+        EditTextSizeCheckUtil.textChangeListener textChangeListener = new EditTextSizeCheckUtil.textChangeListener(tv_register);
+        textChangeListener.addAllEditText(et_pwd, et_pwd_confirm, et_phone, et_code,et_clinic,et_name);
+        EditTextSizeCheckUtil.setChangeListener(new IEditTextChangeListener() {
+            @Override
+            public void textChange(boolean isHasContent) {
+                if (isHasContent) {
+                    tv_register.setBackgroundResource(R.drawable.shape_round_blue_bg);
+                    tv_register.setOnClickListener(RegisterFragment.this);
+                } else {
+                    tv_register.setBackgroundResource(R.drawable.shape_round_grey_bg);
+                   // tv_register.setClickable(false);
+                }
+            }
+        });
     }
 
     @Override
@@ -73,7 +93,7 @@ public class RegisterFragment extends BaseFragment implements View.OnClickListen
     @Override
     public void addListeners() {
         protocol_tv01.setOnClickListener(this);
-        tv_register.setOnClickListener(this);
+
         tb_re_pwd.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {

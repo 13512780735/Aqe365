@@ -3,7 +3,8 @@
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
-    <!---->
+
+    <!--登录注册-->
     <string name="login_name">用户登录</string>
     <string name="login_phone">请输入您的用户名/手机号码</string>
     <string name="login_pwd">请输入密码</string>
@@ -53,8 +54,29 @@
     <string name="app_people_coupon">我的优惠卷</string>
     <string name="app_people_integral">我的积分</string>
     <string name="app_people_statistics">我的积分</string>
+    <string name="app_people_edit_pwd">修改密码</string>
+    <string name="app_people_logout">退出登录</string>
     <!--报表统计-->
     <string name="app_statistics_month">月度消费报表统计</string>
     <string name="app_statistics_month_total">总消费：</string>
-
+    <!--商品关注-->
+    <string name="app_people_attention_title">商品关注</string>
+    <string name="app_people_attention_edit">编辑</string>
+    <!--店铺关注-->
+    <string name="app_people_shop_title">店铺关注</string>
+    <string name="app_people_shop_edit">编辑</string>
+    <!--品牌关注-->
+    <string name="app_people_brand_title">品牌关注</string>
+    <string name="app_people_brand_edit">编辑</string>
+    <!--我的足迹-->
+    <string name="app_people_footprint_title">我的足迹</string>
+    <string name="app_people_footprint_edit">编辑</string>
+    <!--我的零钱-->
+    <string name="app_people_change_title">我的零钱</string>
+    <!--我的优惠卷-->
+    <string name="app_people_coupon_title">我的优惠卷</string>
+    <!--我的积分-->
+    <string name="app_people_integral_title">我的积分</string>
+    <!--会员资料-->
+    <string name="app_people_member_title">会员资料</string>
 </resources>

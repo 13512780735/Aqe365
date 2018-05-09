@@ -10,7 +10,15 @@ import com.likeit.aqe365.activity.login.fragment.RegisterFragment;
 import com.likeit.aqe365.activity.login.fragment.RegisterProtocolFragment;
 import com.likeit.aqe365.activity.login.fragment.RelevanceUserFragment;
 import com.likeit.aqe365.activity.login.fragment.ThirdLoginFragment;
-import com.likeit.aqe365.activity.people.PeopleStatisticsFragment;
+import com.likeit.aqe365.activity.people.UserInfoActivity;
+import com.likeit.aqe365.activity.people.fragment.BrandAttentionFragment;
+import com.likeit.aqe365.activity.people.fragment.ChangeFragment;
+import com.likeit.aqe365.activity.people.fragment.CouponFragment;
+import com.likeit.aqe365.activity.people.fragment.FootprintFragment;
+import com.likeit.aqe365.activity.people.fragment.GoodsAttentionFragment;
+import com.likeit.aqe365.activity.people.fragment.IntegralFragment;
+import com.likeit.aqe365.activity.people.fragment.PeopleStatisticsFragment;
+import com.likeit.aqe365.activity.people.fragment.ShopAttentionFragment;
 import com.likeit.aqe365.constants.Constants;
 
 /**
@@ -45,6 +53,27 @@ public class FrameActivity extends ContentActivity {
                 break;
             case Constants.FRAGMENT_PEOPLE_STATISTICS://报表统计
                 replaceFragment(PeopleStatisticsFragment.newInstance());
+                break;
+            case Constants.FRAGMENT_PEOPLE_GOODS_ATTENTION://商品关注
+                replaceFragment(GoodsAttentionFragment.newInstance());
+                break;
+            case Constants.FRAGMENT_PEOPLE_SHOP_ATTENTION://店铺关注
+                replaceFragment(ShopAttentionFragment.newInstance());
+                break;
+            case Constants.FRAGMENT_PEOPLE_BRAND_ATTENTION://品牌关注
+                replaceFragment(BrandAttentionFragment.newInstance());
+                break;
+            case Constants.FRAGMENT_PEOPLE_FOOTPRINT://我的足迹
+                replaceFragment(FootprintFragment.newInstance());
+                break;
+            case Constants.FRAGMENT_PEOPLE_CHANGE://我的零钱
+                replaceFragment(ChangeFragment.newInstance());
+                break;
+            case Constants.FRAGMENT_PEOPLE_COUPON://我的优惠卷
+                replaceFragment(CouponFragment.newInstance());
+                break;
+            case Constants.FRAGMENT_PEOPLE_INTEGRAL://我的积分
+                replaceFragment(IntegralFragment.newInstance());
                 break;
             default:
                 break;
