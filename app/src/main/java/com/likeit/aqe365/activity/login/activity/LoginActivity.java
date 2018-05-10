@@ -3,6 +3,9 @@ package com.likeit.aqe365.activity.login.activity;
 
 import android.content.Intent;
 import android.graphics.Color;
+import android.os.Bundle;
+import android.os.PersistableBundle;
+import android.support.annotation.Nullable;
 import android.text.Selection;
 import android.text.Spannable;
 import android.text.method.HideReturnsTransformationMethod;
@@ -13,19 +16,21 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.ToggleButton;
 
-import com.king.base.BaseActivity;
-import com.king.base.util.SharedPreferencesUtils;
-import com.king.base.util.StringUtils;
 import com.likeit.aqe365.R;
 import com.likeit.aqe365.activity.FrameActivity;
 import com.likeit.aqe365.activity.main.MainActivity;
+import com.likeit.aqe365.base.BaseActivity;
 import com.likeit.aqe365.constants.Constants;
-import com.king.base.AppManager;
 import com.likeit.aqe365.listener.IEditTextChangeListener;
+import com.likeit.aqe365.utils.AppManager;
 import com.likeit.aqe365.utils.EditTextSizeCheckUtil;
+import com.likeit.aqe365.utils.SharedPreferencesUtils;
+import com.likeit.aqe365.utils.StringUtils;
 
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+
+import static com.likeit.aqe365.Interface.BaseInterface.KEY_FRAGMENT;
 
 
 public class LoginActivity extends BaseActivity implements View.OnClickListener {
@@ -37,9 +42,17 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
     private String phone, pwd;
 
     @Override
-    public void initUI() {
+    public void onCreate(@Nullable Bundle savedInstanceState, @Nullable PersistableBundle persistentState) {
+        super.onCreate(savedInstanceState, persistentState);
         setContentView(R.layout.activity_login);
         ButterKnife.bind(this);
+        initUI();
+        initView();
+        addListeners();
+        initData();
+    }
+
+    public void initUI() {
         tb_password = findViewById(R.id.tb_re_pwd);
         et_password = findViewById(R.id.login_et_pwd);
         et_phone = findViewById(R.id.login_et_phone);
@@ -47,11 +60,11 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
         tv_login = findViewById(R.id.tv_login);
         phone = SharedPreferencesUtils.getString(this, "phone");
         pwd = SharedPreferencesUtils.getString(this, "pwd");
-        if(!StringUtils.isBlank(phone)&&!StringUtils.isBlank(pwd)){
+        if (!StringUtils.isBlank(phone) && !StringUtils.isBlank(pwd)) {
             tv_login.setBackgroundResource(R.drawable.shape_round_blue_bg);
             tv_login.setOnClickListener(LoginActivity.this);
         }
-        initView();
+
 
     }
 
@@ -73,12 +86,10 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
         });
     }
 
-    @Override
     public void initData() {
 
     }
 
-    @Override
     public void addListeners() {
         tb_password.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override

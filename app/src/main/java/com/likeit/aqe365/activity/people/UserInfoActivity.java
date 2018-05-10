@@ -2,8 +2,8 @@ package com.likeit.aqe365.activity.people;
 
 import android.os.Bundle;
 
-import com.king.base.BaseActivity;
 import com.likeit.aqe365.R;
+import com.likeit.aqe365.base.BaseActivity;
 
 public class UserInfoActivity extends BaseActivity {
 
@@ -11,21 +11,21 @@ public class UserInfoActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_info);
+        initUI();
+        addListeners();
+        initData();
     }
 
-    @Override
     public void initUI() {
         setBackView();
         setTitle(getResources().getString(R.string.app_people_member_title));
 
     }
 
-    @Override
     public void initData() {
 
     }
 
-    @Override
     public void addListeners() {
 
     }

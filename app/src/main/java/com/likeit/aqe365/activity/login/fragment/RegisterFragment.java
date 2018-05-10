@@ -15,14 +15,16 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.ToggleButton;
 
-import com.king.base.BaseFragment;
 import com.likeit.aqe365.R;
 import com.likeit.aqe365.activity.FrameActivity;
 import com.likeit.aqe365.activity.main.MainActivity;
+import com.likeit.aqe365.base.BaseFragment;
 import com.likeit.aqe365.constants.Constants;
-import com.king.base.AppManager;
 import com.likeit.aqe365.listener.IEditTextChangeListener;
+import com.likeit.aqe365.utils.AppManager;
 import com.likeit.aqe365.utils.EditTextSizeCheckUtil;
+
+import static com.likeit.aqe365.Interface.BaseInterface.KEY_FRAGMENT;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -45,12 +47,7 @@ public class RegisterFragment extends BaseFragment implements View.OnClickListen
         return fragment;
     }
 
-    @Override
-    public int inflaterRootView() {
-        return R.layout.fragment_register;
-    }
 
-    @Override
     public void initUI() {
         setBackView();
         setTitle("立即注册");
@@ -85,12 +82,7 @@ public class RegisterFragment extends BaseFragment implements View.OnClickListen
         });
     }
 
-    @Override
-    public void initData() {
 
-    }
-
-    @Override
     public void addListeners() {
         protocol_tv01.setOnClickListener(this);
 
@@ -157,5 +149,16 @@ public class RegisterFragment extends BaseFragment implements View.OnClickListen
         intent.putExtra(KEY_FRAGMENT, keyFragment);
         startActivity(intent);
 
+    }
+
+    @Override
+    protected int setContentView() {
+        return R.layout.fragment_register;
+    }
+
+    @Override
+    protected void lazyLoad() {
+        initUI();
+        addListeners();
     }
 }

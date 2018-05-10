@@ -1,62 +1,100 @@
 package com.likeit.aqe365.activity.main;
 
-import android.os.Bundle;
-import android.support.v4.app.FragmentActivity;
-import android.view.View;
+import android.support.v4.app.Fragment;
 
-import com.famabb.vtp.ViewTabPager;
-import com.king.base.AppManager;
-import com.king.base.StatusBarUtil;
 import com.likeit.aqe365.R;
 import com.likeit.aqe365.activity.main.fragment.MainBrandFragment;
 import com.likeit.aqe365.activity.main.fragment.MainCartFragment;
 import com.likeit.aqe365.activity.main.fragment.MainHomeFragment;
 import com.likeit.aqe365.activity.main.fragment.MainPeopleFragment;
 import com.likeit.aqe365.activity.main.fragment.MainSortFragment;
+import com.likeit.aqe365.view.tablayout.AbstractCommonTabLayout;
 
-import butterknife.OnClick;
+import java.util.ArrayList;
 
-public class MainActivity extends FragmentActivity {
 
-    private ViewTabPager mTabPager;
+public class MainActivity extends AbstractCommonTabLayout {
+    private String[] mTitles = {"首页","分类","品牌库","购物车","我的"};
+    private int[] mIconUnselectIds = {
+            R.mipmap.main_tab_home_unselected, R.mipmap.main_tab_sort_unselected,
+            R.mipmap.main_tab_brand_unselected, R.mipmap.main_tab_cart_unselected, R.mipmap.main_tab_people_unselected};//选中
+
+    private int[] mIconSelectIds = {
+            R.mipmap.main_tab_home_selected, R.mipmap.main_tab_sort_selected,
+            R.mipmap.main_tab_brand_selected, R.mipmap.main_tab_cart_selected, R.mipmap.main_tab_people_selected};//未选中
+
+    private ArrayList<Fragment> mFragments = new ArrayList<>();//Fragment 集合
+
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        StatusBarUtil.transparencyBar(this); //设置状态栏全透明
-        StatusBarUtil.StatusBarLightMode(this); //设置白底黑字
+    protected void setContentView() {
         setContentView(R.layout.activity_main);
-        AppManager.getAppManager().addActivity(this);
-
-        mTabPager = findViewById(R.id.view_tab_pager);
-        initTabPager();
     }
 
-    private void initTabPager() {
-        mTabPager.addItem(new MainHomeFragment(), getString(R.string.app_m_home), R.drawable.item_main_home_selector);
-        mTabPager.addItem(new MainSortFragment(), getString(R.string.app_m_sort), R.drawable.item_main_sort_selector);
-        mTabPager.addItem(new MainBrandFragment(), getString(R.string.app_m_brand), R.drawable.item_main_brand_selector);
-        mTabPager.addItem(new MainCartFragment(), getString(R.string.app_m_cart), R.drawable.item_main_cart_selector);
-        mTabPager.addItem(new MainPeopleFragment(), getString(R.string.app_m_people), R.drawable.item_main_people_selector);
-
-        // mTabPager.setMsgResId(R.drawable.icon_f);
-        mTabPager.setLineBackground(R.color.line_title);
-        mTabPager.setTabLayoutBgColor(R.color.color_w);
-        mTabPager.setFontColor(R.color.home_tab_unselect, R.color.home_tab_select);
-
-        mTabPager.setFontDipSize(10);
-
-        mTabPager.notifyViewChanger();
-        mTabPager.setMsgState(1, true);
+    /**
+     * 初始化数据
+     */
+    @Override
+    protected void initData() {
+        super.initData();
+        setSelectDefaultIndex(0);//设置默认的选项
+        setUnReadMsg(3, 1);
+        setUnReadMsg(4, 2);
+        // setUnReadMsg(2, 5, Color.parseColor("#6D8FB0"));
     }
 
-    @OnClick(R.id.view_tab_pager)
-    public void onClick(View v) {
-        switch (v.getId()) {
-            default:
-                break;
-            case R.id.view_tab_pager:
-                break;
-        }
+    /**
+     * 标题数组
+     **/
+    @Override
+    protected String[] getTitles() {
+        return mTitles;
     }
+
+    /**
+     * 选择图标数组
+     **/
+    @Override
+    protected int[] getIconSelectIds() {
+        return mIconSelectIds;
+    }
+
+    /**
+     * 未选择图标数组
+     **/
+    @Override
+    protected int[] getIconUnselectIds() {
+        return mIconUnselectIds;
+    }
+
+    /**
+     * Fragment 集合
+     **/
+    @Override
+    protected ArrayList<Fragment> getFragmentList() {
+        mFragments.add(new MainHomeFragment());
+        mFragments.add(new MainSortFragment());
+        mFragments.add(new MainBrandFragment());
+        mFragments.add(new MainCartFragment());
+        mFragments.add(new MainPeopleFragment());
+        return mFragments;
+    }
+
+    /**
+     * CommonTabLayout 资源id
+     **/
+    @Override
+    protected int getCommonTabLayout() {
+        return R.id.main_CommonTabLayout;
+    }
+
+    /**
+     * ViewPager 资源id
+     **/
+    @Override
+    protected int getCommonViewPager() {
+        return R.id.main_viewpager;
+    }
+
+
 }

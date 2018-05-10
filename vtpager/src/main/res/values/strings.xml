@@ -1,9 +1,0 @@
-<resources>
-    <string name="app_name">vtpager</string>
-
-    <string name="app_m_home">首页</string>
-    <string name="app_m_sort">分类</string>
-    <string name="app_m_brand">品牌库</string>
-    <string name="app_m_cart">购物车</string>
-    <string name="app_m_people">我的</string>
-</resources>

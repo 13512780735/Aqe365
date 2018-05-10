@@ -37,7 +37,6 @@
             </intent-filter>
         </activity>
         <activity android:name=".activity.FrameActivity" />
-        <activity android:name=".activity.MineActivity" />
         <activity android:name=".activity.people.UserInfoActivity" />
         <activity android:name=".activity.people.GoodsIndentActivity"></activity>
     </application>

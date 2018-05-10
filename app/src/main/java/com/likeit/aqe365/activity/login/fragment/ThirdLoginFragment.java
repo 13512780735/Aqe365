@@ -7,10 +7,12 @@ import android.support.v4.app.Fragment;
 import android.view.View;
 import android.widget.TextView;
 
-import com.king.base.BaseFragment;
 import com.likeit.aqe365.R;
 import com.likeit.aqe365.activity.FrameActivity;
+import com.likeit.aqe365.base.BaseFragment;
 import com.likeit.aqe365.constants.Constants;
+
+import static com.likeit.aqe365.Interface.BaseInterface.KEY_FRAGMENT;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -30,12 +32,6 @@ public class ThirdLoginFragment extends BaseFragment implements View.OnClickList
     }
 
 
-    @Override
-    public int inflaterRootView() {
-        return R.layout.fragment_third_login;
-    }
-
-    @Override
     public void initUI() {
         setBackView();
         setTitle("联合登录");
@@ -44,12 +40,10 @@ public class ThirdLoginFragment extends BaseFragment implements View.OnClickList
 
     }
 
-    @Override
     public void initData() {
 
     }
 
-    @Override
     public void addListeners() {
         tv_relevance.setOnClickListener(this);
         tv_register_quick.setOnClickListener(this);
@@ -72,5 +66,17 @@ public class ThirdLoginFragment extends BaseFragment implements View.OnClickList
         Intent intent = new Intent(getActivity(), FrameActivity.class);
         intent.putExtra(KEY_FRAGMENT, keyFragment);
         startActivity(intent);
+    }
+
+    @Override
+    protected int setContentView() {
+        return R.layout.fragment_third_login;
+    }
+
+    @Override
+    protected void lazyLoad() {
+        initUI();
+        addListeners();
+        initData();
     }
 }

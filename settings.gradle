@@ -1,1 +1,1 @@
-include ':app', ':base', ':base-util', ':vtpager'
+include ':app'

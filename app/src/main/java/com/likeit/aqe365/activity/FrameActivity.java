@@ -2,15 +2,13 @@ package com.likeit.aqe365.activity;
 
 import android.content.Intent;
 
-import com.king.base.BaseInterface;
-import com.king.base.ContentActivity;
+import com.likeit.aqe365.Interface.BaseInterface;
 import com.likeit.aqe365.activity.login.fragment.ForgetPwdFragment;
 import com.likeit.aqe365.activity.login.fragment.PhoneLoginFragment;
 import com.likeit.aqe365.activity.login.fragment.RegisterFragment;
 import com.likeit.aqe365.activity.login.fragment.RegisterProtocolFragment;
 import com.likeit.aqe365.activity.login.fragment.RelevanceUserFragment;
 import com.likeit.aqe365.activity.login.fragment.ThirdLoginFragment;
-import com.likeit.aqe365.activity.people.UserInfoActivity;
 import com.likeit.aqe365.activity.people.fragment.BrandAttentionFragment;
 import com.likeit.aqe365.activity.people.fragment.ChangeFragment;
 import com.likeit.aqe365.activity.people.fragment.CouponFragment;
@@ -19,6 +17,7 @@ import com.likeit.aqe365.activity.people.fragment.GoodsAttentionFragment;
 import com.likeit.aqe365.activity.people.fragment.IntegralFragment;
 import com.likeit.aqe365.activity.people.fragment.PeopleStatisticsFragment;
 import com.likeit.aqe365.activity.people.fragment.ShopAttentionFragment;
+import com.likeit.aqe365.base.ContentActivity;
 import com.likeit.aqe365.constants.Constants;
 
 /**

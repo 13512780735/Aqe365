@@ -2,6 +2,7 @@ package com.likeit.aqe365.activity.main.fragment;
 
 
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.View;
 import android.widget.AdapterView;
@@ -10,19 +11,25 @@ import android.widget.RelativeLayout;
 import android.widget.SimpleAdapter;
 import android.widget.TextView;
 
-import com.king.base.AppManager;
-import com.king.base.BaseFragment;
 import com.likeit.aqe365.R;
 import com.likeit.aqe365.activity.FrameActivity;
 import com.likeit.aqe365.activity.login.activity.LoginActivity;
+import com.likeit.aqe365.activity.people.GoodsIndentActivity;
 import com.likeit.aqe365.activity.people.UserInfoActivity;
+import com.likeit.aqe365.base.BaseFragment;
 import com.likeit.aqe365.constants.Constants;
+import com.likeit.aqe365.utils.AppManager;
 import com.likeit.aqe365.view.MyGridView;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import q.rorbin.badgeview.Badge;
+import q.rorbin.badgeview.QBadgeView;
+
+import static com.likeit.aqe365.Interface.BaseInterface.KEY_FRAGMENT;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -36,33 +43,37 @@ public class MainPeopleFragment extends BaseFragment implements View.OnClickList
     private String[] iconName = {"我的社区", "积分商城", "我的邀请", "邀请二维码", "发票服务", "报表统计", "意见反馈", "常购商品"};
     private List<Map<String, Object>> dataList;
     private SimpleAdapter simpleAdapter;
-    private RelativeLayout mRlGoodsAttention, mRlShopAttention, mRlBrandAttention, mRlFootprint;
-    private TextView mTvChange, mTvIntegral, mTvCoupon;
+    private RelativeLayout mRlGoodsAttention, mRlShopAttention, mRlBrandAttention, mRlFootprint, mRlAllOrders;
+    private TextView mTvChange, mTvIntegral, mTvCoupon, mTvObligation, mTvShipments, mTvReceiving;
     private ImageView mIvSetting;
-    private TextView tv_logout,tv_edit_pwd;
+    private TextView tv_logout, tv_edit_pwd;
+    private List<Badge> badges;
+    private int status;
 
 
-    @Override
-    public int inflaterRootView() {
-        return R.layout.fragment_main_people;
-    }
-
-    @Override
     public void initUI() {
+        badges = new ArrayList<>();
         mGridView = findView(R.id.MyGridView);
         mRlGoodsAttention = findView(R.id.rl_goodsAttention);
         mRlShopAttention = findView(R.id.rl_tv_shopAttention);
         mRlBrandAttention = findView(R.id.rl_brandAttention);
         mRlFootprint = findView(R.id.rl_footprint);
         mTvChange = findView(R.id.tv_change);
+        mRlAllOrders = findView(R.id.rl_all_orders);
+        mTvObligation = findView(R.id.tv_obligation);
+        mTvShipments = findView(R.id.tv_shipments);
+        mTvReceiving = findView(R.id.tv_Receiving);
+        mTvObligation = findView(R.id.tv_obligation);
         mTvCoupon = findView(R.id.tv_coupon);
         mTvIntegral = findView(R.id.tv_integral);
         mIvSetting = findView(R.id.iv_setting);
         tv_logout = findView(R.id.tv_logout);
         tv_edit_pwd = findView(R.id.tv_edit_pwd);
+        badges.add(new QBadgeView(getActivity()).bindTarget(mTvObligation).setBadgeNumber(1));
+        badges.add(new QBadgeView(getActivity()).bindTarget(mTvShipments).setBadgeNumber(2));
+        badges.add(new QBadgeView(getActivity()).bindTarget(mTvReceiving).setBadgeNumber(5));
     }
 
-    @Override
     public void initData() {
         dataList = new ArrayList<>();
         getData();
@@ -103,7 +114,6 @@ public class MainPeopleFragment extends BaseFragment implements View.OnClickList
         startActivity(intent);
     }
 
-    @Override
     public void addListeners() {
         mRlGoodsAttention.setOnClickListener(this);
         mRlShopAttention.setOnClickListener(this);
@@ -115,6 +125,10 @@ public class MainPeopleFragment extends BaseFragment implements View.OnClickList
         mIvSetting.setOnClickListener(this);
         tv_logout.setOnClickListener(this);
         tv_edit_pwd.setOnClickListener(this);
+        mTvReceiving.setOnClickListener(this);
+        mTvObligation.setOnClickListener(this);
+        mTvShipments.setOnClickListener(this);
+        mRlAllOrders.setOnClickListener(this);
     }
 
     private List<Map<String, Object>> getData() {
@@ -142,6 +156,25 @@ public class MainPeopleFragment extends BaseFragment implements View.OnClickList
             case R.id.rl_brandAttention://品牌关注
                 startFrameActivity(Constants.FRAGMENT_PEOPLE_BRAND_ATTENTION);
                 break;
+            case R.id.rl_all_orders://全部订单
+//                status = 0;
+//                startIndentActivity(status);
+                Intent intent = new Intent(getActivity(), GoodsIndentActivity.class);
+                //intent.putExtras(bundle);
+                startActivity(intent);
+                break;
+            case R.id.tv_obligation://待付款
+                status = 1;
+                startIndentActivity(status);
+                break;
+            case R.id.tv_shipments://待发货
+                status = 2;
+                startIndentActivity(status);
+                break;
+            case R.id.tv_Receiving://待收货
+                status = 3;
+                startIndentActivity(status);
+                break;
             case R.id.rl_footprint://我的足迹
                 startFrameActivity(Constants.FRAGMENT_PEOPLE_FOOTPRINT);
                 break;
@@ -155,12 +188,32 @@ public class MainPeopleFragment extends BaseFragment implements View.OnClickList
                 startFrameActivity(Constants.FRAGMENT_PEOPLE_INTEGRAL);
                 break;
             case R.id.tv_edit_pwd://修改密码
-               // startFrameActivity(Constants.FRAGMENT_PEOPLE_INTEGRAL);
+                // startFrameActivity(Constants.FRAGMENT_PEOPLE_INTEGRAL);
                 break;
             case R.id.tv_logout://退出登录
                 startActivity(new Intent(getActivity(), LoginActivity.class));
                 AppManager.getAppManager().finishAllActivity();
                 break;
         }
+    }
+
+    private void startIndentActivity(int status) {
+        Bundle bundle = new Bundle();
+        bundle.putInt("status", status);
+        Intent intent = new Intent(getActivity(), GoodsIndentActivity.class);
+        intent.putExtras(bundle);
+        startActivity(intent);
+    }
+
+    @Override
+    protected int setContentView() {
+        return R.layout.fragment_main_people;
+    }
+
+    @Override
+    protected void lazyLoad() {
+        initUI();
+        addListeners();
+        initData();
     }
 }

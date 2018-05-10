@@ -5,8 +5,8 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.widget.TextView;
 
-import com.king.base.BaseFragment;
 import com.likeit.aqe365.R;
+import com.likeit.aqe365.base.BaseFragment;
 import com.likeit.aqe365.view.piechart.PieChartView;
 
 /**
@@ -26,12 +26,7 @@ public class PeopleStatisticsFragment extends BaseFragment {
         return fragment;
     }
 
-    @Override
-    public int inflaterRootView() {
-        return R.layout.fragment_people_statistics;
-    }
 
-    @Override
     public void initUI() {
         /**
          * 布局文件152254235435
@@ -45,7 +40,7 @@ public class PeopleStatisticsFragment extends BaseFragment {
 
     private void initView() {
         mTvTotal.setText(getResources().getString(R.string.app_statistics_month_total) + "¥ 888.00");
-       PieChartView.PieItemBean[] items = new PieChartView.PieItemBean[]{
+        PieChartView.PieItemBean[] items = new PieChartView.PieItemBean[]{
                 new PieChartView.PieItemBean("商品一", 80),
                 new PieChartView.PieItemBean("商品二", 100),
                 new PieChartView.PieItemBean("商品三", 120),
@@ -56,13 +51,23 @@ public class PeopleStatisticsFragment extends BaseFragment {
         mPieChart.setPieItems(items);
     }
 
-    @Override
     public void initData() {
 
     }
 
-    @Override
     public void addListeners() {
 
+    }
+
+    @Override
+    protected int setContentView() {
+        return R.layout.fragment_people_statistics;
+    }
+
+    @Override
+    protected void lazyLoad() {
+        initUI();
+        addListeners();
+        initData();
     }
 }

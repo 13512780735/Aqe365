@@ -3,13 +3,11 @@ package com.likeit.aqe365.activity.login.fragment;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.king.base.BaseFragment;
 import com.likeit.aqe365.R;
+import com.likeit.aqe365.base.BaseFragment;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -27,12 +25,6 @@ public class RegisterProtocolFragment extends BaseFragment {
     }
 
 
-    @Override
-    public int inflaterRootView() {
-        return R.layout.fragment_register_protocol;
-    }
-
-    @Override
     public void initUI() {
         setBackView();
         setTitle("注册协议");
@@ -40,18 +32,23 @@ public class RegisterProtocolFragment extends BaseFragment {
 
     }
 
-    @Override
-    public void initData() {
-
-    }
-
-    @Override
     public void addListeners() {
         tv_confirm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                finish();
+                getActivity().finish();
             }
         });
+    }
+
+    @Override
+    protected int setContentView() {
+        return R.layout.fragment_register_protocol;
+    }
+
+    @Override
+    protected void lazyLoad() {
+        initUI();
+        addListeners();
     }
 }
