@@ -19,6 +19,7 @@ import com.likeit.aqe365.activity.people.UserInfoActivity;
 import com.likeit.aqe365.base.BaseFragment;
 import com.likeit.aqe365.constants.Constants;
 import com.likeit.aqe365.utils.AppManager;
+import com.likeit.aqe365.utils.StatusBarUtil;
 import com.likeit.aqe365.view.MyGridView;
 
 import java.util.ArrayList;
@@ -157,11 +158,8 @@ public class MainPeopleFragment extends BaseFragment implements View.OnClickList
                 startFrameActivity(Constants.FRAGMENT_PEOPLE_BRAND_ATTENTION);
                 break;
             case R.id.rl_all_orders://全部订单
-//                status = 0;
-//                startIndentActivity(status);
-                Intent intent = new Intent(getActivity(), GoodsIndentActivity.class);
-                //intent.putExtras(bundle);
-                startActivity(intent);
+                status = 0;
+                startIndentActivity(status);
                 break;
             case R.id.tv_obligation://待付款
                 status = 1;

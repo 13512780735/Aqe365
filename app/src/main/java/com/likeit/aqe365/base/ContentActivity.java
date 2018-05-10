@@ -21,8 +21,9 @@ public abstract  class ContentActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_content);
         AppManager.getAppManager().addActivity(this);
-        StatusBarUtil.transparencyBar(this); //设置状态栏全透明
-        StatusBarUtil.StatusBarLightMode(this); //设置白底黑字
+        int color = getResources().getColor(R.color.white);
+        StatusBarUtil.setColor(this, color, 0);
+        StatusBarUtil.setLightMode(this);
         switchFragment(getIntent());
     }
 

@@ -9,15 +9,23 @@
     </style>
 
     <style name="MyAppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <item name="android:textAllCaps">false</item>
+        <item name="android:windowActionBar">false</item>
         <item name="windowActionBar">false</item>
+        <item name="android:windowAnimationStyle">@style/AnimationActivity</item>
         <item name="windowNoTitle">true</item>
-        <!-- Actionbar color -->
         <item name="colorPrimary">@color/black</item>
-        <!--Status bar color-->
         <item name="colorPrimaryDark">@color/black</item>
-        <!--Window color-->
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:windowIsTranslucent">true</item>
         <item name="android:windowBackground">@color/defualt_window_background</item>
-        <item name="android:textColor">@color/black</item>
+
+    </style>
+    <style name="AnimationActivity" parent="@android:style/Animation.Activity">
+        <item name="android:activityOpenEnterAnimation">@anim/slide_in_left</item>
+        <item name="android:activityOpenExitAnimation">@anim/slide_out_left</item>
+        <item name="android:activityCloseEnterAnimation">@anim/slide_in_right</item>
+        <item name="android:activityCloseExitAnimation">@anim/slide_out_right</item>
     </style>
     <!--自定义Dialog-->
     <style name="Custom_Dialog_Style" parent="@android:style/Theme.Dialog">

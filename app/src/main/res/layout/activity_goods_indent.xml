@@ -16,6 +16,7 @@
         android:layout_height="50dp"
         android:layout_gravity="center"
         app:tabIndicatorColor="@color/theme_bg"
+        android:background="@color/white"
         app:tabIndicatorHeight="2dp"
         app:tabSelectedTextColor="@color/theme_bg"
         app:tabTextAppearance="@style/TabLayoutTextStyle"

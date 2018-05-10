@@ -57,8 +57,9 @@ public class BaseActivity extends AppCompatActivity implements BaseInterface {
         //setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         mContext = this;
         AppManager.getAppManager().addActivity(this);
-        StatusBarUtil.transparencyBar(this); //设置状态栏全透明
-        StatusBarUtil.StatusBarLightMode(this); //设置白底黑字
+        int color = getResources().getColor(R.color.white);
+        StatusBarUtil.setColor(this, color, 0);
+        StatusBarUtil.setLightMode(this);
         // RxBus.get().register(this);
         //  ukey = UtilPreference.getStringValue(this, "ukey");
     }
@@ -323,9 +324,11 @@ public class BaseActivity extends AppCompatActivity implements BaseInterface {
             }
         });
     }
-    public <T extends View> T findView(@IdRes int id){
-        return (T)findViewById(id);
+
+    public <T extends View> T findView(@IdRes int id) {
+        return (T) findViewById(id);
     }
+
     /**
      * 文本View
      */

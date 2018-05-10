@@ -2,10 +2,9 @@ package com.likeit.aqe365.activity.login.activity;
 
 
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
-import android.os.PersistableBundle;
 import android.support.annotation.Nullable;
+import android.support.v7.app.AppCompatActivity;
 import android.text.Selection;
 import android.text.Spannable;
 import android.text.method.HideReturnsTransformationMethod;
@@ -19,12 +18,12 @@ import android.widget.ToggleButton;
 import com.likeit.aqe365.R;
 import com.likeit.aqe365.activity.FrameActivity;
 import com.likeit.aqe365.activity.main.MainActivity;
-import com.likeit.aqe365.base.BaseActivity;
 import com.likeit.aqe365.constants.Constants;
 import com.likeit.aqe365.listener.IEditTextChangeListener;
 import com.likeit.aqe365.utils.AppManager;
 import com.likeit.aqe365.utils.EditTextSizeCheckUtil;
 import com.likeit.aqe365.utils.SharedPreferencesUtils;
+import com.likeit.aqe365.utils.StatusBarUtil;
 import com.likeit.aqe365.utils.StringUtils;
 
 import butterknife.ButterKnife;
@@ -33,7 +32,7 @@ import butterknife.OnClick;
 import static com.likeit.aqe365.Interface.BaseInterface.KEY_FRAGMENT;
 
 
-public class LoginActivity extends BaseActivity implements View.OnClickListener {
+public class LoginActivity extends AppCompatActivity implements View.OnClickListener {
 
     ToggleButton tb_password;
     EditText et_password;
@@ -42,9 +41,13 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
     private String phone, pwd;
 
     @Override
-    public void onCreate(@Nullable Bundle savedInstanceState, @Nullable PersistableBundle persistentState) {
-        super.onCreate(savedInstanceState, persistentState);
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+        AppManager.getAppManager().addActivity(this);
+        int color = getResources().getColor(R.color.theme_bg);
+        StatusBarUtil.setColor(this, color, 0);
+        StatusBarUtil.setLightMode(this);
         ButterKnife.bind(this);
         initUI();
         initView();

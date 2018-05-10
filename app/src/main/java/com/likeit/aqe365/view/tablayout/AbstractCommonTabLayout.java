@@ -10,6 +10,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
 
+import com.likeit.aqe365.R;
 import com.likeit.aqe365.utils.AppManager;
 import com.likeit.aqe365.utils.StatusBarUtil;
 import com.likeit.aqe365.view.tablayout.bean.CustomTabEntity;
@@ -39,17 +40,18 @@ public abstract class AbstractCommonTabLayout extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        StatusBarUtil.transparencyBar(this); //设置状态栏全透明
-        StatusBarUtil.StatusBarLightMode(this); //设置白底黑字
+        int color = getResources().getColor(R.color.white);
+        StatusBarUtil.setColor(this, color, 0);
+        StatusBarUtil.setLightMode(this);
         AppManager.getAppManager().addActivity(this);
-      //  requestWindowFeature(Window.FEATURE_NO_TITLE);
+        //  requestWindowFeature(Window.FEATURE_NO_TITLE);
         mContext = this;
         setContentView();
         initViews();
         initTabEntities();
         initData();
         /** add by zhuangzeqin 2017年9月12日10:17:39 初始化默认的声音加载 **/
-       // SoundPlayUtils.getInstance().initDefaultSoundPool(mContext);
+        // SoundPlayUtils.getInstance().initDefaultSoundPool(mContext);
     }
 
     /**

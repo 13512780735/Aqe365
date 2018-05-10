@@ -5,6 +5,7 @@ import android.support.v4.app.Fragment;
 
 import com.likeit.aqe365.R;
 import com.likeit.aqe365.base.BaseFragment;
+import com.likeit.aqe365.utils.StatusBarUtil;
 
 /**
  * A simple {@link Fragment} subclass.

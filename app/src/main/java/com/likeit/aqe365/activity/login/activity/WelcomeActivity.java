@@ -33,7 +33,7 @@ public class WelcomeActivity extends BaseActivity {
 
             @Override
             public void onAnimationEnd(Animation arg0) {
-                toActivityFinish(MainActivity.class);
+                toActivityFinish(LoginActivity.class);
             }
         });
     }

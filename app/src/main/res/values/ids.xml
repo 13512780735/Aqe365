@@ -7,4 +7,6 @@
     <item name="f_content" type="id"/>
     <item name="titleBar" type="id"/>
     <item name="img_tag" type="id" />
+    <item type="id" name="statusbarutil_fake_status_bar_view" />
+    <item type="id" name="statusbarutil_translucent_view" />
 </resources>
