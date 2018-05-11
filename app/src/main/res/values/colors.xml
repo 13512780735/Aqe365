@@ -9,7 +9,7 @@
     <color name="text_red">#FF0000</color>
     <color name="white">#ffffff</color>
     <color name="text_black">#808080</color>
-    <color name="defualt_window_background">#FAFAFA</color>
+    <color name="defualt_window_background">#F7F7F7</color>
     <color name="drawer_header_text">#2c2c2c</color>
     <color name="black">#000000</color>
     <color name="drawer_item_bg_p">#e8e8e8</color>
@@ -84,4 +84,5 @@
     <!--删除color-->
     <color name="delete_text_color">#0090ff</color>
     <color name="version_background">#b0000000</color>
+    <color name="navpage">#FFE1E8EB</color>
 </resources>

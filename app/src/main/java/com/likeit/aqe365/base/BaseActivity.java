@@ -22,6 +22,8 @@ import com.likeit.aqe365.utils.CustomDialog;
 import com.likeit.aqe365.utils.StatusBarUtil;
 import com.likeit.aqe365.utils.ToastUtils;
 
+import butterknife.ButterKnife;
+
 
 /**
  * Created by Administrator on 2017/9/11.
@@ -60,6 +62,7 @@ public class BaseActivity extends AppCompatActivity implements BaseInterface {
         int color = getResources().getColor(R.color.white);
         StatusBarUtil.setColor(this, color, 0);
         StatusBarUtil.setLightMode(this);
+        ButterKnife.bind(this);
         // RxBus.get().register(this);
         //  ukey = UtilPreference.getStringValue(this, "ukey");
     }

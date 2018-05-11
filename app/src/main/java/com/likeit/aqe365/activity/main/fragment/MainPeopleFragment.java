@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
+import android.widget.ScrollView;
 import android.widget.SimpleAdapter;
 import android.widget.TextView;
 
@@ -50,10 +51,12 @@ public class MainPeopleFragment extends BaseFragment implements View.OnClickList
     private TextView tv_logout, tv_edit_pwd;
     private List<Badge> badges;
     private int status;
+    private ScrollView mScrollview;
 
 
     public void initUI() {
         badges = new ArrayList<>();
+        mScrollview = findView(R.id.main_people_scrollview);
         mGridView = findView(R.id.MyGridView);
         mRlGoodsAttention = findView(R.id.rl_goodsAttention);
         mRlShopAttention = findView(R.id.rl_tv_shopAttention);
@@ -76,6 +79,8 @@ public class MainPeopleFragment extends BaseFragment implements View.OnClickList
     }
 
     public void initData() {
+        mScrollview.smoothScrollTo(0, 20);
+        mScrollview.setFocusable(true);
         dataList = new ArrayList<>();
         getData();
         String[] from = {"img", "name"};

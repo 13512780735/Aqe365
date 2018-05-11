@@ -11,11 +11,11 @@ import java.util.List;
  * Created by admin on 2018/5/10.
  */
 
-public class GoodsIndentAdapter extends FragmentStatePagerAdapter {
+public class GoodsIndentTabAdapter extends FragmentStatePagerAdapter {
     private List<Fragment> mfragments;
     private List<String> list_Title;
 
-    public  GoodsIndentAdapter(FragmentManager fm, List<Fragment> fragmentlists, List<String> list_Title) {
+    public  GoodsIndentTabAdapter(FragmentManager fm, List<Fragment> fragmentlists, List<String> list_Title) {
         super(fm);
         this.mfragments = fragmentlists;
         this.list_Title = list_Title;

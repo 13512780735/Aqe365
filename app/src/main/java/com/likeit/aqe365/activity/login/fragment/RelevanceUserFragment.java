@@ -58,10 +58,10 @@ public class RelevanceUserFragment extends BaseFragment implements View.OnClickL
             @Override
             public void textChange(boolean isHasContent) {
                 if (isHasContent) {
-                    tv_relevance.setBackgroundResource(R.drawable.shape_round_blue_bg);
+                    tv_relevance.setBackgroundResource(R.drawable.shape_round_blue_bg_5);
                     tv_relevance.setOnClickListener(RelevanceUserFragment.this);
                 } else {
-                    tv_relevance.setBackgroundResource(R.drawable.shape_round_grey_bg);
+                    tv_relevance.setBackgroundResource(R.drawable.shape_round_grey_bg_5);
                 }
             }
         });

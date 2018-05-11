@@ -8,7 +8,7 @@ public class Constants {
     /**
      * 登录
      */
-    public static final int FRAGMENT_REGISTER= 0X01;//注册
+    public static final int FRAGMENT_REGISTER = 0X01;//注册
     public static final int FRAGMENT_FORGET_PWD = 0X02;//忘记密码
     public static final int FRAGMENT_PHONE_LOGIN = 0X03;//手机验证登录
     public static final int FRAGMENT_Third_LOGIN = 0X05;//第三方登录关联
@@ -26,4 +26,8 @@ public class Constants {
     public static final int FRAGMENT_PEOPLE_CHANGE = 0X14;//我的零钱
     public static final int FRAGMENT_PEOPLE_COUPON = 0X15;//我的优惠卷
     public static final int FRAGMENT_PEOPLE_INTEGRAL = 0X16;//我的积分
+    /**
+     * 订单中心
+     */
+    public static final int FRAGMENT_INDENT_DETAILS = 0X17;//我的积分
 }

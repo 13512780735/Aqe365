@@ -3,14 +3,15 @@ package com.likeit.aqe365.activity.people;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentPagerAdapter;
 import android.util.Log;
 
 import com.likeit.aqe365.R;
 import com.likeit.aqe365.activity.people.fragment.indent.AllIndentFragment;
 import com.likeit.aqe365.activity.people.fragment.indent.Indent01Fragment;
-import com.likeit.aqe365.adapter.GoodsIndentAdapter;
+import com.likeit.aqe365.activity.people.fragment.indent.Indent02Fragment;
+import com.likeit.aqe365.activity.people.fragment.indent.Indent03Fragment;
+import com.likeit.aqe365.activity.people.fragment.indent.Indent04Fragment;
+import com.likeit.aqe365.adapter.GoodsIndentTabAdapter;
 import com.likeit.aqe365.base.BaseActivity;
 import com.likeit.aqe365.view.NoScrollViewPager;
 
@@ -45,12 +46,12 @@ public class GoodsIndentActivity extends BaseActivity {
         mTabLayout.setTabMode(TabLayout.MODE_FIXED);
         mTabLayout.setupWithViewPager(mViewPager);
         List<Fragment> mfragments = new ArrayList<Fragment>();
-        mfragments.add(new Indent01Fragment());
         mfragments.add(new AllIndentFragment());
         mfragments.add(new Indent01Fragment());
-        mfragments.add(new AllIndentFragment());
-        mfragments.add(new Indent01Fragment());
-        mViewPager.setAdapter(new GoodsIndentAdapter(getSupportFragmentManager(), mfragments, mTitles));
+        mfragments.add(new Indent02Fragment());
+        mfragments.add(new Indent03Fragment());
+        mfragments.add(new Indent04Fragment());
+        mViewPager.setAdapter(new GoodsIndentTabAdapter(getSupportFragmentManager(), mfragments, mTitles));
         mViewPager.setCurrentItem(status);
     }
 

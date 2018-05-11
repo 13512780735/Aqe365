@@ -17,6 +17,7 @@ import com.likeit.aqe365.activity.people.fragment.GoodsAttentionFragment;
 import com.likeit.aqe365.activity.people.fragment.IntegralFragment;
 import com.likeit.aqe365.activity.people.fragment.PeopleStatisticsFragment;
 import com.likeit.aqe365.activity.people.fragment.ShopAttentionFragment;
+import com.likeit.aqe365.activity.people.fragment.indent.IndentDetailsFragment;
 import com.likeit.aqe365.base.ContentActivity;
 import com.likeit.aqe365.constants.Constants;
 
@@ -73,6 +74,9 @@ public class FrameActivity extends ContentActivity {
                 break;
             case Constants.FRAGMENT_PEOPLE_INTEGRAL://我的积分
                 replaceFragment(IntegralFragment.newInstance());
+                break;
+            case Constants.FRAGMENT_INDENT_DETAILS://订单详情
+                replaceFragment(IndentDetailsFragment.newInstance());
                 break;
             default:
                 break;

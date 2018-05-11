@@ -51,10 +51,10 @@ public class PhoneLoginFragment extends BaseFragment implements View.OnClickList
             @Override
             public void textChange(boolean isHasContent) {
                 if (isHasContent) {
-                    tvLogin.setBackgroundResource(R.drawable.shape_round_blue_bg);
+                    tvLogin.setBackgroundResource(R.drawable.shape_round_blue_bg_5);
                     tvLogin.setOnClickListener(PhoneLoginFragment.this);
                 } else {
-                    tvLogin.setBackgroundResource(R.drawable.shape_round_grey_bg);
+                    tvLogin.setBackgroundResource(R.drawable.shape_round_grey_bg_5);
                 }
             }
         });

@@ -118,7 +118,7 @@
             android:layout_marginLeft="@dimen/dip_xxlarge"
             android:layout_marginRight="@dimen/dip_xxlarge"
             android:layout_marginTop="28dip"
-            android:background="@drawable/shape_round_grey_bg"
+            android:background="@drawable/shape_round_grey_bg_5"
             android:gravity="center"
             android:padding="8dip"
             android:text="@string/third_login_now"

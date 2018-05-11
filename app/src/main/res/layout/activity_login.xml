@@ -32,7 +32,7 @@
         android:layout_marginLeft="@dimen/dp_20"
         android:layout_marginRight="@dimen/dp_20"
         android:layout_marginTop="88dp"
-        android:background="@drawable/shape_round_white_bg"
+        android:background="@drawable/shape_round_white_bg_5"
         android:orientation="vertical">
 
         <LinearLayout
@@ -159,7 +159,7 @@
             android:layout_marginLeft="@dimen/dip_large"
             android:layout_marginRight="@dimen/dip_large"
             android:layout_marginTop="20dip"
-            android:background="@drawable/shape_round_grey_bg"
+            android:background="@drawable/shape_round_grey_bg_5"
             android:gravity="center"
             android:padding="8dip"
             android:text="@string/login_login"
@@ -173,7 +173,7 @@
             android:layout_marginLeft="@dimen/dip_large"
             android:layout_marginRight="@dimen/dip_large"
             android:layout_marginTop="10dp"
-            android:background="@drawable/shape_button_blue_border_bg"
+            android:background="@drawable/shape_button_blue_border_bg_1"
             android:gravity="center"
             android:padding="8dip"
             android:text="@string/login_register"

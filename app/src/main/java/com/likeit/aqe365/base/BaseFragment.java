@@ -19,11 +19,14 @@ import android.widget.Toast;
 import com.likeit.aqe365.R;
 import com.likeit.aqe365.utils.CustomDialog;
 
+import butterknife.ButterKnife;
+import butterknife.Unbinder;
+
 /**
  * Created by admin on 2018/5/10.
  */
 
-public abstract  class BaseFragment extends Fragment {
+public abstract class BaseFragment extends Fragment {
     /**
      * 视图是否已经初初始化
      */
@@ -32,6 +35,7 @@ public abstract  class BaseFragment extends Fragment {
     protected final String TAG = "LazyLoadFragment";
     private View view;
     private CustomDialog dialog;
+    private Unbinder unbinder;
 
     @Nullable
     @Override
@@ -39,6 +43,7 @@ public abstract  class BaseFragment extends Fragment {
         view = inflater.inflate(setContentView(), container, false);
         isInit = true;
         /**初始化的时候去加载数据**/
+        unbinder = ButterKnife.bind(this, view);
         isCanLoadData();
         return view;
     }
@@ -51,6 +56,7 @@ public abstract  class BaseFragment extends Fragment {
         super.setUserVisibleHint(isVisibleToUser);
         isCanLoadData();
     }
+
     /**
      * 设置显示右侧返回按钮
      */
@@ -123,9 +129,11 @@ public abstract  class BaseFragment extends Fragment {
         toolbar_righ_iv.setImageResource(resId);
         toolbar_righ_iv.setOnClickListener(onClickListener);
     }
-    public <T extends View> T findView(@IdRes int id){
-        return (T)findViewById(id);
+
+    public <T extends View> T findView(@IdRes int id) {
+        return (T) findViewById(id);
     }
+
     /**
      * 文本View
      */
@@ -173,6 +181,7 @@ public abstract  class BaseFragment extends Fragment {
             }
         }, 1000);
     }
+
     /**
      * 是否可以加载数据
      * 可以加载数据的条件：
@@ -202,7 +211,7 @@ public abstract  class BaseFragment extends Fragment {
         super.onDestroyView();
         isInit = false;
         isLoad = false;
-
+        unbinder.unbind();
     }
 
     protected void showToast(String message) {

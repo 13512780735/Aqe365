@@ -113,10 +113,10 @@ public class ForgetPwdFragment extends BaseFragment implements View.OnClickListe
             @Override
             public void textChange(boolean isHasContent) {
                 if (isHasContent) {
-                    tv_confirm.setBackgroundResource(R.drawable.shape_round_blue_bg);
+                    tv_confirm.setBackgroundResource(R.drawable.shape_round_blue_bg_5);
                     tv_confirm.setOnClickListener(ForgetPwdFragment.this);
                 } else {
-                    tv_confirm.setBackgroundResource(R.drawable.shape_round_grey_bg);
+                    tv_confirm.setBackgroundResource(R.drawable.shape_round_grey_bg_5);
                 }
             }
         });

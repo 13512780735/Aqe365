@@ -68,4 +68,13 @@
     <dimen name="font_middle">15sp</dimen>
     <dimen name="font_big">18sp</dimen>
     <dimen name="font_super_big">22sp</dimen>
+
+    <dimen name="dp_10">10dp</dimen>
+    <dimen name="dp_8">8dp</dimen>
+    <dimen name="dp_5">5dp</dimen>
+    <dimen name="dp_40">40dp</dimen>
+    <dimen name="dp_72">72dp</dimen>
+    <dimen name="sp_12">12sp</dimen>
+    <dimen name="sp_14">14sp</dimen>
+    <dimen name="sp_16">16sp</dimen>
 </resources>

@@ -64,7 +64,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         phone = SharedPreferencesUtils.getString(this, "phone");
         pwd = SharedPreferencesUtils.getString(this, "pwd");
         if (!StringUtils.isBlank(phone) && !StringUtils.isBlank(pwd)) {
-            tv_login.setBackgroundResource(R.drawable.shape_round_blue_bg);
+            tv_login.setBackgroundResource(R.drawable.shape_round_blue_bg_5);
             tv_login.setOnClickListener(LoginActivity.this);
         }
 
@@ -80,10 +80,10 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             @Override
             public void textChange(boolean isHasContent) {
                 if (isHasContent) {
-                    tv_login.setBackgroundResource(R.drawable.shape_round_blue_bg);
+                    tv_login.setBackgroundResource(R.drawable.shape_round_blue_bg_5);
                     tv_login.setOnClickListener(LoginActivity.this);
                 } else {
-                    tv_login.setBackgroundResource(R.drawable.shape_round_grey_bg);
+                    tv_login.setBackgroundResource(R.drawable.shape_round_grey_bg_5);
                 }
             }
         });

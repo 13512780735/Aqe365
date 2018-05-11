@@ -72,10 +72,10 @@ public class RegisterFragment extends BaseFragment implements View.OnClickListen
             @Override
             public void textChange(boolean isHasContent) {
                 if (isHasContent) {
-                    tv_register.setBackgroundResource(R.drawable.shape_round_blue_bg);
+                    tv_register.setBackgroundResource(R.drawable.shape_round_blue_bg_5);
                     tv_register.setOnClickListener(RegisterFragment.this);
                 } else {
-                    tv_register.setBackgroundResource(R.drawable.shape_round_grey_bg);
+                    tv_register.setBackgroundResource(R.drawable.shape_round_grey_bg_5);
                    // tv_register.setClickable(false);
                 }
             }
