@@ -14,6 +14,8 @@ import android.widget.Toast;
 import com.tencent.mm.sdk.modelmsg.WXAppExtendObject;
 import com.tencent.mm.sdk.modelmsg.WXMediaMessage;
 
+import cn.sharesdk.wechat.utils.WechatHandlerActivity;
+
 
 /**
  * 微信客户端回调activity示例
