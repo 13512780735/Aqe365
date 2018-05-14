@@ -15,12 +15,11 @@ import android.widget.TextView;
 import com.likeit.aqe365.R;
 import com.likeit.aqe365.activity.FrameActivity;
 import com.likeit.aqe365.activity.login.activity.LoginActivity;
-import com.likeit.aqe365.activity.people.GoodsIndentActivity;
-import com.likeit.aqe365.activity.people.UserInfoActivity;
+import com.likeit.aqe365.activity.people.activity.GoodsIndentActivity;
+import com.likeit.aqe365.activity.people.activity.UserInfoActivity;
 import com.likeit.aqe365.base.BaseFragment;
 import com.likeit.aqe365.constants.Constants;
 import com.likeit.aqe365.utils.AppManager;
-import com.likeit.aqe365.utils.StatusBarUtil;
 import com.likeit.aqe365.view.MyGridView;
 
 import java.util.ArrayList;
@@ -177,6 +176,9 @@ public class MainPeopleFragment extends BaseFragment implements View.OnClickList
             case R.id.tv_Receiving://待收货
                 status = 3;
                 startIndentActivity(status);
+                break;
+            case R.id.tv_after_sale://待收货
+              //  toActivity(AfterSaleActivity.class);
                 break;
             case R.id.rl_footprint://我的足迹
                 startFrameActivity(Constants.FRAGMENT_PEOPLE_FOOTPRINT);

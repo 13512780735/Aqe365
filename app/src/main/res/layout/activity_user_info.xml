@@ -4,6 +4,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="com.likeit.aqe365.activity.people.UserInfoActivity">
+    tools:context="com.likeit.aqe365.activity.people.activity.UserInfoActivity">
     <include layout="@layout/common_toolbar"></include>
 </LinearLayout>

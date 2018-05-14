@@ -39,7 +39,7 @@ public class WXPayEntryActivity extends BaseActivity implements IWXAPIEventHandl
         setContentView(R.layout.pay_result);
         mContext=this;
         // String WX_APPID = "wx307bf5fa134ffacd";
-        String WX_APPID = "wx5132fa74303fb155";
+        String WX_APPID = "wx53ba9da9956a74aa";
         api = WXAPIFactory.createWXAPI(this, WX_APPID);
         api.handleIntent(getIntent(), this);
     }

@@ -1,4 +1,4 @@
-package com.likeit.aqe365.activity.people;
+package com.likeit.aqe365.activity.people.activity;
 
 import android.os.Bundle;
 

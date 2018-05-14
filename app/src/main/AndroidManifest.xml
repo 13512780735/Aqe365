@@ -20,6 +20,8 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <!-- 用于申请调用A-GPS模块 -->
     <uses-permission android:name="android.permission.ACCESS_LOCATION_EXTRA_COMMANDS" />
+    <!-- 用于申请调用相机 -->
+    <uses-permission android:name="android.permission.CAMERA" />
 
     <application
         android:name=".app.MyApplication"
@@ -37,6 +39,7 @@
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/file_paths" />
         </provider>
+
         <activity
             android:name=".wxapi.WXEntryActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
@@ -70,7 +73,7 @@
 
                 <category android:name="android.intent.category.DEFAULT" />
 
-                <data android:scheme="wx5132fa74303fb155" />
+                <data android:scheme="wx53ba9da9956a74aa" />
             </intent-filter>
         </activity>
         >
@@ -79,6 +82,7 @@
                 <action android:name="com.tencent.mm.plugin.openapi.Intent.ACTION_REFRESH_WXAPP" />
             </intent-filter>
         </receiver>
+
         <activity android:name=".activity.main.MainActivity" />
         <activity android:name=".activity.login.activity.LoginActivity" />
         <activity android:name=".activity.login.activity.WelcomeActivity">
@@ -89,8 +93,11 @@
             </intent-filter>
         </activity>
         <activity android:name=".activity.FrameActivity" />
-        <activity android:name=".activity.people.UserInfoActivity" />
-        <activity android:name=".activity.people.GoodsIndentActivity"></activity>
+        <activity android:name=".activity.people.activity.UserInfoActivity" />
+        <activity android:name=".activity.people.activity.GoodsIndentActivity" />
+        <activity android:name=".activity.people.activity.AfterSaleActivity" />
+        <activity android:name=".activity.people.activity.IndentDetailsActivity" />
+        <activity android:name=".activity.people.activity.IndentAppraiseActivity"></activity>
     </application>
 
 </manifest>

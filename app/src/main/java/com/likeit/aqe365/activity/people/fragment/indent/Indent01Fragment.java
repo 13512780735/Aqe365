@@ -1,7 +1,6 @@
 package com.likeit.aqe365.activity.people.fragment.indent;
 
 
-import android.content.Context;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
@@ -9,17 +8,17 @@ import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.likeit.aqe365.R;
-import com.likeit.aqe365.activity.people.GoodsIndentActivity;
-import com.likeit.aqe365.adapter.GoodAllIndentAdapter;
+import com.likeit.aqe365.activity.people.activity.AfterSaleActivity;
+import com.likeit.aqe365.activity.people.activity.IndentDetailsActivity;
 import com.likeit.aqe365.adapter.GoodIndent01Adapter;
 import com.likeit.aqe365.base.BaseFragment;
+import com.likeit.aqe365.constants.Constants;
 import com.likeit.aqe365.network.model.CaseEntity;
+import com.likeit.aqe365.wxapi.PayActivity;
 
 import java.util.ArrayList;
 
@@ -42,6 +41,7 @@ public class Indent01Fragment extends BaseFragment implements BaseQuickAdapter.R
     private int mCurrentCounter = 0;
     int TOTAL_COUNTER = 0;
     private ArrayList<CaseEntity> data;
+    private Bundle bundle;
 
     @Override
     protected int setContentView() {
@@ -59,6 +59,32 @@ public class Indent01Fragment extends BaseFragment implements BaseQuickAdapter.R
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         initData();
         initAdapter();
+        mAdapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
+            @Override
+            public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
+                switch (view.getId()) {
+                    case R.id.rl_indent_details://订单详情
+                        bundle = new Bundle();
+                        bundle.putInt("status", 1);
+                        toActivity(IndentDetailsActivity.class, bundle);
+                        break;
+                    case R.id.tv_cancel_indent://取消订单
+                        break;
+                    case R.id.tv_del_indent://删除订单
+                        break;
+                    case R.id.tv_pay://支付订单
+                        String IndentId = "SH20180124064250464768";
+                        bundle = new Bundle();
+                        bundle.putString("IndentId", IndentId);
+                        toActivity(PayActivity.class, bundle);
+                        break;
+                    case R.id.tv_check_wuLiu://查看无聊
+                        break;
+                    case R.id.tv_confirm_goods://确认售后
+                        break;
+                }
+            }
+        });
     }
 
     private void initAdapter() {

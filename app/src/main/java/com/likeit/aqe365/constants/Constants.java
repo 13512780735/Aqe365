@@ -26,8 +26,4 @@ public class Constants {
     public static final int FRAGMENT_PEOPLE_CHANGE = 0X14;//我的零钱
     public static final int FRAGMENT_PEOPLE_COUPON = 0X15;//我的优惠卷
     public static final int FRAGMENT_PEOPLE_INTEGRAL = 0X16;//我的积分
-    /**
-     * 订单中心
-     */
-    public static final int FRAGMENT_INDENT_DETAILS = 0X17;//我的积分
 }

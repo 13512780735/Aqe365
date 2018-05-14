@@ -14,10 +14,14 @@ import android.view.ViewGroup;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.likeit.aqe365.R;
+import com.likeit.aqe365.activity.people.activity.IndentAppraiseActivity;
+import com.likeit.aqe365.activity.people.activity.IndentDetailsActivity;
 import com.likeit.aqe365.adapter.GoodIndent01Adapter;
 import com.likeit.aqe365.adapter.GoodIndent04Adapter;
 import com.likeit.aqe365.base.BaseFragment;
+import com.likeit.aqe365.constants.Constants;
 import com.likeit.aqe365.network.model.CaseEntity;
+import com.likeit.aqe365.wxapi.PayActivity;
 
 import java.util.ArrayList;
 
@@ -40,6 +44,7 @@ public class Indent04Fragment extends BaseFragment implements BaseQuickAdapter.R
     private int mCurrentCounter = 0;
     int TOTAL_COUNTER = 0;
     private ArrayList<CaseEntity> data;
+    private Bundle bundle;
 
 
     @Override
@@ -58,6 +63,25 @@ public class Indent04Fragment extends BaseFragment implements BaseQuickAdapter.R
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         initData();
         initAdapter();
+        mAdapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
+            @Override
+            public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
+                switch (view.getId()) {
+                    case R.id.rl_indent_details://订单详情
+                        bundle = new Bundle();
+                        bundle.putInt("status", 4);
+                        toActivity(IndentDetailsActivity.class, bundle);
+                        break;
+                    case R.id.tv_appraise_indent://评价
+                        toActivity(IndentAppraiseActivity.class);
+                        break;
+                    case R.id.tv_check_wuLiu://查看无聊
+                        break;
+                    case R.id.tv_del_indent://删除订单
+                        break;
+                }
+            }
+        });
     }
 
     private void initAdapter() {

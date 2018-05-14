@@ -1,5 +1,6 @@
 package com.likeit.aqe365.base;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.IdRes;
@@ -258,5 +259,26 @@ public abstract class BaseFragment extends Fragment {
      * 当视图已经对用户不可见并且加载过数据，如果需要在切换到其他页面时停止加载数据，可以调用此方法
      */
     protected void stopLoad() {
+    }
+
+    protected void toFinish() {
+        getActivity().finish();
+    }
+
+    public void toActivityFinish(Class activity) {
+        Intent intent = new Intent(getActivity(), activity);
+        startActivity(intent);
+        toFinish();
+    }
+
+    public void toActivity(Class activity) {
+        Intent intent = new Intent(getActivity(), activity);
+        startActivity(intent);
+    }
+
+    public void toActivity(Class activity, Bundle bundle) {
+        Intent intent = new Intent(getActivity(), activity);
+        intent.putExtras(bundle);
+        startActivity(intent);
     }
 }

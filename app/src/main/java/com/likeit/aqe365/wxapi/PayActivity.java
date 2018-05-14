@@ -17,6 +17,7 @@ import android.widget.Toast;
 
 import com.alipay.sdk.app.PayTask;
 import com.likeit.aqe365.R;
+import com.likeit.aqe365.activity.people.activity.GoodsIndentActivity;
 import com.likeit.aqe365.base.BaseActivity;
 import com.likeit.aqe365.utils.CustomDialog;
 import com.likeit.aqe365.wxapi.alipay.PayResult;
@@ -26,7 +27,7 @@ import com.tencent.mm.sdk.openapi.WXAPIFactory;
 
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 
 public class PayActivity extends BaseActivity implements OnClickListener {
@@ -94,18 +95,32 @@ public class PayActivity extends BaseActivity implements OnClickListener {
     private CustomDialog dialog;
     private PayActivity mContext;
     private String ukey;
+    private int status;
+    private String indentId;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pay);
-        ButterKnife.bind(this);
         mContext = this;
         setTitle("收银台");
         setBackView();
+        setRightText("订单", new OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                status = 0;
+                Bundle bundle = new Bundle();
+                bundle.putInt("status", status);
+                Intent intent = new Intent(mContext, GoodsIndentActivity.class);
+                intent.putExtras(bundle);
+                startActivity(intent);
+                finish();
+            }
+        });
+        indentId = getIntent().getExtras().getString("IndentId");
         Intent intent = getIntent();
-        String WX_APPID = "wx5132fa74303fb155";
+        String WX_APPID = "wx53ba9da9956a74aa";
         api = WXAPIFactory.createWXAPI(this, WX_APPID, false);
         api.registerApp(WX_APPID);
 
@@ -113,46 +128,30 @@ public class PayActivity extends BaseActivity implements OnClickListener {
     }
 
     private void initView() {
-        tvPrice.setText("¥ " + price);
-        rlweixin.setOnClickListener(this);
-        rlZfb.setOnClickListener(this);
+        tv_indent_number.setText(indentId);
+        tvPrice.setText("¥ " + 1000);
     }
 
 
-    @Override
+    @OnClick({R.id.rl_pay_weixin, R.id.rl_pay_zhifubao, R.id.rl_pay_union})
     public void onClick(View v) {
         switch (v.getId()) {
             //微信支付
-//            case R.id.ddhk_pay_weixin:
-//                UtilPreference.saveString(mContext, "weixinKey", flag);
-//                pay_type = "wxpay";
-//                if ("1".equals(flag)) {
-//                    inidata();
-//                    loaddingdialog.show();
-//                } else if ("2".equals(flag)) {
-//                    initRecharge(pay_type);
-//                } else if ("3".equals(flag)) {
-//                    buyVip(pay_type);
-//
-//                }
-//                break;
+            case R.id.rl_pay_weixin:
+                pay_type = "wxpay";
+                showProgress("暂未开通");
+                break;
 //            //支付宝支付
-//            case R.id.ddhk_pay_zhifubao:
-//                pay_type = "alipay";
-//                // showProgress("暂未开通此服务");
-//                if ("1".equals(flag)) {
-//                    initData1();
-//                    loaddingdialog.show();
-//                } else if ("2".equals(flag)) {
-//                    initRecharge1(pay_type);
-//                } else if ("3".equals(flag)) {
-//                    buyVip1(pay_type);
-//                }
-
+            case R.id.rl_pay_zhifubao:
+                pay_type = "alipay";
+                showProgress("暂未开通");
+                break;
+            case R.id.rl_pay_union:
+                showProgress("暂未开通");
+                break;
 
         }
     }
-
 
 
     private void alipay(String data) {
@@ -257,7 +256,7 @@ public class PayActivity extends BaseActivity implements OnClickListener {
     public void showProgress(String message) {
         // dialog = new CustomDialog(getActivity());
         dialog = new CustomDialog(this).builder()
-                .setGravity(Gravity.CENTER).setTitle("提示", getResources().getColor(R.color.sd_color_black))//可以不设置标题颜色，默认系统颜色
+                .setGravity(Gravity.CENTER).setTitle01("提示")//可以不设置标题颜色，默认系统颜色
                 .setSubTitle(message);
         dialog.show();
         new Handler().postDelayed(new Runnable() {
