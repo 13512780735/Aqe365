@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.likeit.aqe365.activity.cart.SelectAddressActivity">
+
+    <include layout="@layout/common_toolbar"></include>
+
+    <ListView
+        android:id="@+id/lv_address"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="10dp"
+        android:layout_weight="1"
+        android:background="#ffffff"
+        android:divider="@color/line"
+        android:dividerHeight="1dp"
+        android:scrollbars="none" />
+
+    <TextView
+        android:id="@+id/tv_add_address"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dip_xxxlarge"
+        android:padding="@dimen/dp_8"
+        android:text="+ 新增地址"
+        android:background="@color/theme_bg"
+        android:textSize="@dimen/sp_16"
+        android:gravity="center"
+        android:textColor="@color/white" />
+</LinearLayout>

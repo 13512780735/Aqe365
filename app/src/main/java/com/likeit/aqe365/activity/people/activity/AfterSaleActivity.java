@@ -11,7 +11,6 @@ import android.widget.EditText;
 import android.widget.GridView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.guoqi.actionsheet.ActionSheet;
 import com.likeit.aqe365.R;
@@ -54,6 +53,10 @@ public class AfterSaleActivity extends BaseActivity implements ActionSheet.OnAct
     TextView mTvAfterSalePrice;
     @BindView(R.id.mGridView)
     GridView mGridView;
+    @BindView(R.id.tv_apply)
+    TextView mTvApply;
+    @BindView(R.id.tv_cancel)
+    TextView mTvCancel;
     private GridViewAddImgesAdpter gridViewAddImgesAdpter;
     /**
      * 图片
@@ -95,7 +98,7 @@ public class AfterSaleActivity extends BaseActivity implements ActionSheet.OnAct
         });
     }
 
-    @OnClick({R.id.ll_after_sale_modes, R.id.ll_after_sale_causes})
+    @OnClick({R.id.ll_after_sale_modes, R.id.ll_after_sale_causes, R.id.tv_apply, R.id.tv_cancel})
     public void onClick(View v) {
         switch (v.getId()) {
             default:
@@ -107,6 +110,11 @@ public class AfterSaleActivity extends BaseActivity implements ActionSheet.OnAct
                 showPopMenu();
                 break;
 
+            case R.id.tv_apply:
+                onBackPressed();
+                break;
+            case R.id.tv_cancel:
+                break;
         }
     }
 

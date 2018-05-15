@@ -4,6 +4,8 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
+import android.view.Gravity;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.AdapterView;
@@ -25,6 +27,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import am.widget.drawableratingbar.DrawableRatingBar;
 import butterknife.BindView;
 import butterknife.OnClick;
 import pub.devrel.easypermissions.AppSettingsDialog;
@@ -36,6 +39,7 @@ import static android.Manifest.permission.WRITE_EXTERNAL_STORAGE;
 
 public class IndentAppraiseActivity extends BaseActivity implements ActionSheet.OnActionSheetSelected, EasyPermissions.PermissionCallbacks {
 
+    private static final String TAG = "IndentAppraiseActivity";
     @BindView(R.id.iv_shop_avatar)
     ImageView mIvShopAvatar;
     @BindView(R.id.tv_shop_name)
@@ -50,6 +54,8 @@ public class IndentAppraiseActivity extends BaseActivity implements ActionSheet.
     GridView mGridView;
     @BindView(R.id.ed_tell_some)
     EditText mEdTellSome;
+    @BindView(R.id.drb_rb_stars)
+    DrawableRatingBar mRating;
     private GridViewAddImgesAdpter gridViewAddImgesAdpter;
     /**
      * 图片
@@ -93,6 +99,26 @@ public class IndentAppraiseActivity extends BaseActivity implements ActionSheet.
                 ActionSheet.showSheet(IndentAppraiseActivity.this, IndentAppraiseActivity.this, null);
             }
         });
+        //  mRating.setRatingDrawable(Drawable, Drawable);
+        //mRating.setDrawablePadding(int);
+        mRating.setGravity(Gravity.LEFT|Gravity.CENTER_VERTICAL);
+        mRating.setMax(5);
+        mRating.setMin(1);
+        mRating.setRating(3);
+        mRating.setManually(true);
+        mRating.setOnlyItemTouchable(true);
+        mRating.setOnRatingChangeListener(new DrawableRatingBar.OnRatingChangeListener() {
+            @Override
+            public void onRatingChanged(int rating, int oldRating) {
+                Log.d(TAG, "rating--》" + rating + "oldRating-->" + oldRating) ;
+            }
+
+            @Override
+            public void onRatingSelected(int rating) {
+                Log.e("TAG", rating + "");
+            }
+        });
+
     }
 
     public void photoPath(String path) {

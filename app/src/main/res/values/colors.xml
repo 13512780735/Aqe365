@@ -85,4 +85,5 @@
     <color name="delete_text_color">#0090ff</color>
     <color name="version_background">#b0000000</color>
     <color name="navpage">#FFE1E8EB</color>
+    <color name="apply">#FF2150</color>
 </resources>

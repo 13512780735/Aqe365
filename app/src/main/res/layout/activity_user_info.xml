@@ -5,5 +5,35 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context="com.likeit.aqe365.activity.people.activity.UserInfoActivity">
+
     <include layout="@layout/common_toolbar"></include>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <include layout="@layout/layout_userinfo_view"></include>
+
+        </LinearLayout>
+    </ScrollView>
+
+    <TextView
+        android:id="@+id/tv_edit"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dip_xxlarge"
+        android:layout_marginBottom="@dimen/dp_10"
+        android:layout_marginLeft="@dimen/dip_xxlarge"
+        android:layout_marginRight="@dimen/dip_xxlarge"
+        android:layout_marginTop="@dimen/dp_10"
+        android:background="@drawable/shape_round_grey_bg_5"
+        android:gravity="center"
+        android:padding="8dip"
+        android:text="确定修改"
+        android:textColor="@color/white" />
 </LinearLayout>

@@ -14,6 +14,7 @@ import android.widget.TextView;
 
 import com.likeit.aqe365.R;
 import com.likeit.aqe365.activity.FrameActivity;
+import com.likeit.aqe365.activity.cart.SelectAddressActivity;
 import com.likeit.aqe365.activity.login.activity.LoginActivity;
 import com.likeit.aqe365.activity.people.activity.GoodsIndentActivity;
 import com.likeit.aqe365.activity.people.activity.UserInfoActivity;
@@ -51,6 +52,7 @@ public class MainPeopleFragment extends BaseFragment implements View.OnClickList
     private List<Badge> badges;
     private int status;
     private ScrollView mScrollview;
+    private TextView mTvAfterSale;
 
 
     public void initUI() {
@@ -64,6 +66,7 @@ public class MainPeopleFragment extends BaseFragment implements View.OnClickList
         mTvChange = findView(R.id.tv_change);
         mRlAllOrders = findView(R.id.rl_all_orders);
         mTvObligation = findView(R.id.tv_obligation);
+        mTvAfterSale = findView(R.id.tv_after_sale);
         mTvShipments = findView(R.id.tv_shipments);
         mTvReceiving = findView(R.id.tv_Receiving);
         mTvObligation = findView(R.id.tv_obligation);
@@ -127,6 +130,7 @@ public class MainPeopleFragment extends BaseFragment implements View.OnClickList
         mTvChange.setOnClickListener(this);
         mTvCoupon.setOnClickListener(this);
         mTvIntegral.setOnClickListener(this);
+        mTvAfterSale.setOnClickListener(this);
         mIvSetting.setOnClickListener(this);
         tv_logout.setOnClickListener(this);
         tv_edit_pwd.setOnClickListener(this);
@@ -179,6 +183,7 @@ public class MainPeopleFragment extends BaseFragment implements View.OnClickList
                 break;
             case R.id.tv_after_sale://待收货
               //  toActivity(AfterSaleActivity.class);
+                toActivity(SelectAddressActivity.class);
                 break;
             case R.id.rl_footprint://我的足迹
                 startFrameActivity(Constants.FRAGMENT_PEOPLE_FOOTPRINT);
@@ -193,7 +198,7 @@ public class MainPeopleFragment extends BaseFragment implements View.OnClickList
                 startFrameActivity(Constants.FRAGMENT_PEOPLE_INTEGRAL);
                 break;
             case R.id.tv_edit_pwd://修改密码
-                // startFrameActivity(Constants.FRAGMENT_PEOPLE_INTEGRAL);
+                 startFrameActivity(Constants.FRAGMENT_PEOPLE_INTEGRAL);
                 break;
             case R.id.tv_logout://退出登录
                 startActivity(new Intent(getActivity(), LoginActivity.class));

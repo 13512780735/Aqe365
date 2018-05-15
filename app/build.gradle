@@ -56,7 +56,7 @@ dependencies {
     compile 'com.nostra13.universalimageloader:universal-image-loader:1.9.5'
     compile 'com.guoqi.widget:actionsheet:1.0'
     compile 'pub.devrel:easypermissions:1.0.1'
+    compile 'am.widget:drawableratingbar:1.1.3'
     testCompile 'junit:junit:4.12'
     apt 'com.jakewharton:butterknife-compiler:8.4.0'
-    compile 'am.widget:drawableratingbar:1.1.3'
 }

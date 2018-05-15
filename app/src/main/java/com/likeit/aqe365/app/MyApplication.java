@@ -41,7 +41,7 @@ public class MyApplication extends Application {
         instance = this;
         applicationContext = this;
         // DemoHelper.getInstance().init(mContext);
-        initX5WebView();
+       //                                                           initX5WebView();
 
     }
 

@@ -10,7 +10,8 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
+        android:layout_weight="1"
         android:layout_marginTop="@dimen/dp_10"
         android:background="@color/white"
         android:orientation="vertical">
@@ -33,8 +34,8 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:padding="@dimen/dp_10"
                 android:hint="请选择处理方式"
+                android:padding="@dimen/dp_10"
                 android:textColor="@color/black" />
 
             <ImageView
@@ -67,8 +68,8 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:padding="@dimen/dp_10"
                 android:hint="请选择退款原因"
+                android:padding="@dimen/dp_10"
                 android:textColor="@color/black" />
 
             <ImageView
@@ -162,5 +163,41 @@
                 android:numColumns="4"
                 android:verticalSpacing="5dp" />
         </LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:gravity="bottom|right"
+        android:layout_height="@dimen/dip_xxxlarge"
+        android:background="@color/white"
+        android:layout_marginTop="1dp"
+        android:orientation="horizontal">
+        <TextView
+            android:id="@+id/tv_apply"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:background="@drawable/shape_round_red_bg_5"
+            android:paddingLeft="@dimen/dp_8"
+            android:paddingRight="@dimen/dp_8"
+            android:paddingTop="@dimen/dp_5"
+            android:layout_marginRight="@dimen/dp_8"
+            android:textColor="@color/white"
+            android:paddingBottom="@dimen/dp_5"
+            android:text="提交申请"/>
+        <TextView
+            android:id="@+id/tv_cancel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:background="@drawable/shape_button_grey_border_bg_1"
+            android:paddingLeft="@dimen/dp_8"
+            android:paddingRight="@dimen/dp_8"
+            android:paddingTop="@dimen/dp_5"
+            android:layout_marginRight="@dimen/dp_8"
+            android:paddingBottom="@dimen/dp_5"
+            android:text="取消"/>
+
+
     </LinearLayout>
 </LinearLayout>
