@@ -14,7 +14,7 @@ import android.widget.TextView;
 
 import com.likeit.aqe365.R;
 import com.likeit.aqe365.activity.FrameActivity;
-import com.likeit.aqe365.activity.cart.SelectAddressActivity;
+import com.likeit.aqe365.activity.cart.activity.SelectAddressActivity;
 import com.likeit.aqe365.activity.login.activity.LoginActivity;
 import com.likeit.aqe365.activity.people.activity.GoodsIndentActivity;
 import com.likeit.aqe365.activity.people.activity.UserInfoActivity;

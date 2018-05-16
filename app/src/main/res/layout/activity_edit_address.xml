@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="com.likeit.aqe365.activity.cart.EditAddressActivity">
+    tools:context="com.likeit.aqe365.activity.cart.activity.EditAddressActivity">
 
     <include layout="@layout/common_toolbar"></include>
 

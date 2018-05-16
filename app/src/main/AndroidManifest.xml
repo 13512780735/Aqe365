@@ -98,9 +98,10 @@
         <activity android:name=".activity.people.activity.AfterSaleActivity" />
         <activity android:name=".activity.people.activity.IndentDetailsActivity" />
         <activity android:name=".activity.people.activity.IndentAppraiseActivity" />
-        <activity android:name=".activity.cart.SelectAddressActivity" />
-        <activity android:name=".activity.cart.EditAddressActivity" />
-        <activity android:name=".activity.people.activity.BindPhoneActivity"></activity>
+        <activity android:name=".activity.cart.activity.SelectAddressActivity" />
+        <activity android:name=".activity.cart.activity.EditAddressActivity" />
+        <activity android:name=".activity.people.activity.BindPhoneActivity" />
+        <activity android:name=".activity.cart.activity.ConfirmOrderActivity"></activity>
     </application>
 
 </manifest>

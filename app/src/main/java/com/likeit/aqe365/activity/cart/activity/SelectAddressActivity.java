@@ -1,4 +1,4 @@
-package com.likeit.aqe365.activity.cart;
+package com.likeit.aqe365.activity.cart.activity;
 
 import android.content.Context;
 import android.os.Bundle;

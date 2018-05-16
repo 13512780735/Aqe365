@@ -1,4 +1,4 @@
-package com.likeit.aqe365.activity.cart;
+package com.likeit.aqe365.activity.cart.activity;
 
 import android.os.Bundle;
 import android.view.View;
@@ -8,7 +8,6 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.likeit.aqe365.R;
-import com.likeit.aqe365.activity.login.fragment.RegisterFragment;
 import com.likeit.aqe365.base.BaseActivity;
 import com.likeit.aqe365.listener.IEditTextChangeListener;
 import com.likeit.aqe365.utils.EditTextSizeCheckUtil;
