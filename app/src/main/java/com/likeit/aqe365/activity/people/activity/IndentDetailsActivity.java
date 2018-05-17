@@ -8,8 +8,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.likeit.aqe365.R;
-import com.likeit.aqe365.adapter.GoodAllIndentAdapter;
-import com.likeit.aqe365.adapter.IndentDatailsShopAdapter;
+import com.likeit.aqe365.activity.people.adapter.IndentDatailsShopAdapter;
 import com.likeit.aqe365.base.BaseActivity;
 import com.likeit.aqe365.network.model.CaseEntity;
 

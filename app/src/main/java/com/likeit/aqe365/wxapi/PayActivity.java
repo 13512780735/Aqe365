@@ -96,7 +96,6 @@ public class PayActivity extends BaseActivity implements OnClickListener {
     private PayActivity mContext;
     private String ukey;
     private int status;
-    private String indentId;
 
 
     @Override
@@ -118,7 +117,6 @@ public class PayActivity extends BaseActivity implements OnClickListener {
                 finish();
             }
         });
-        indentId = getIntent().getExtras().getString("IndentId");
         Intent intent = getIntent();
         String WX_APPID = "wx53ba9da9956a74aa";
         api = WXAPIFactory.createWXAPI(this, WX_APPID, false);
@@ -128,7 +126,7 @@ public class PayActivity extends BaseActivity implements OnClickListener {
     }
 
     private void initView() {
-        tv_indent_number.setText(indentId);
+        tv_indent_number.setText("SH20180124064250464768");
         tvPrice.setText("¥ " + 1000);
     }
 

@@ -1,4 +1,4 @@
-package com.likeit.aqe365.adapter;
+package com.likeit.aqe365.activity.cart.adapter;
 
 import android.widget.ImageView;
 
@@ -11,12 +11,12 @@ import com.nostra13.universalimageloader.core.ImageLoader;
 import java.util.List;
 
 /**
- * Created by admin on 2018/5/14.
+ * Created by admin on 2018/5/17.
  */
 
-public class IndentDatailsShopAdapter extends BaseQuickAdapter<CaseEntity, BaseViewHolder> {
-    public IndentDatailsShopAdapter(int layoutResId, List<CaseEntity> data) {
-        super(R.layout.layout_indent_details_listview_items, data);
+public class CartShopItemsAdapter extends BaseQuickAdapter<CaseEntity, BaseViewHolder> {
+    public CartShopItemsAdapter(int layoutResId, List<CaseEntity> data) {
+        super(R.layout.layout_cart_shopitems_view, data);
     }
 
     @Override

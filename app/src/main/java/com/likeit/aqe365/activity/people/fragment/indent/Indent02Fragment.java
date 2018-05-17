@@ -10,8 +10,7 @@ import android.support.v7.widget.RecyclerView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.likeit.aqe365.R;
-import com.likeit.aqe365.adapter.GoodIndent01Adapter;
-import com.likeit.aqe365.adapter.GoodIndent02Adapter;
+import com.likeit.aqe365.activity.people.adapter.GoodIndent02Adapter;
 import com.likeit.aqe365.base.BaseFragment;
 import com.likeit.aqe365.network.model.CaseEntity;
 

@@ -12,11 +12,9 @@ import android.view.View;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.likeit.aqe365.R;
-import com.likeit.aqe365.activity.people.activity.AfterSaleActivity;
 import com.likeit.aqe365.activity.people.activity.IndentDetailsActivity;
-import com.likeit.aqe365.adapter.GoodIndent01Adapter;
+import com.likeit.aqe365.activity.people.adapter.GoodIndent01Adapter;
 import com.likeit.aqe365.base.BaseFragment;
-import com.likeit.aqe365.constants.Constants;
 import com.likeit.aqe365.network.model.CaseEntity;
 import com.likeit.aqe365.wxapi.PayActivity;
 

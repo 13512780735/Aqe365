@@ -1,7 +1,6 @@
 package com.likeit.aqe365.activity.people.fragment.indent;
 
 
-import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
@@ -9,27 +8,19 @@ import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.likeit.aqe365.R;
-import com.likeit.aqe365.activity.FrameActivity;
 import com.likeit.aqe365.activity.people.activity.IndentDetailsActivity;
-import com.likeit.aqe365.adapter.GoodAllIndentAdapter;
+import com.likeit.aqe365.activity.people.adapter.GoodAllIndentAdapter;
 import com.likeit.aqe365.base.BaseFragment;
-import com.likeit.aqe365.constants.Constants;
 import com.likeit.aqe365.network.model.CaseEntity;
 import com.likeit.aqe365.wxapi.PayActivity;
 
 import java.util.ArrayList;
 
 import butterknife.BindView;
-import butterknife.OnClick;
-import butterknife.Unbinder;
-
-import static com.likeit.aqe365.Interface.BaseInterface.KEY_FRAGMENT;
 
 /**
  * A simple {@link Fragment} subclass.

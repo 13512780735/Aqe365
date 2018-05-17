@@ -11,7 +11,7 @@ import com.likeit.aqe365.activity.people.fragment.indent.Indent01Fragment;
 import com.likeit.aqe365.activity.people.fragment.indent.Indent02Fragment;
 import com.likeit.aqe365.activity.people.fragment.indent.Indent03Fragment;
 import com.likeit.aqe365.activity.people.fragment.indent.Indent04Fragment;
-import com.likeit.aqe365.adapter.GoodsIndentTabAdapter;
+import com.likeit.aqe365.activity.people.adapter.GoodsIndentTabAdapter;
 import com.likeit.aqe365.base.BaseActivity;
 import com.likeit.aqe365.view.NoScrollViewPager;
 

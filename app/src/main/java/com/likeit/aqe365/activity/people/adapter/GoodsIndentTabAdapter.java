@@ -1,4 +1,4 @@
-package com.likeit.aqe365.adapter;
+package com.likeit.aqe365.activity.people.adapter;
 
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;

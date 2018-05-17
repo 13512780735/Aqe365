@@ -8,20 +8,15 @@ import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.likeit.aqe365.R;
 import com.likeit.aqe365.activity.people.activity.IndentAppraiseActivity;
 import com.likeit.aqe365.activity.people.activity.IndentDetailsActivity;
-import com.likeit.aqe365.adapter.GoodIndent01Adapter;
-import com.likeit.aqe365.adapter.GoodIndent04Adapter;
+import com.likeit.aqe365.activity.people.adapter.GoodIndent04Adapter;
 import com.likeit.aqe365.base.BaseFragment;
-import com.likeit.aqe365.constants.Constants;
 import com.likeit.aqe365.network.model.CaseEntity;
-import com.likeit.aqe365.wxapi.PayActivity;
 
 import java.util.ArrayList;
 

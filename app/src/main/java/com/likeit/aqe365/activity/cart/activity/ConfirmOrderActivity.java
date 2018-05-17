@@ -1,6 +1,9 @@
 package com.likeit.aqe365.activity.cart.activity;
 
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -8,9 +11,16 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.likeit.aqe365.R;
+import com.likeit.aqe365.activity.cart.adapter.CartShopListAdatper;
 import com.likeit.aqe365.base.BaseActivity;
+import com.likeit.aqe365.network.model.CaseEntity;
+import com.likeit.aqe365.wxapi.PayActivity;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.BindView;
+import butterknife.OnClick;
 
 public class ConfirmOrderActivity extends BaseActivity {
 
@@ -38,6 +48,11 @@ public class ConfirmOrderActivity extends BaseActivity {
     TextView mTvTotalPrice;
     @BindView(R.id.tv_expressage)
     TextView mTvExpressage;
+    @BindView(R.id.RecyclerView)
+    RecyclerView mRecyclerView;
+    private List<CaseEntity> data;
+    private CartShopListAdatper mAdapter;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,5 +71,40 @@ public class ConfirmOrderActivity extends BaseActivity {
         mTvInvoice.setText("发票信息    " + "不开发票");
         mTvTotalPrice.setText("¥ " + 1000.00);
         mTvExpressage.setText("¥ " + 0.00);
+        mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+        initData();
+        initAdapter();
+    }
+
+    public void initData() {
+        data = new ArrayList<>();
+        for (int i = 0; i < 2; i++) {
+            CaseEntity caseEntity = new CaseEntity();
+            caseEntity.setUrl(i + "");
+            data.add(caseEntity);
+        }
+    }
+
+    private void initAdapter() {
+        mAdapter = new CartShopListAdatper(R.layout.layout_cart_shoplist_items, data);
+        mRecyclerView.setAdapter(mAdapter);
+        //  mCurrentCounter = mAdapter.getData().size();
+    }
+
+    @OnClick({R.id.ll_address_default, R.id.rl_address_default, R.id.tv_go_to_pay})
+    public void onClick(View v) {
+        switch (v.getId()) {
+            default:
+                break;
+            case R.id.ll_address_default:
+                toActivity(SelectAddressActivity.class);
+                break;
+            case R.id.rl_address_default:
+                toActivity(SelectAddressActivity.class);
+                break;
+            case R.id.tv_go_to_pay:
+                toActivity(PayActivity.class);
+                break;
+        }
     }
 }
