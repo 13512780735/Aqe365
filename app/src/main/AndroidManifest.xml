@@ -101,7 +101,8 @@
         <activity android:name=".activity.cart.activity.SelectAddressActivity" />
         <activity android:name=".activity.cart.activity.EditAddressActivity" />
         <activity android:name=".activity.people.activity.BindPhoneActivity" />
-        <activity android:name=".activity.cart.activity.ConfirmOrderActivity"></activity>
+        <activity android:name=".activity.cart.activity.ConfirmOrderActivity" />
+        <activity android:name=".activity.sort.GoodsDetailsActivity"></activity>
     </application>
 
 </manifest>
