@@ -1,0 +1,27 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_marginTop="100dp"
+    tools:context="com.likeit.aqe365.activity.sort.GoodFilterFragment">
+
+    <!-- TODO: Update blank fragment layout -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white"
+        android:layout_marginTop="@dimen/width100"
+        android:orientation="vertical">
+        <com.zhy.view.flowlayout.TagFlowLayout
+            android:id="@+id/item_main_right_taglayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingLeft="@dimen/dp_20"
+            android:paddingRight="@dimen/dp_20"
+            app:max_select="-1"
+            android:layout_margin="1dp" />
+
+    </LinearLayout>
+
+</RelativeLayout>

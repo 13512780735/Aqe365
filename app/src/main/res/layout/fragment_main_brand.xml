@@ -50,11 +50,42 @@
                     android:text="更多" />
             </RelativeLayout>
 
-            <android.support.v7.widget.RecyclerView
-                android:id="@+id/RecyclerView"
+            <com.likeit.aqe365.view.MyGridView
+                android:id="@+id/GridView"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"></android.support.v7.widget.RecyclerView>
+                android:layout_height="wrap_content"
+                android:numColumns="4"
+                android:horizontalSpacing="@dimen/dp_5"
+                android:layout_marginVertical="@dimen/dp_5"
+                android:padding="@dimen/dp_10"
+                android:verticalSpacing="5dip"></com.likeit.aqe365.view.MyGridView>
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/width50"
+                android:background="@color/white">
 
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:drawableLeft="@mipmap/icon_line01"
+                    android:drawableRight="@mipmap/icon_line01"
+                    android:layout_marginTop="@dimen/dp_10"
+                    android:text="推荐品牌"
+                    android:textColor="@color/theme_bg"
+                    android:textSize="@dimen/sp_16" />
+
+            </RelativeLayout>
+            <com.likeit.aqe365.view.MyGridView
+                android:id="@+id/GridView01"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:numColumns="2"
+                android:background="@color/white"
+                android:horizontalSpacing="@dimen/dp_5"
+                android:layout_marginVertical="@dimen/dp_5"
+                android:padding="@dimen/dp_10"
+                android:verticalSpacing="5dip"></com.likeit.aqe365.view.MyGridView>
         </LinearLayout>
 
     </ScrollView>
