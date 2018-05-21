@@ -60,8 +60,7 @@ public class MainSortFragment extends BaseFragment {
 
         mLeftRvRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         mRightRvRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-
-        mLeftRvRecyclerView.addOnItemTouchListener(new SimpleClickListener() {
+      mLeftRvRecyclerView.addOnItemTouchListener(new SimpleClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter baseQuickAdapter, View view, int i) {
                 ShopSortBean shopSortBean = shopSortBeanList.get(i);

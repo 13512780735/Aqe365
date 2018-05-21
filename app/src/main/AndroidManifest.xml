@@ -103,7 +103,7 @@
         <activity android:name=".activity.people.activity.BindPhoneActivity" />
         <activity android:name=".activity.cart.activity.ConfirmOrderActivity" />
         <activity android:name=".activity.sort.GoodsDetailsActivity" />
-        <activity android:name=".activity.sort.GoodListActivity"></activity>
+        <activity android:name=".activity.sort.filter.GoodListActivity"></activity>
     </application>
 
 </manifest>

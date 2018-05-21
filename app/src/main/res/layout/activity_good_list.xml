@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="com.likeit.aqe365.activity.sort.GoodListActivity">
+    tools:context="com.likeit.aqe365.activity.sort.filter.GoodListActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -70,83 +70,155 @@
         android:background="@color/line"></View>
 
     <LinearLayout
+        android:id="@+id/ll_filter"
         android:layout_width="match_parent"
         android:layout_height="40dp"
         android:background="@color/white"
         android:orientation="horizontal">
-
-        <RadioGroup
-            android:id="@+id/goodlist_RadioGroup"
+        <LinearLayout
+            android:id="@+id/expert_selector_root"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="40dp"
+            android:background="#FFFFFF"
+            android:gravity="center_vertical"
             android:orientation="horizontal">
 
-            <RadioButton
-                android:id="@+id/rb01"
+            <RelativeLayout
+                android:id="@+id/layout_synthesis_sort"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:button="@null"
-                android:gravity="center"
-                android:checked="true"
-                android:text="综合"
-                android:textColor="@drawable/color_radiobutton" />
+                android:clickable="true">
 
+                <TextView
+                    android:id="@+id/tv_synthesis_sort"
+                    android:layout_width="120px"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="37px"
+                    android:clickable="true"
+                    android:gravity="center"
+                    android:singleLine="true"
+                    android:text="综合"
+                    android:textColor="#333333"
+                    android:textSize="17sp" />
+
+
+            </RelativeLayout>
             <View
                 android:layout_width="1dp"
                 android:layout_height="20dp"
-                android:layout_gravity="center"
-                android:background="@color/line"></View>
-
-            <RadioButton
-                android:id="@+id/rb02"
+                android:layout_centerInParent="true"
+                android:background="@color/line"
+                android:layout_toRightOf="@+id/expert_area"
+                />
+            <RelativeLayout
+                android:id="@+id/layout_sales_sort"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:button="@null"
-                android:gravity="center"
-                android:text="销量"
-                android:textColor="@drawable/color_radiobutton" />
+                android:clickable="true">
 
+                <TextView
+                    android:id="@+id/tv_sales_sort"
+                    android:layout_width="120px"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="20px"
+                    android:clickable="true"
+                    android:gravity="center"
+                    android:singleLine="true"
+                    android:text="销量"
+                    android:textColor="#333333"
+                    android:textSize="17sp" />
+
+
+            </RelativeLayout>
             <View
                 android:layout_width="1dp"
                 android:layout_height="20dp"
-                android:layout_gravity="center"
-                android:background="@color/line"></View>
-
-            <RadioButton
-                android:id="@+id/rb03"
+                android:layout_centerInParent="true"
+                android:background="@color/line"
+                android:layout_toRightOf="@+id/expert_area"
+                />
+            <RelativeLayout
+                android:id="@+id/layout_expert_service"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:button="@null"
-                android:drawableRight="@mipmap/icon_sort_up_down"
-                android:gravity="center"
-                android:paddingLeft="@dimen/dp_10"
-                android:paddingRight="@dimen/dp_10"
-                android:text="价格"
-                android:textColor="@drawable/color_radiobutton" />
+                android:clickable="true">
 
+                <TextView
+                    android:id="@+id/tv_sort_price"
+                    android:layout_width="120px"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="15px"
+                    android:clickable="true"
+                    android:gravity="center"
+                    android:singleLine="true"
+                    android:text="价格"
+                    android:textColor="#333333"
+                    android:textSize="17sp" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:layout_marginRight="10px"
+                    android:layout_toRightOf="@+id/tv_sort_price"
+                    android:src="@mipmap/icon_sort_up_down" />
+            </RelativeLayout>
             <View
                 android:layout_width="1dp"
                 android:layout_height="20dp"
-                android:layout_gravity="center"
-                android:background="@color/line"></View>
-
-            <RadioButton
-                android:id="@+id/rb04"
+                android:layout_centerInParent="true"
+                android:background="@color/line"
+                android:layout_toRightOf="@+id/expert_area"
+                />
+            <RelativeLayout
+                android:id="@+id/layout_filter_sort"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:button="@null"
-                android:drawableRight="@mipmap/icon_sort_filter"
-                android:gravity="center"
-                android:paddingLeft="@dimen/dp_10"
-                android:paddingRight="@dimen/dp_10"
-                android:text="筛选"
-                android:textColor="@drawable/color_radiobutton" />
-        </RadioGroup>
+                android:clickable="true">
+
+                <TextView
+                    android:id="@+id/tv_filter_sort"
+                    android:layout_width="120px"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:clickable="true"
+                    android:gravity="center"
+                    android:singleLine="true"
+                    android:text="筛选"
+                    android:textColor="#333333"
+                    android:textSize="17sp" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:layout_marginRight="10px"
+                    android:layout_toRightOf="@+id/tv_filter_sort"
+                    android:src="@mipmap/icon_sort_filter" />
+            </RelativeLayout>
+        </LinearLayout>
 
 
     </LinearLayout>
+
+    <android.support.v4.widget.SwipeRefreshLayout
+        android:id="@+id/SwipeRefreshLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        >
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/RecyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            ></android.support.v7.widget.RecyclerView>
+
+    </android.support.v4.widget.SwipeRefreshLayout>
 </LinearLayout>

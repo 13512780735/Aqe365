@@ -1,7 +1,6 @@
 package com.likeit.aqe365.activity.sort.adapter;
 
 import android.content.Intent;
-import android.support.design.widget.Snackbar;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -9,12 +8,9 @@ import android.view.View;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.likeit.aqe365.R;
-import com.likeit.aqe365.activity.sort.GoodListActivity;
-import com.likeit.aqe365.activity.sort.bean.ShopSortBean;
+import com.likeit.aqe365.activity.sort.filter.GoodListActivity;
 import com.likeit.aqe365.activity.sort.bean.ShopSortItemBean;
 import com.likeit.aqe365.activity.sort.bean.ShopSortListBean;
-import com.zhy.view.flowlayout.FlowLayout;
-import com.zhy.view.flowlayout.TagFlowLayout;
 
 import java.util.List;
 
