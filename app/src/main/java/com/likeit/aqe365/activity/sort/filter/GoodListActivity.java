@@ -23,6 +23,7 @@ import com.likeit.aqe365.activity.sort.adapter.GoodListAdapter;
 import com.likeit.aqe365.activity.sort.filter.adapter.LeftAdapter;
 import com.likeit.aqe365.activity.sort.filter.adapter.MiddleAdapter;
 import com.likeit.aqe365.activity.sort.filter.adapter.RightAdapter;
+import com.likeit.aqe365.activity.sort.filter.bean.ShopRightListBean;
 import com.likeit.aqe365.activity.sort.filter.bean.ShopSortBean;
 import com.likeit.aqe365.activity.sort.filter.bean.ShopSortItemBean;
 import com.likeit.aqe365.activity.sort.filter.bean.ShopSortListBean;
@@ -103,6 +104,8 @@ public class GoodListActivity extends BaseActivity implements BaseQuickAdapter.R
     private List<ShopSortListBean> listBeanList;
     private LeftAdapter leftAdapter;
     private MiddleAdapter middleAdapter;
+    private RightAdapter rightAdapter;
+    private ArrayList<ShopSortItemBean> rightBeanList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -161,6 +164,9 @@ public class GoodListActivity extends BaseActivity implements BaseQuickAdapter.R
         tvCancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                shopSortBeanList.clear();
+                listBeanList.clear();
+                rightBeanList.clear();
                 filterPop.dismiss();
                 filterFalg = true;
                 mTvSynthesisSort.setTextColor(Color.parseColor("#333333"));
@@ -172,6 +178,9 @@ public class GoodListActivity extends BaseActivity implements BaseQuickAdapter.R
         tvConfirm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                shopSortBeanList.clear();
+                listBeanList.clear();
+                rightBeanList.clear();
                 filterPop.dismiss();
                 filterFalg = true;
                 mTvSynthesisSort.setTextColor(Color.parseColor("#333333"));
@@ -185,6 +194,8 @@ public class GoodListActivity extends BaseActivity implements BaseQuickAdapter.R
             mTvFilterSort.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
+
+                    initRecycleView();
                     mTvSynthesisSort.setTextColor(Color.parseColor("#333333"));
                     mTvSalesSort.setTextColor(Color.parseColor("#333333"));
                     mTvSortPrice.setTextColor(Color.parseColor("#333333"));
@@ -199,18 +210,27 @@ public class GoodListActivity extends BaseActivity implements BaseQuickAdapter.R
             });
 
         } else {
+
             filterPop.dismiss();
             mTvFilterSort.setTextColor(Color.parseColor("#333333"));
             filterFalg = false;
         }
+
+
+
+    }
+
+    private void initRecycleView() {
         initData01();
         leftAdapter = new LeftAdapter(R.layout.item_filter_listview_view, shopSortBeanList);
         middleAdapter = new MiddleAdapter(R.layout.item_filter_listview_view, listBeanList);
+        rightAdapter = new RightAdapter(R.layout.item_filter_listview_view, rightBeanList);
         mLeftRvRecyclerView.setAdapter(leftAdapter);
-        mRightRvRecyclerView.setAdapter(middleAdapter);
-
+        mMiddleRvRecyclerView.setAdapter(middleAdapter);
+        mRightRvRecyclerView.setAdapter(rightAdapter);
         mLeftRvRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         mMiddleRvRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+        mRightRvRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         mLeftRvRecyclerView.addOnItemTouchListener(new SimpleClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter baseQuickAdapter, View view, int i) {
@@ -237,13 +257,61 @@ public class GoodListActivity extends BaseActivity implements BaseQuickAdapter.R
 
             }
         });
+        mMiddleRvRecyclerView.addOnItemTouchListener(new SimpleClickListener() {
+            @Override
+            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+                ShopSortListBean shopSortBean = listBeanList.get(position);
+                rightBeanList.clear();
+                rightBeanList.addAll(shopSortBean.getmList());
+                middleAdapter.setSelectPos(position);
+                middleAdapter.notifyDataSetChanged();
+                rightAdapter.notifyDataSetChanged();
+            }
 
+            @Override
+            public void onItemLongClick(BaseQuickAdapter adapter, View view, int position) {
+
+            }
+
+            @Override
+            public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
+
+            }
+
+            @Override
+            public void onItemChildLongClick(BaseQuickAdapter adapter, View view, int position) {
+
+            }
+        });
+        mRightRvRecyclerView.addOnItemTouchListener(new SimpleClickListener() {
+            @Override
+            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+                rightAdapter.setSelectPos(position);
+                rightAdapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onItemLongClick(BaseQuickAdapter adapter, View view, int position) {
+
+            }
+
+            @Override
+            public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
+
+            }
+
+            @Override
+            public void onItemChildLongClick(BaseQuickAdapter adapter, View view, int position) {
+
+            }
+        });
 
     }
 
     private void initData01() {
         shopSortBeanList = new ArrayList<>();
         listBeanList = new ArrayList<>();
+        rightBeanList = new ArrayList<>();
 
         ShopSortBean d1 = new ShopSortBean();
         d1.setTitle("牙科商城");
@@ -254,38 +322,35 @@ public class GoodListActivity extends BaseActivity implements BaseQuickAdapter.R
 
         ShopSortListBean l1 = new ShopSortListBean();
 
-        l1.setType("车针、磨头、扩锉类");
+        l1.setType("常用耗材");
 
 
         ShopSortListBean l2 = new ShopSortListBean();
 
-        l2.setType("口内辅助材料类");
+        l2.setType("日常护理");
         ShopSortListBean l3 = new ShopSortListBean();
 
-        l3.setType("感控产品");
+        l3.setType("预防保护");
 
         ShopSortItemBean b1 = new ShopSortItemBean();
-        b1.setName("车针");
+        b1.setName("检查垫");
         ShopSortItemBean b2 = new ShopSortItemBean();
-        b2.setName("磨头");
+        b2.setName("器械盒");
         ShopSortItemBean b3 = new ShopSortItemBean();
-        b3.setName("口腔辅助治疗");
+        b3.setName("卫生敷料");
         ShopSortItemBean b4 = new ShopSortItemBean();
-        b4.setName("口腔护理");
-        ShopSortItemBean b5 = new ShopSortItemBean();
-        b5.setName("无纺布");
-        ShopSortItemBean b6 = new ShopSortItemBean();
-        b6.setName("灭菌袋");
+        b4.setName("一次性用品");
+
 
         List<ShopSortItemBean> list1 = new ArrayList<>();
         List<ShopSortItemBean> list2 = new ArrayList<>();
         List<ShopSortItemBean> list3 = new ArrayList<>();
         list1.add(b1);
         list1.add(b2);
+        list1.add(b3);
+        list2.add(b2);
         list2.add(b3);
-        list2.add(b4);
-        list3.add(b5);
-        list3.add(b6);
+        list3.add(b4);
 
         l1.setmList(list1);
         l2.setmList(list2);
@@ -311,7 +376,7 @@ public class GoodListActivity extends BaseActivity implements BaseQuickAdapter.R
         shopSortBeanList.add(d3);
 
 
-        // listBeanList.addAll(shopSortBeanList.get(0).getmList());
+        //listBeanList.addAll(shopSortBeanList.get(0).getmList());
     }
 
     private void initUI() {

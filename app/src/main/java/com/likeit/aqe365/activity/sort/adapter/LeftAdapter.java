@@ -32,7 +32,7 @@ public class LeftAdapter extends BaseQuickAdapter<ShopSortBean,BaseViewHolder> {
 			helper.convertView.setBackgroundColor(Color.parseColor("#FFFFFF"));
 			helper.setTextColor(R.id.item_main_left_type, Color.parseColor("#FF4081"));
 		}else{
-			helper.convertView.setBackgroundColor(Color.parseColor("#f7f7f7"));
+			helper.convertView.setBackgroundColor(Color.parseColor("#FFFFFF"));
 			helper.setTextColor(R.id.item_main_left_type, Color.parseColor("#333333"));
 			helper.setVisible(R.id.item_main_left_bg,false);
 		}

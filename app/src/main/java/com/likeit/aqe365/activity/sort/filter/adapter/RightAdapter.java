@@ -14,23 +14,30 @@ import java.util.List;
  */
 
 public class RightAdapter extends BaseQuickAdapter<ShopSortItemBean, BaseViewHolder> {
-    private int selectPos=0;
+    private int selectPos=-1;
     public RightAdapter(int layoutResId, List<ShopSortItemBean> data) {
-        super(R.layout.item_main_left, data);
+        super(R.layout.item_filter_listview_view, data);
     }
 
     @Override
     protected void convert(BaseViewHolder helper, ShopSortItemBean bean) {
         if(selectPos==helper.getAdapterPosition()){
-            helper.setVisible(R.id.item_main_left_bg,true);
+           // helper.setVisible(R.id.item_main_left_bg,true);
             helper.convertView.setBackgroundColor(Color.parseColor("#FFFFFF"));
             helper.setTextColor(R.id.item_main_left_type, Color.parseColor("#FF4081"));
         }else{
-            helper.convertView.setBackgroundColor(Color.parseColor("#f7f7f7"));
+            helper.convertView.setBackgroundColor(Color.parseColor("#FFFFFF"));
             helper.setTextColor(R.id.item_main_left_type, Color.parseColor("#333333"));
-            helper.setVisible(R.id.item_main_left_bg,false);
+          //  helper.setVisible(R.id.item_main_left_bg,false);
         }
 
         helper.setText(R.id.item_main_left_type,bean.getName());
+    }
+    public int getSelectPos() {
+        return selectPos;
+    }
+
+    public void setSelectPos(int selectPos) {
+        this.selectPos = selectPos;
     }
 }

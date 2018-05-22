@@ -3,14 +3,10 @@ package com.likeit.aqe365.activity.sort.filter.bean;
 import java.util.List;
 
 /**
- * User: Liumj(liumengjie@365tang.cn)
- * Date: 2016-10-11
- * Time: 17:24
- * describe:
+ * Created by admin on 2018/5/22.
  */
 
-
-public class ShopSortListBean {
+public class ShopRightListBean {
     private String type;
     private List<ShopSortItemBean> mList;
 
@@ -29,4 +25,5 @@ public class ShopSortListBean {
     public void setmList(List<ShopSortItemBean> mList) {
         this.mList = mList;
     }
+
 }

@@ -5,8 +5,7 @@ import android.graphics.Color;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.likeit.aqe365.R;
-import com.likeit.aqe365.activity.sort.bean.ShopSortListBean;
-import com.likeit.aqe365.activity.sort.filter.bean.ShopSortBean;
+import com.likeit.aqe365.activity.sort.filter.bean.ShopSortListBean;
 
 import java.util.List;
 
@@ -19,6 +18,8 @@ public class MiddleAdapter extends BaseQuickAdapter<ShopSortListBean,BaseViewHol
     public MiddleAdapter(int layoutResId, List<ShopSortListBean> data) {
         super(R.layout.item_filter_listview_view, data);
     }
+
+
 
     @Override
     protected void convert(BaseViewHolder helper, ShopSortListBean bean) {

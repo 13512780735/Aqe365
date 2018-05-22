@@ -15,9 +15,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:paddingBottom="17dp"
+            android:paddingBottom="10dp"
+            android:paddingTop="10dp"
             android:layout_centerInParent="true"
-            android:paddingTop="17dp"
             android:text=""
             android:textSize="14sp"
             />

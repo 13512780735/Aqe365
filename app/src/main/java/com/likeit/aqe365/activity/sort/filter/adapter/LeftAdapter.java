@@ -15,7 +15,7 @@ import java.util.List;
  */
 
 public class LeftAdapter extends BaseQuickAdapter<ShopSortBean,BaseViewHolder> {
-    private int selectPos=0;
+    private int selectPos=-1;
     public LeftAdapter(int layoutResId, List<ShopSortBean> data) {
         super(R.layout.item_filter_listview_view, data);
     }
@@ -26,7 +26,7 @@ public class LeftAdapter extends BaseQuickAdapter<ShopSortBean,BaseViewHolder> {
             helper.convertView.setBackgroundColor(Color.parseColor("#FFFFFF"));
             helper.setTextColor(R.id.item_main_left_type, Color.parseColor("#FF4081"));
         }else{
-            helper.convertView.setBackgroundColor(Color.parseColor("#f7f7f7"));
+            helper.convertView.setBackgroundColor(Color.parseColor("#FFFFFF"));
             helper.setTextColor(R.id.item_main_left_type, Color.parseColor("#333333"));
         }
 

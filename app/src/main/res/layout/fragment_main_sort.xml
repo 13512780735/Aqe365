@@ -62,7 +62,7 @@
             android:layout_width="100dp"
             android:layout_height="match_parent"
 
-            android:background="#fffff9" />
+            android:background="#FFF" />
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/main_right_rv"
