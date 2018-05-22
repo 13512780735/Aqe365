@@ -14,7 +14,7 @@ import java.util.List;
  */
 
 public class MiddleAdapter extends BaseQuickAdapter<ShopSortListBean,BaseViewHolder> {
-    private int selectPos=0;
+    private int selectPos=-1;
     public MiddleAdapter(int layoutResId, List<ShopSortListBean> data) {
         super(R.layout.item_filter_listview_view, data);
     }

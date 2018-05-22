@@ -3,6 +3,9 @@ package com.likeit.aqe365.activity;
 import android.content.Intent;
 
 import com.likeit.aqe365.Interface.BaseInterface;
+import com.likeit.aqe365.activity.home.DentistryShopFragment;
+import com.likeit.aqe365.activity.home.InfectionControlFragment;
+import com.likeit.aqe365.activity.home.MedicalShopFragment;
 import com.likeit.aqe365.activity.login.fragment.ForgetPwdFragment;
 import com.likeit.aqe365.activity.login.fragment.PhoneLoginFragment;
 import com.likeit.aqe365.activity.login.fragment.RegisterFragment;
@@ -73,6 +76,15 @@ public class FrameActivity extends ContentActivity {
                 break;
             case Constants.FRAGMENT_PEOPLE_INTEGRAL://我的积分
                 replaceFragment(IntegralFragment.newInstance());
+                break;
+            case Constants.FRAGMENT_HOME_DENTISTRY://牙科商城
+                replaceFragment(DentistryShopFragment.newInstance());
+                break;
+            case Constants.FRAGMENT_HOME_Medical://医用耗材
+                replaceFragment(MedicalShopFragment.newInstance());
+                break;
+            case Constants.FRAGMENT_HOME_INFECTION_CONTROL://感控产品
+                replaceFragment(InfectionControlFragment.newInstance());
                 break;
             default:
                 break;

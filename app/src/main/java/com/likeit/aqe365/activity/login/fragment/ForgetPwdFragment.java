@@ -103,8 +103,8 @@ public class ForgetPwdFragment extends BaseFragment implements View.OnClickListe
         tb_re_pwd = findView(R.id.tb_re_pwd);
         et_phone = findView(R.id.forget_pwd_et_phone);
         et_code = findView(R.id.forget_pwd_et_code);
-        et_pwd = findView(R.id.register_et_pwd);
-        et_pwd_confirm = findView(R.id.register_et_pwd_confirm);
+        et_pwd = findView(R.id.forget_pwd_et_pwd);
+        et_pwd_confirm = findView(R.id.forget_pwd_et_pwd_confirm);
         tb_re_pwd_confirm = findView(R.id.tb_re_pwd_confirm);
         tv_confirm = findView(R.id.tv_confirm);
         EditTextSizeCheckUtil.textChangeListener textChangeListener = new EditTextSizeCheckUtil.textChangeListener(tv_confirm);

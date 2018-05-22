@@ -2,6 +2,7 @@ package com.likeit.aqe365.activity.main.fragment;
 
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.View;
@@ -75,9 +76,9 @@ public class MainPeopleFragment extends BaseFragment implements View.OnClickList
         mIvSetting = findView(R.id.iv_setting);
         tv_logout = findView(R.id.tv_logout);
         tv_edit_pwd = findView(R.id.tv_edit_pwd);
-        badges.add(new QBadgeView(getActivity()).bindTarget(mTvObligation).setBadgeNumber(1));
-        badges.add(new QBadgeView(getActivity()).bindTarget(mTvShipments).setBadgeNumber(2));
-        badges.add(new QBadgeView(getActivity()).bindTarget(mTvReceiving).setBadgeNumber(5));
+        badges.add(new QBadgeView(getActivity()).bindTarget(mTvObligation).setBadgeNumber(1).setBadgeBackgroundColor(Color.parseColor("#ff0000")).setShowShadow(false));
+        badges.add(new QBadgeView(getActivity()).bindTarget(mTvShipments).setBadgeNumber(2).setBadgeBackgroundColor(Color.parseColor("#ff0000")).setShowShadow(false));
+        badges.add(new QBadgeView(getActivity()).bindTarget(mTvReceiving).setBadgeNumber(5).setBadgeBackgroundColor(Color.parseColor("#ff0000")).setShowShadow(false));
     }
 
     public void initData() {
