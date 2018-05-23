@@ -1,0 +1,36 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    tools:context="com.likeit.aqe365.activity.people.activity.MyCouponActivity">
+
+    <!-- TODO: Update blank fragment layout -->
+    <include layout="@layout/common_toolbar"></include>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/line"></View>
+
+    <android.support.design.widget.TabLayout
+        android:id="@+id/indent_TabLayout"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_gravity="center"
+        app:tabIndicatorColor="@color/colorAccent"
+        android:background="@color/white"
+        app:tabIndicatorHeight="2dp"
+        app:tabSelectedTextColor="@color/colorAccent"
+        app:tabTextAppearance="@style/TabLayoutTextStyle"
+        app:tabTextColor="@color/black" />
+
+
+    <com.likeit.aqe365.view.NoScrollViewPager
+        android:id="@+id/viewpager"
+        android:layout_width="match_parent"
+        android:layout_height="0px"
+        android:layout_weight="1" />
+
+</LinearLayout>

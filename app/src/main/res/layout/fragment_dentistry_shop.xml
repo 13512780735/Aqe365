@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="com.likeit.aqe365.activity.home.DentistryShopFragment">
+    tools:context="com.likeit.aqe365.activity.home.fragment.DentistryShopFragment">
 
     <!-- TODO: Update blank fragment layout -->
 
@@ -24,6 +24,33 @@
                 android:layout_height="wrap_content"
                 android:gravity="center_horizontal"
                 app:canLoop="true" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/width50"
+                android:background="@color/white">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:drawableLeft="@mipmap/icon_line01"
+                    android:drawableRight="@mipmap/icon_line01"
+                    android:text="品牌推荐"
+                    android:textColor="@color/theme_bg"
+                    android:textSize="@dimen/sp_16" />
+
+            </RelativeLayout>
+
+            <com.likeit.aqe365.view.MyGridView
+                android:id="@+id/GridView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:numColumns="3"
+                android:horizontalSpacing="@dimen/dp_5"
+                android:layout_marginVertical="@dimen/dp_5"
+                android:verticalSpacing="5dip"></com.likeit.aqe365.view.MyGridView>
         </LinearLayout>
 
     </ScrollView>

@@ -1,58 +1,70 @@
-package com.likeit.aqe365.activity.home;
+package com.likeit.aqe365.activity.home.fragment;
 
 
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.DisplayMetrics;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.SimpleAdapter;
 
 import com.bigkoo.convenientbanner.ConvenientBanner;
 import com.bigkoo.convenientbanner.holder.CBViewHolderCreator;
 import com.bigkoo.convenientbanner.holder.Holder;
 import com.bumptech.glide.Glide;
 import com.likeit.aqe365.R;
-import com.likeit.aqe365.activity.main.fragment.MainHomeFragment;
 import com.likeit.aqe365.base.BaseFragment;
+import com.likeit.aqe365.view.MyGridView;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import butterknife.BindView;
 
 /**
- * 牙科商城
+ * 感控产品
  * A simple {@link Fragment} subclass.
  */
-public class DentistryShopFragment extends BaseFragment {
+public class InfectionControlFragment extends BaseFragment {
 
-
-    private String[] images = {"http://aqe365.wbteam.cn/attachment/images/1/2018/04/ZJp4m7tyhi4A434tH1Ma711AapA7Jh.png", "http://aqe365.wbteam.cn/attachment/images/1/2018/04/ZJp4m7tyhi4A434tH1Ma711AapA7Jh.png"};
-    private ArrayList<Integer> localImages = new ArrayList<Integer>();
     @BindView(R.id.banner)
     ConvenientBanner mBanner;
+    @BindView(R.id.GridView)
+    MyGridView mGridView;
+    private String[] images = {"http://aqe365.wbteam.cn/attachment/images/1/2018/04/R4UUhZE4I4i48z5he5Z884T7Wxvo75.png", "http://aqe365.wbteam.cn/attachment/images/1/2018/04/R4UUhZE4I4i48z5he5Z884T7Wxvo75.png"};
+    private ArrayList<Integer> localImages = new ArrayList<Integer>();
+    /**
+     * 品牌精选
+     */
 
-    public static DentistryShopFragment newInstance() {
+    private int[] icon = {R.mipmap.ic_launcher, R.mipmap.ic_launcher,
+            R.mipmap.ic_launcher, R.mipmap.ic_launcher, R.mipmap.ic_launcher, R.mipmap.ic_launcher, R.mipmap.ic_launcher, R.mipmap.ic_launcher, R.mipmap.ic_launcher};
+    private List<Map<String, Object>> dataList;
+    private SimpleAdapter simpleAdapter;
+
+    public static InfectionControlFragment newInstance() {
         Bundle args = new Bundle();
-        DentistryShopFragment fragment = new DentistryShopFragment();
+        InfectionControlFragment fragment = new InfectionControlFragment();
         fragment.setArguments(args);
         return fragment;
     }
 
 
+
     @Override
     protected int setContentView() {
-        return R.layout.fragment_dentistry_shop;
+        return R.layout.fragment_infection_control;
     }
 
     @Override
     protected void lazyLoad() {
         initUI();
-
     }
 
     public class NetworkImageHolderView implements Holder<String> {
@@ -73,7 +85,7 @@ public class DentistryShopFragment extends BaseFragment {
 
     private void initUI() {
         setBackView();
-        setTitle("牙科商城");
+        setTitle("感控产品");
         DisplayMetrics dm = getActivity().getResources().getDisplayMetrics();
         int w_screen = dm.widthPixels;
         LinearLayout.LayoutParams params = (LinearLayout.LayoutParams) mBanner.getLayoutParams();
@@ -87,6 +99,30 @@ public class DentistryShopFragment extends BaseFragment {
                 return new NetworkImageHolderView();
             }
         }, Arrays.asList(images)).setPageIndicator(new int[]{R.drawable.indicator_gray, R.drawable.indicator_red}).setPageIndicatorAlign(ConvenientBanner.PageIndicatorAlign.CENTER_HORIZONTAL).setScrollDuration(1500);
+        /**
+         * 精品
+         */
+        dataList = new ArrayList<>();
+        getData();
+        String[] from = {"img", "name"};
+        final int[] to = {R.id.iv_people_avatar};
+        simpleAdapter = new SimpleAdapter(getActivity(), dataList, R.layout.layout_brand_gridview_items, from, to);
+        //配置适配器
+        mGridView.setAdapter(simpleAdapter);
+        mGridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                showProgress("点击了！");
+            }
+        });
+
+    }  private List<Map<String, Object>> getData() {
+        for (int i = 0; i < icon.length; i++) {
+            Map<String, Object> map = new HashMap<String, Object>();
+            map.put("img", icon[i]);
+            dataList.add(map);
+        }
+        return dataList;
     }
 
 

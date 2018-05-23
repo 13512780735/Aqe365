@@ -16,6 +16,7 @@ import com.bigkoo.convenientbanner.holder.Holder;
 import com.bumptech.glide.Glide;
 import com.likeit.aqe365.R;
 import com.likeit.aqe365.activity.FrameActivity;
+import com.likeit.aqe365.activity.home.activity.CouponActivity;
 import com.likeit.aqe365.base.BaseFragment;
 import com.likeit.aqe365.constants.Constants;
 import com.likeit.aqe365.view.MyGridView;
@@ -42,6 +43,9 @@ public class MainHomeFragment extends BaseFragment {
     MyGridView mGrideView;
     @BindView(R.id.notice_msg_tv)
     TextView tvNotice;
+    @BindView(R.id.GridView)
+    MyGridView mGridView01;
+
     private ArrayList<Integer> localImages = new ArrayList<Integer>();
 
     private String[] images = {"http://aqe365.wbteam.cn/attachment/images/1/2018/05/q63612vY97x7S273y76725rs2V1753.jpg", "http://aqe365.wbteam.cn/attachment/images/1/2018/05/q63612vY97x7S273y76725rs2V1753.jpg"};
@@ -51,6 +55,16 @@ public class MainHomeFragment extends BaseFragment {
     private String[] iconName = {"牙科商城", "医用耗材", "感控产品", "积分商城", "活动专场", "新人福利", "领劵中心", "试用中心", "我的足迹", "推荐有礼"};
     private List<Map<String, Object>> dataList;
     private SimpleAdapter simpleAdapter;
+
+    /**
+     * 品牌精选
+     */
+
+    private int[] icon01= {R.mipmap.ic_launcher, R.mipmap.ic_launcher,
+            R.mipmap.ic_launcher, R.mipmap.ic_launcher, R.mipmap.ic_launcher, R.mipmap.ic_launcher, R.mipmap.ic_launcher, R.mipmap.ic_launcher, R.mipmap.ic_launcher};
+    private List<Map<String, Object>> dataList01;
+    private SimpleAdapter simpleAdapter01;
+
 
     public void initUI() {
         mBanner.startTurning(4000);
@@ -87,6 +101,7 @@ public class MainHomeFragment extends BaseFragment {
                     case 5://新人福利
                         break;
                     case 6://领劵中心
+                        toActivity(CouponActivity.class);
                         break;
                     case 7://试用中心
                         break;
@@ -101,8 +116,33 @@ public class MainHomeFragment extends BaseFragment {
         });
         tvNotice.setSelected(true);
         tvNotice.setText("澳泉医销网多商户商城公告测试,澳泉医销网多商户商城公告测试");
-    }
 
+        /**
+         * 精品
+         */
+        dataList01 = new ArrayList<>();
+        getData01();
+        String[] from01 = {"img", "name"};
+        final int[] to01 = {R.id.iv_people_avatar};
+        simpleAdapter01 = new SimpleAdapter(getActivity(), dataList01, R.layout.layout_brand_gridview_items, from01, to01);
+        //配置适配器
+        mGridView01.setAdapter(simpleAdapter01);
+        mGridView01.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                showProgress("点击了！");
+            }
+        });
+
+    }
+    private List<Map<String, Object>> getData01() {
+        for (int i = 0; i < icon01.length; i++) {
+            Map<String, Object> map = new HashMap<String, Object>();
+            map.put("img", icon01[i]);
+            dataList01.add(map);
+        }
+        return dataList01;
+    }
     private void startFrameActivity(int keyFragment) {
         Intent intent = new Intent(getActivity(), FrameActivity.class);
         intent.putExtra(KEY_FRAGMENT, keyFragment);

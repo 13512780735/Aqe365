@@ -7,9 +7,98 @@
 
     <!-- TODO: Update blank fragment layout -->
     <include layout="@layout/common_toolbar"></include>
+
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:background="@color/line"></View>
 
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/theme_bg">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingBottom="@dimen/dp_10"
+            android:paddingLeft="40dp"
+            android:paddingTop="@dimen/dp_10"
+            android:src="@mipmap/icon_people_mychange" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="可用零钱"
+                android:textColor="@color/white"
+                android:textSize="15sp" />
+
+            <TextView
+                android:id="@+id/tv_total_change"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:text="0.00"
+                android:textColor="@color/white"
+                android:textSize="22sp" />
+
+        </LinearLayout>
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="120dp"
+        android:background="@color/white"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/tv_change_details"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:drawablePadding="@dimen/dp_20"
+            android:drawableTop="@mipmap/icon_people_changelist"
+            android:gravity="center_horizontal"
+            android:padding="@dimen/dp_20"
+            android:text="零钱明细" />
+
+        <View
+            android:layout_width="1dp"
+            android:layout_height="match_parent"
+            android:background="@color/line"></View>
+
+        <TextView
+            android:id="@+id/tv_change_income"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:drawablePadding="@dimen/dp_20"
+            android:drawableTop="@mipmap/icon_people_changeofincome"
+            android:gravity="center_horizontal"
+            android:padding="@dimen/dp_20"
+            android:text="零钱收入" />
+
+        <View
+            android:layout_width="1dp"
+            android:layout_height="match_parent"
+            android:background="@color/line"></View>
+
+        <TextView
+            android:id="@+id/tv_change_expend"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:drawablePadding="@dimen/dp_20"
+            android:drawableTop="@mipmap/icon_people_changeofmoney"
+            android:gravity="center_horizontal"
+            android:padding="@dimen/dp_20"
+            android:text="零钱支出" />
+
+    </LinearLayout>
 </LinearLayout>

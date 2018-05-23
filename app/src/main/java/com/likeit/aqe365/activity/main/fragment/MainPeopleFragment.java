@@ -19,6 +19,7 @@ import com.likeit.aqe365.activity.cart.activity.SelectAddressActivity;
 import com.likeit.aqe365.activity.login.activity.LoginActivity;
 import com.likeit.aqe365.activity.people.activity.GoodsIndentActivity;
 import com.likeit.aqe365.activity.people.activity.UserInfoActivity;
+import com.likeit.aqe365.activity.people.activity.MyCouponActivity;
 import com.likeit.aqe365.base.BaseFragment;
 import com.likeit.aqe365.constants.Constants;
 import com.likeit.aqe365.utils.AppManager;
@@ -193,7 +194,8 @@ public class MainPeopleFragment extends BaseFragment implements View.OnClickList
                 startFrameActivity(Constants.FRAGMENT_PEOPLE_CHANGE);
                 break;
             case R.id.tv_coupon://我的优惠卷
-                startFrameActivity(Constants.FRAGMENT_PEOPLE_COUPON);
+              //  startFrameActivity(Constants.FRAGMENT_PEOPLE_COUPON);
+                toActivity(MyCouponActivity.class);
                 break;
             case R.id.tv_integral://我的积分
                 startFrameActivity(Constants.FRAGMENT_PEOPLE_INTEGRAL);

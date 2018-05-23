@@ -3,9 +3,9 @@ package com.likeit.aqe365.activity;
 import android.content.Intent;
 
 import com.likeit.aqe365.Interface.BaseInterface;
-import com.likeit.aqe365.activity.home.DentistryShopFragment;
-import com.likeit.aqe365.activity.home.InfectionControlFragment;
-import com.likeit.aqe365.activity.home.MedicalShopFragment;
+import com.likeit.aqe365.activity.home.fragment.DentistryShopFragment;
+import com.likeit.aqe365.activity.home.fragment.InfectionControlFragment;
+import com.likeit.aqe365.activity.home.fragment.MedicalShopFragment;
 import com.likeit.aqe365.activity.login.fragment.ForgetPwdFragment;
 import com.likeit.aqe365.activity.login.fragment.PhoneLoginFragment;
 import com.likeit.aqe365.activity.login.fragment.RegisterFragment;
@@ -14,7 +14,7 @@ import com.likeit.aqe365.activity.login.fragment.RelevanceUserFragment;
 import com.likeit.aqe365.activity.login.fragment.ThirdLoginFragment;
 import com.likeit.aqe365.activity.people.fragment.BrandAttentionFragment;
 import com.likeit.aqe365.activity.people.fragment.ChangeFragment;
-import com.likeit.aqe365.activity.people.fragment.CouponFragment;
+import com.likeit.aqe365.activity.people.activity.MyCouponActivity;
 import com.likeit.aqe365.activity.people.fragment.FootprintFragment;
 import com.likeit.aqe365.activity.people.fragment.GoodsAttentionFragment;
 import com.likeit.aqe365.activity.people.fragment.IntegralFragment;
@@ -71,9 +71,9 @@ public class FrameActivity extends ContentActivity {
             case Constants.FRAGMENT_PEOPLE_CHANGE://我的零钱
                 replaceFragment(ChangeFragment.newInstance());
                 break;
-            case Constants.FRAGMENT_PEOPLE_COUPON://我的优惠卷
-                replaceFragment(CouponFragment.newInstance());
-                break;
+//            case Constants.FRAGMENT_PEOPLE_COUPON://我的优惠卷
+//                replaceFragment(MyCouponActivity.newInstance());
+//                break;
             case Constants.FRAGMENT_PEOPLE_INTEGRAL://我的积分
                 replaceFragment(IntegralFragment.newInstance());
                 break;
