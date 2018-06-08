@@ -86,8 +86,10 @@ public class RelevanceUserFragment extends BaseFragment implements View.OnClickL
     }
 
     private void startMainActivity() {
+        Bundle bundle = new Bundle();
+        bundle.putString("flag", "0");
         Intent intent = new Intent(getActivity(), MainActivity.class);
-        startActivity(intent);
+        intent.putExtras(bundle);
         AppManager.getAppManager().finishAllActivity();
     }
 

@@ -4,14 +4,12 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.widget.SwipeRefreshLayout;
-import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.likeit.aqe365.R;
 import com.likeit.aqe365.activity.home.adapter.CouponListAdapter;
-import com.likeit.aqe365.activity.sort.adapter.GoodListAdapter;
 import com.likeit.aqe365.base.BaseActivity;
 import com.likeit.aqe365.network.model.CaseEntity;
 

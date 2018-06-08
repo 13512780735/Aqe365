@@ -14,7 +14,7 @@ import java.util.ArrayList;
 
 
 public class MainActivity extends AbstractCommonTabLayout {
-    private String[] mTitles = {"首页","分类","品牌库","购物车","我的"};
+    private String[] mTitles = {"首页", "分类", "品牌库", "购物车", "我的"};
     private int[] mIconUnselectIds = {
             R.mipmap.main_tab_home_unselected, R.mipmap.main_tab_sort_unselected,
             R.mipmap.main_tab_brand_unselected, R.mipmap.main_tab_cart_unselected, R.mipmap.main_tab_people_unselected};//选中
@@ -24,6 +24,7 @@ public class MainActivity extends AbstractCommonTabLayout {
             R.mipmap.main_tab_brand_selected, R.mipmap.main_tab_cart_selected, R.mipmap.main_tab_people_selected};//未选中
 
     private ArrayList<Fragment> mFragments = new ArrayList<>();//Fragment 集合
+    private String flag;
 
 
     @Override
@@ -37,7 +38,12 @@ public class MainActivity extends AbstractCommonTabLayout {
     @Override
     protected void initData() {
         super.initData();
-        setSelectDefaultIndex(0);//设置默认的选项
+        flag = getIntent().getExtras().getString("flag");
+        if ("1".equals(flag)) {
+            setSelectDefaultIndex(3);
+        } else {
+            setSelectDefaultIndex(0);//设置默认的选项
+        }
         setUnReadMsg(3, 1);
         setUnReadMsg(4, 2);
         // setUnReadMsg(2, 5, Color.parseColor("#6D8FB0"));

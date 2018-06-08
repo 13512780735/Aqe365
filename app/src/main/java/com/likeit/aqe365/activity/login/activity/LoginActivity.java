@@ -138,8 +138,13 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     }
 
     private void startMainActivity() {
+        Bundle bundle = new Bundle();
+        bundle.putString("flag", "0");
         Intent intent = new Intent(this, MainActivity.class);
+        intent.putExtras(bundle);
         startActivity(intent);
+
+
         AppManager.getAppManager().finishAllActivity();
     }
 

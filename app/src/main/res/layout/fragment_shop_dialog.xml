@@ -1,0 +1,179 @@
+<!-- TODO: Update blank fragment layout -->
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.likeit.aqe365.activity.sort.goods.ShopDialogFragment">
+    <!-- TODO: Update blank fragment layout -->
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="150dip"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="20dip"
+                android:background="#00000000" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dip"
+                android:layout_weight="1"
+                android:background="@color/white"
+                android:orientation="vertical">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerHorizontal="true"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/tv_price"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="10dip"
+                            android:text="¥ 680.00"
+                            android:textColor="@color/apply"
+                            android:textSize="20sp" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="10dip"
+                            android:text="请选择规格" />
+
+                    </LinearLayout>
+
+                    <ImageView
+                        android:id="@+id/iv_delete"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:padding="10dip"
+                        android:src="@mipmap/icon_shop_delete" />
+
+                </RelativeLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dip"
+                    android:layout_marginBottom="20dip"
+                    android:layout_marginLeft="10dip"
+                    android:layout_marginRight="10dip"
+                    android:layout_marginTop="20dip"
+                    android:background="@color/line"></View>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="20dip"
+                    android:text="规格"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="10dip"
+                    android:textSize="@dimen/sp_12"
+                    android:layout_marginLeft="@dimen/dp_20"
+                    android:paddingBottom="@dimen/dp_5"
+                    android:layout_marginTop="@dimen/dp_10"
+                    android:paddingTop="@dimen/dp_5"
+                    android:background="@drawable/shape_round_red_bg_5"
+                    android:textColor="@color/white"
+                    android:paddingRight="10dip"
+                    android:text="120ML"/>
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dip"
+                    android:layout_marginBottom="20dip"
+                    android:layout_marginLeft="10dip"
+                    android:layout_marginRight="10dip"
+                    android:layout_marginTop="20dip"
+                    android:background="@color/line"></View>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="20dip"
+                    android:text="套"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="10dip"
+                    android:textSize="@dimen/sp_12"
+                    android:layout_marginLeft="@dimen/dp_20"
+                    android:paddingBottom="@dimen/dp_5"
+                    android:layout_marginTop="@dimen/dp_10"
+                    android:paddingTop="@dimen/dp_5"
+                    android:background="@drawable/shape_round_grey01_bg_5"
+                    android:textColor="@color/black_text_color"
+                    android:paddingRight="10dip"
+                    android:text="60瓶/套"/>
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dip"
+                    android:layout_marginBottom="20dip"
+                    android:layout_marginLeft="10dip"
+                    android:layout_marginRight="10dip"
+                    android:layout_marginTop="20dip"
+                    android:background="@color/line"></View>
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="20dip"
+                    android:paddingRight="20dip">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:text="数量" />
+
+                    <com.likeit.aqe365.view.AmountView
+                        android:id="@+id/amount_view"
+                        android:layout_width="120dip"
+                        android:layout_height="36dp"
+                        android:layout_alignParentRight="true"
+                        android:layout_marginRight="15dp"
+                        app:btnTextSize="14sp"
+                        app:btnWidth="36dp"
+                        app:tvWidth="50dp" />
+                </RelativeLayout>
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/tv_certain"
+                android:layout_width="match_parent"
+                android:layout_height="50dip"
+                android:layout_gravity="bottom"
+                android:background="@color/apply"
+                android:gravity="center"
+                android:padding="10dip"
+                android:text="确定"
+                android:textColor="@color/white" />
+        </LinearLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@android:color/transparent">
+
+            <com.likeit.aqe365.view.RoundImageView
+                android:id="@+id/kefu_service"
+                android:layout_width="100dip"
+                android:layout_height="100dip"
+                android:layout_marginLeft="20dip"
+                android:src="@mipmap/icon_default" />
+        </RelativeLayout>
+    </FrameLayout>
+</RelativeLayout>
+

@@ -3,16 +3,167 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="horizontal"
-    tools:context="com.likeit.aqe365.activity.sort.GoodsDetailsActivity">
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/main_left_rv"
-        android:layout_width="100dp"
-        android:layout_height="match_parent"/>
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    tools:context="com.likeit.aqe365.activity.sort.goods.GoodsDetailsActivity">
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/main_right_rv"
-        android:background="#FFF"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="70dp"
+        android:paddingTop="20dip"
+        android:background="@color/white"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:id="@+id/back_view"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            android:paddingLeft="10dp"
+          >
+
+            <ImageView
+                android:id="@+id/toolbar_left_iv"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:layout_gravity="center"
+                android:src="@mipmap/icon_back" />
+
+            <TextView
+                android:id="@+id/toolbar_left_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:textColor="@color/black"
+                android:textSize="@dimen/font_normal" />
+        </LinearLayout>
+        <android.support.design.widget.TabLayout
+            android:id="@+id/indent_TabLayout"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="50dp"
+            android:paddingLeft="@dimen/dp_10"
+            android:paddingRight="@dimen/dp_10"
+            android:layout_gravity="center"
+            app:tabIndicatorColor="@color/colorAccent"
+            android:background="@color/white"
+            app:tabIndicatorHeight="2dp"
+            app:tabSelectedTextColor="@color/colorAccent"
+            app:tabTextAppearance="@style/TabLayoutTextStyle"
+            app:tabTextColor="@color/black" />
+        <LinearLayout
+            android:id="@+id/right_view"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignParentRight="true"
+            android:orientation="horizontal"
+            android:paddingRight="10dp">
+
+            <TextView
+                android:id="@+id/toolbar_righ_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:textColor="@color/register_text_color"
+                android:textSize="@dimen/font_normal"
+                android:visibility="gone" />
+
+            <ImageView
+                android:id="@+id/toolbar_righ_iv"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:layout_gravity="center"
+                android:src="@mipmap/icon_list"
+               />
+        </LinearLayout>
+    </LinearLayout>
+    <com.likeit.aqe365.view.NoScrollViewPager
+        android:id="@+id/viewpager"
+        android:layout_width="match_parent"
+        android:layout_height="0px"
+        android:layout_weight="1" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+          >
+            <TextView
+                android:id="@+id/tv_attention"
+                android:layout_width="0dip"
+                android:layout_height="match_parent"
+                android:textColor="@color/footbar_text_color"
+                android:drawableTop="@mipmap/icon_details_like"
+                android:paddingTop="5dip"
+                android:text="关注"
+                android:textSize="11sp"
+                android:paddingLeft="@dimen/dp_10"
+                android:paddingRight="@dimen/dp_10"
+                android:gravity="center"
+                android:layout_weight="1"/>
+            <View
+                android:layout_width="1dip"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="@dimen/dp_10"
+                android:layout_marginTop="@dimen/dp_10"
+                android:background="@color/line"></View>
+            <TextView
+                android:id="@+id/tv_shop"
+                android:layout_width="0dip"
+                android:layout_height="match_parent"
+                android:textColor="@color/footbar_text_color"
+                android:drawableTop="@mipmap/icon_details_shop"
+                android:text="店铺"
+                android:gravity="center"
+                android:paddingTop="5dip"
+                android:paddingLeft="@dimen/dp_10"
+                android:paddingRight="@dimen/dp_10"
+                android:textSize="11sp"
+                android:layout_weight="1"/>
+            <View
+                android:layout_width="1dip"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="@dimen/dp_10"
+                android:layout_marginTop="@dimen/dp_10"
+                android:background="@color/line"></View>
+            <TextView
+                android:id="@+id/tv_cart"
+                android:layout_width="0dip"
+                android:layout_height="match_parent"
+                android:textSize="11sp"
+                android:textColor="@color/footbar_text_color"
+                android:drawableTop="@mipmap/icon_details_cart"
+                android:paddingLeft="@dimen/dp_10"
+                android:paddingRight="@dimen/dp_10"
+                android:paddingTop="5dip"
+                android:text="购物车"
+                android:gravity="center"
+                android:layout_weight="1"/>
+
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/tv_add"
+            android:layout_width="0dip"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@color/saws_tel_btn_color"
+            android:gravity="center"
+            android:textColor="@color/white"
+            android:text="加入购物车" />
+
+        <TextView
+            android:id="@+id/tv_buy"
+            android:layout_width="0dip"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:textColor="@color/white"
+            android:background="@color/apply"
+            android:text="立即购买" />
+    </LinearLayout>
 </LinearLayout>

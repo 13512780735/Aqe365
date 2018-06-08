@@ -27,6 +27,7 @@ import com.likeit.aqe365.activity.sort.filter.bean.ShopRightListBean;
 import com.likeit.aqe365.activity.sort.filter.bean.ShopSortBean;
 import com.likeit.aqe365.activity.sort.filter.bean.ShopSortItemBean;
 import com.likeit.aqe365.activity.sort.filter.bean.ShopSortListBean;
+import com.likeit.aqe365.activity.sort.goods.GoodsDetailsActivity;
 import com.likeit.aqe365.base.BaseActivity;
 import com.likeit.aqe365.network.model.CaseEntity;
 import com.zhy.view.flowlayout.FlowLayout;
@@ -215,7 +216,6 @@ public class GoodListActivity extends BaseActivity implements BaseQuickAdapter.R
             mTvFilterSort.setTextColor(Color.parseColor("#333333"));
             filterFalg = false;
         }
-
 
 
     }
@@ -462,6 +462,12 @@ public class GoodListActivity extends BaseActivity implements BaseQuickAdapter.R
         mAdapter.setOnLoadMoreListener(this, mRecyclerView);
         mRecyclerView.setAdapter(mAdapter);
         mCurrentCounter = mAdapter.getData().size();
+        mAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+                toActivity(GoodsDetailsActivity.class);
+            }
+        });
     }
 
     public void initData() {

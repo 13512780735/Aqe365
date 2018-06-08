@@ -102,7 +102,7 @@
         <activity android:name=".activity.cart.activity.EditAddressActivity" />
         <activity android:name=".activity.people.activity.BindPhoneActivity" />
         <activity android:name=".activity.cart.activity.ConfirmOrderActivity" />
-        <activity android:name=".activity.sort.GoodsDetailsActivity" />
+        <activity android:name=".activity.sort.goods.GoodsDetailsActivity" />
         <activity android:name=".activity.sort.filter.GoodListActivity" />
         <activity android:name=".activity.home.activity.CouponActivity"></activity>
         <activity android:name=".activity.people.activity.MyCouponActivity"></activity>
