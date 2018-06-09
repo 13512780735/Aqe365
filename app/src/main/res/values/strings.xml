@@ -82,4 +82,5 @@
     <string name="app_people_member_title">会员资料</string>
     <!--我的订单-->
     <string name="app_people_indent_title">我的订单</string>
+    <string name="title_activity_feedback">FeedbackActivity</string>
 </resources>
