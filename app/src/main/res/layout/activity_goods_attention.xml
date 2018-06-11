@@ -1,9 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="com.likeit.aqe365.activity.people.fragment.GoodsAttentionFragment">
+    tools:context=".activity.people.activity.GoodsAttentionActivity">
 
     <!-- TODO: Update blank fragment layout -->
     <RelativeLayout
@@ -58,7 +59,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:gravity="center"
-                android:textColor="@color/register_text_color"
+                android:textColor="@color/black_text_color"
                 android:textSize="@dimen/font_normal" />
 
 
@@ -86,8 +87,10 @@
         android:id="@+id/rl_bottom"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:visibility="gone"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:paddingLeft="@dimen/dp_10"
+        android:background="@color/white"
+     >
 
         <CheckBox
             android:id="@+id/che_all"
@@ -100,9 +103,11 @@
 
         <Button
             android:id="@+id/btn_delete"
-            android:layout_width="wrap_content"
+            android:layout_width="@dimen/width100"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
+            android:textColor="@color/white"
+            android:background="@color/apply"
             android:text="删除" />
 
 

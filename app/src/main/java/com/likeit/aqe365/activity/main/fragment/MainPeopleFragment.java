@@ -19,6 +19,7 @@ import com.likeit.aqe365.activity.cart.activity.SelectAddressActivity;
 import com.likeit.aqe365.activity.login.activity.LoginActivity;
 import com.likeit.aqe365.activity.people.activity.AfterSaleActivity;
 import com.likeit.aqe365.activity.people.activity.FeedbackActivity;
+import com.likeit.aqe365.activity.people.activity.GoodsAttentionActivity;
 import com.likeit.aqe365.activity.people.activity.GoodsIndentActivity;
 import com.likeit.aqe365.activity.people.activity.UserInfoActivity;
 import com.likeit.aqe365.activity.people.activity.MyCouponActivity;
@@ -92,7 +93,7 @@ public class MainPeopleFragment extends BaseFragment implements View.OnClickList
         String[] from = {"img", "name"};
         final int[] to = {R.id.iv_people_avatar, R.id.tv_people_name};
         simpleAdapter = new SimpleAdapter(getActivity(), dataList, R.layout.layout_people_gridview_items, from, to);
-        //配置适配器
+        //配置适配
         mGridView.setAdapter(simpleAdapter);
         mGridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -162,7 +163,8 @@ public class MainPeopleFragment extends BaseFragment implements View.OnClickList
                 startActivity(new Intent(getActivity(), UserInfoActivity.class));
                 break;
             case R.id.rl_goodsAttention://商品关注
-                startFrameActivity(Constants.FRAGMENT_PEOPLE_GOODS_ATTENTION);
+                //startFrameActivity(Constants.FRAGMENT_PEOPLE_GOODS_ATTENTION);
+                startActivity(new Intent(getActivity(), GoodsAttentionActivity.class));
                 break;
             case R.id.rl_tv_shopAttention://店铺关注
                 startFrameActivity(Constants.FRAGMENT_PEOPLE_SHOP_ATTENTION);

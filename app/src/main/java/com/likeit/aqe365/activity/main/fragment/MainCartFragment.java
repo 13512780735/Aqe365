@@ -256,6 +256,7 @@ public class MainCartFragment extends BaseFragment implements ShopcartExpandable
                     mTvTotalPrice.setVisibility(View.GONE);
                     mTvGoToPay.setVisibility(View.GONE);
                     mTvDelete.setVisibility(View.VISIBLE);
+                    mAllChekbox.setVisibility(View.GONE);
                 } else {
                     selva.notifyDataSetChanged();
                     mToolbarRighTv.setText("编辑");
@@ -263,6 +264,7 @@ public class MainCartFragment extends BaseFragment implements ShopcartExpandable
                     mTvTotalPrice.setVisibility(View.VISIBLE);
                     mTvGoToPay.setVisibility(View.VISIBLE);
                     mTvDelete.setVisibility(View.GONE);
+                    mAllChekbox.setVisibility(View.VISIBLE);
                 }
                 break;
         }
