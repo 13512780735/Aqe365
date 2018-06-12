@@ -18,9 +18,12 @@ import com.likeit.aqe365.activity.FrameActivity;
 import com.likeit.aqe365.activity.cart.activity.SelectAddressActivity;
 import com.likeit.aqe365.activity.login.activity.LoginActivity;
 import com.likeit.aqe365.activity.people.activity.AfterSaleActivity;
+import com.likeit.aqe365.activity.people.activity.BrandAttentionActivity;
 import com.likeit.aqe365.activity.people.activity.FeedbackActivity;
+import com.likeit.aqe365.activity.people.activity.FootprintActivity;
 import com.likeit.aqe365.activity.people.activity.GoodsAttentionActivity;
 import com.likeit.aqe365.activity.people.activity.GoodsIndentActivity;
+import com.likeit.aqe365.activity.people.activity.ShopAttentionActivity;
 import com.likeit.aqe365.activity.people.activity.UserInfoActivity;
 import com.likeit.aqe365.activity.people.activity.MyCouponActivity;
 import com.likeit.aqe365.base.BaseFragment;
@@ -167,10 +170,12 @@ public class MainPeopleFragment extends BaseFragment implements View.OnClickList
                 startActivity(new Intent(getActivity(), GoodsAttentionActivity.class));
                 break;
             case R.id.rl_tv_shopAttention://店铺关注
-                startFrameActivity(Constants.FRAGMENT_PEOPLE_SHOP_ATTENTION);
+               // startFrameActivity(Constants.FRAGMENT_PEOPLE_SHOP_ATTENTION);
+                startActivity(new Intent(getActivity(), ShopAttentionActivity.class));
                 break;
             case R.id.rl_brandAttention://品牌关注
-                startFrameActivity(Constants.FRAGMENT_PEOPLE_BRAND_ATTENTION);
+                //startFrameActivity(Constants.FRAGMENT_PEOPLE_BRAND_ATTENTION);
+                startActivity(new Intent(getActivity(), BrandAttentionActivity.class));
                 break;
             case R.id.rl_all_orders://全部订单
                 status = 0;
@@ -193,7 +198,8 @@ public class MainPeopleFragment extends BaseFragment implements View.OnClickList
                // toActivity(SelectAddressActivity.class);
                 break;
             case R.id.rl_footprint://我的足迹
-                startFrameActivity(Constants.FRAGMENT_PEOPLE_FOOTPRINT);
+               // startFrameActivity(Constants.FRAGMENT_PEOPLE_FOOTPRINT);
+                startActivity(new Intent(getActivity(), FootprintActivity.class));
                 break;
             case R.id.tv_change://我的零钱
                 startFrameActivity(Constants.FRAGMENT_PEOPLE_CHANGE);

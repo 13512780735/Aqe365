@@ -1,19 +1,41 @@
 package com.likeit.aqe365.activity.people.bean;
 
-public class GoodAttentionBean {
+public class FootprintBean {
     private String url;
     private String name;
+    private String time;
+    private String company;
     private String newPicture;
     private String oldPicture;
     private Boolean checked;
     public boolean isChoosed;
-    public GoodAttentionBean(String name, String url, String newPicture, String oldPicture, Boolean checked) {
+
+    public FootprintBean(String name, String url,String time,String company, String newPicture, String oldPicture, Boolean checked) {
         this.name = name;
         this.url = url;
+        this.time = time;
+        this.company = company;
         this.newPicture = newPicture;
         this.oldPicture = oldPicture;
         this.checked = checked;
     }
+
+    public String getTime() {
+        return time;
+    }
+
+    public void setTime(String time) {
+        this.time = time;
+    }
+
+    public String getCompany() {
+        return company;
+    }
+
+    public void setCompany(String company) {
+        this.company = company;
+    }
+
     public boolean isChoosed() {
         return isChoosed;
     }
@@ -21,6 +43,7 @@ public class GoodAttentionBean {
     public void setChoosed(boolean choosed) {
         isChoosed = choosed;
     }
+
     public String getUrl() {
         return url;
     }
@@ -60,6 +83,5 @@ public class GoodAttentionBean {
     public void setChecked(Boolean checked) {
         this.checked = checked;
     }
-
 
 }

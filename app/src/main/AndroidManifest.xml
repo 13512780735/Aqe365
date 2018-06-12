@@ -110,7 +110,10 @@
             android:name=".activity.people.activity.FeedbackActivity"
             android:label="@string/title_activity_feedback"
             android:theme="@style/MyAppTheme" />
-        <activity android:name=".activity.people.activity.GoodsAttentionActivity"></activity>
+        <activity android:name=".activity.people.activity.GoodsAttentionActivity" />
+        <activity android:name=".activity.people.activity.ShopAttentionActivity" />
+        <activity android:name=".activity.people.activity.BrandAttentionActivity" />
+        <activity android:name=".activity.people.activity.FootprintActivity"></activity>
     </application>
 
 </manifest>

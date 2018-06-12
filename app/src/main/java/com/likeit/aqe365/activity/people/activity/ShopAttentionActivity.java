@@ -2,6 +2,7 @@ package com.likeit.aqe365.activity.people.activity;
 
 import android.content.Context;
 import android.graphics.Paint;
+import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -20,6 +21,7 @@ import android.widget.Toast;
 
 import com.likeit.aqe365.R;
 import com.likeit.aqe365.activity.people.bean.GoodAttentionBean;
+import com.likeit.aqe365.activity.people.bean.ShopAttentionBean;
 import com.likeit.aqe365.base.BaseActivity;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
@@ -29,7 +31,8 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.OnClick;
 
-public class GoodsAttentionActivity extends BaseActivity {
+public class ShopAttentionActivity extends BaseActivity {
+
     @BindView(R.id.back_view)
     LinearLayout mBackView;
     @BindView(R.id.title)
@@ -50,9 +53,9 @@ public class GoodsAttentionActivity extends BaseActivity {
     RelativeLayout mRlBottom;
     //定义控件
     //声明一个集合（数据源）
-    private List<GoodAttentionBean> data;
+    private List<ShopAttentionBean> data;
     //定义自定义适配器
-    private GoodsAttentionAdapter mAdapter;
+    private ShopAttentionAdapter mAdapter;
     boolean flag;
     private ArrayList<CheckBox> checkBoxList;
 
@@ -60,23 +63,23 @@ public class GoodsAttentionActivity extends BaseActivity {
     private void initdata() {
         data = new ArrayList<>();
         for (int i = 0; i <= 4; i++) {
-            data.add(new GoodAttentionBean("氢氧化钙" + i, "http://aqe365.wbteam.cn/attachment/images/1/2018/05/q63612vY97x7S273y76725rs2V1753.jpg", "100" + i, "120" + i, false));
+            data.add(new ShopAttentionBean("XXX旗舰店" + i, "http://aqe365.wbteam.cn/attachment/images/1/2018/05/q63612vY97x7S273y76725rs2V1753.jpg", "" + i, false));
         }
     }
 
     //返回数据给MyAdapter使用
-    public List<GoodAttentionBean> getData() {
+    public List<ShopAttentionBean> getData() {
         return this.data;
     }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_goods_attention);
+        setContentView(R.layout.activity_shop_attention);
         //初始化数据源
         initdata();
         //实例化自定义适配器，把listview传到自定义适配器中
-        mAdapter = new GoodsAttentionAdapter(this, lv_data);
+        mAdapter = new ShopAttentionAdapter(this, lv_data);
         checkBoxList = new ArrayList<CheckBox>();
         //绑定适配器
         lv_data.setAdapter(mAdapter);
@@ -122,7 +125,7 @@ public class GoodsAttentionActivity extends BaseActivity {
             @Override
             public void onClick(View v) {
                 //创建一个要删除内容的集合，不能直接在数据源data集合中直接进行操作，否则会报异常
-                List<GoodAttentionBean> deleSelect = new ArrayList<GoodAttentionBean>();
+                List<ShopAttentionBean> deleSelect = new ArrayList<ShopAttentionBean>();
 
                 //把选中的条目要删除的条目放在deleSelect这个集合中
                 for (int i = 0; i < data.size(); i++) {
@@ -141,9 +144,9 @@ public class GoodsAttentionActivity extends BaseActivity {
                     //通知适配器更新UI
                     mAdapter.notifyDataSetChanged();
                 } else if (data.size() == 0) {
-                    Toast.makeText(GoodsAttentionActivity.this, "没有要删除的数据", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(ShopAttentionActivity.this, "没有要删除的数据", Toast.LENGTH_SHORT).show();
                 } else if (deleSelect.size() == 0) {
-                    Toast.makeText(GoodsAttentionActivity.this, "请选中要删除的数据", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(ShopAttentionActivity.this, "请选中要删除的数据", Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -158,18 +161,18 @@ public class GoodsAttentionActivity extends BaseActivity {
                 onBackPressed();
                 break;
             case R.id.right_view:
-                flag=!flag;
+                flag = !flag;
                 if (flag) {
                     mToolbarRighTv.setText("完成");
                     mRlBottom.setVisibility(View.VISIBLE);
                     //shoppingCartAdapter.isShow(false);
-                    for(int i=0;i<checkBoxList.size();i++){
+                    for (int i = 0; i < checkBoxList.size(); i++) {
                         checkBoxList.get(i).setVisibility(View.VISIBLE);
                     }
                 } else {
                     mToolbarRighTv.setText("编辑");
                     mRlBottom.setVisibility(View.GONE);
-                    for(int i=0;i<checkBoxList.size();i++){
+                    for (int i = 0; i < checkBoxList.size(); i++) {
                         checkBoxList.get(i).setVisibility(View.GONE);
                     }
                 }
@@ -177,17 +180,18 @@ public class GoodsAttentionActivity extends BaseActivity {
                 break;
         }
     }
-    class GoodsAttentionAdapter extends BaseAdapter {
+
+    class ShopAttentionAdapter extends BaseAdapter {
         private ListView lv_data;
         //定义一个数据源的引用
-        private List<GoodAttentionBean> data;
+        private List<ShopAttentionBean> data;
         private Context context;
 
-        public GoodsAttentionAdapter(Context context, ListView lv_data) {
-            if (context instanceof GoodsAttentionActivity) {
+        public ShopAttentionAdapter(Context context, ListView lv_data) {
+            if (context instanceof ShopAttentionActivity) {
                 this.context = context;
                 this.lv_data = lv_data;
-                data = ((GoodsAttentionActivity) this.context).getData();
+                data = ((ShopAttentionActivity) this.context).getData();
             }
         }
 
@@ -219,8 +223,7 @@ public class GoodsAttentionActivity extends BaseActivity {
         class ViewHodler {
             ImageView ivPicture;
             TextView tvName;
-            TextView tvNewPrice;
-            TextView tvOldPrice;
+            TextView tvNumber;
             CheckBox ch_delete;
         }
 
@@ -241,34 +244,31 @@ public class GoodsAttentionActivity extends BaseActivity {
             //重新创建布局及缓存
             if (convertView == null) {
                 //创建缓存布局
-                convertView = layoutInflater.inflate(R.layout.layout_goodattention_items, parent, false);
+                convertView = layoutInflater.inflate(R.layout.layout_shopattention_items, parent, false);
                 //产生缓存
                 viewHodler = new ViewHodler();
                 viewHodler.ivPicture = (ImageView) convertView.findViewById(R.id.tv_goods_picture);
                 viewHodler.tvName = (TextView) convertView.findViewById(R.id.tv_name);
-                viewHodler.tvNewPrice = (TextView) convertView.findViewById(R.id.tv_goods_new_price);
-                viewHodler.tvOldPrice = (TextView) convertView.findViewById(R.id.tv_goods_old_price);
+                viewHodler.tvNumber = (TextView) convertView.findViewById(R.id.tv_number);
                 viewHodler.ch_delete = (CheckBox) convertView.findViewById(R.id.ch_delete);
                 //把缓存的布局放在converview中，避免重复获取布局，提升效率
-              checkBoxList.add(viewHodler.ch_delete);
+                checkBoxList.add(viewHodler.ch_delete);
                 convertView.setTag(viewHodler);
             } else {
                 //使用缓存的中的布局
                 viewHodler = (ViewHodler) convertView.getTag();
             }
             //为缓存的布局ViewHodler控件设置新的数据
-            final GoodAttentionBean currItem = data.get(position);
+            final ShopAttentionBean currItem = data.get(position);
             ImageLoader.getInstance().displayImage(currItem.getUrl(), viewHodler.ivPicture);
             viewHodler.tvName.setText(currItem.getName());
-            viewHodler.tvNewPrice.setText("¥ " + currItem.getNewPicture());
-            viewHodler.tvOldPrice.setText("¥ " + currItem.getOldPicture());
-            viewHodler.tvOldPrice.getPaint().setFlags(Paint.STRIKE_THRU_TEXT_FLAG | Paint.ANTI_ALIAS_FLAG);
+            viewHodler.tvNumber.setText("共" + currItem.getNumber() + "件商品");
             viewHodler.ch_delete.setChecked(currItem.getChecked());
             viewHodler.ch_delete.setOnClickListener(
                     new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                         //   currItem.setChoosed(((CheckBox) v).isChecked());
+                            //   currItem.setChoosed(((CheckBox) v).isChecked());
                             currItem.setChecked(((CheckBox) v).isChecked());
                         }
                     }

@@ -1,19 +1,19 @@
 package com.likeit.aqe365.activity.people.bean;
 
-public class GoodAttentionBean {
+public class ShopAttentionBean {
     private String url;
     private String name;
-    private String newPicture;
-    private String oldPicture;
+    private String number;
     private Boolean checked;
     public boolean isChoosed;
-    public GoodAttentionBean(String name, String url, String newPicture, String oldPicture, Boolean checked) {
+
+    public ShopAttentionBean(String name, String url, String number, Boolean checked) {
         this.name = name;
         this.url = url;
-        this.newPicture = newPicture;
-        this.oldPicture = oldPicture;
+        this.number = number;
         this.checked = checked;
     }
+
     public boolean isChoosed() {
         return isChoosed;
     }
@@ -21,6 +21,7 @@ public class GoodAttentionBean {
     public void setChoosed(boolean choosed) {
         isChoosed = choosed;
     }
+
     public String getUrl() {
         return url;
     }
@@ -37,20 +38,12 @@ public class GoodAttentionBean {
         this.name = name;
     }
 
-    public String getNewPicture() {
-        return newPicture;
+    public String getNumber() {
+        return number;
     }
 
-    public void setNewPicture(String newPicture) {
-        this.newPicture = newPicture;
-    }
-
-    public String getOldPicture() {
-        return oldPicture;
-    }
-
-    public void setOldPicture(String oldPicture) {
-        this.oldPicture = oldPicture;
+    public void setNumber(String number) {
+        this.number = number;
     }
 
     public Boolean getChecked() {

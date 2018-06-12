@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="com.likeit.aqe365.activity.people.fragment.ShopAttentionFragment">
+    tools:context=".activity.people.activity.ShopAttentionActivity">
 
     <!-- TODO: Update blank fragment layout -->
     <RelativeLayout
@@ -112,4 +112,3 @@
 
     </RelativeLayout>
 </LinearLayout>
-
