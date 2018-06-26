@@ -23,6 +23,7 @@ import com.likeit.aqe365.activity.people.activity.FeedbackActivity;
 import com.likeit.aqe365.activity.people.activity.FootprintActivity;
 import com.likeit.aqe365.activity.people.activity.GoodsAttentionActivity;
 import com.likeit.aqe365.activity.people.activity.GoodsIndentActivity;
+import com.likeit.aqe365.activity.people.activity.QrCodesAcctivity;
 import com.likeit.aqe365.activity.people.activity.ShopAttentionActivity;
 import com.likeit.aqe365.activity.people.activity.UserInfoActivity;
 import com.likeit.aqe365.activity.people.activity.MyCouponActivity;
@@ -109,6 +110,7 @@ public class MainPeopleFragment extends BaseFragment implements View.OnClickList
                     case 2://我的邀请
                         break;
                     case 3://邀请二维码
+                        toActivity(QrCodesAcctivity.class);
                         break;
                     case 4://发票服务
                         break;

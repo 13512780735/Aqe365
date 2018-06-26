@@ -113,7 +113,9 @@
         <activity android:name=".activity.people.activity.GoodsAttentionActivity" />
         <activity android:name=".activity.people.activity.ShopAttentionActivity" />
         <activity android:name=".activity.people.activity.BrandAttentionActivity" />
-        <activity android:name=".activity.people.activity.FootprintActivity"></activity>
+        <activity android:name=".activity.people.activity.FootprintActivity" />
+        <activity android:name=".activity.ZxingActivity" />
+        <activity android:name=".activity.people.activity.QrCodesAcctivity"></activity>
     </application>
 
 </manifest>

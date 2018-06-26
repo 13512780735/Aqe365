@@ -10,6 +10,7 @@ import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 import com.tencent.smtt.sdk.QbSdk;
+import com.uuzuche.lib_zxing.activity.ZXingLibrary;
 
 import java.io.File;
 
@@ -40,6 +41,7 @@ public class MyApplication extends Application {
         initImageLoad();
         instance = this;
         applicationContext = this;
+        ZXingLibrary.initDisplayOpinion(this);
         // DemoHelper.getInstance().init(mContext);
        //                                                           initX5WebView();
 

@@ -1,9 +1,11 @@
 package com.likeit.aqe365.activity.login.activity;
 
 
+import android.Manifest;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Selection;
 import android.text.Spannable;
@@ -13,6 +15,7 @@ import android.view.View;
 import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 import android.widget.ToggleButton;
 
 import com.likeit.aqe365.R;
@@ -21,13 +24,19 @@ import com.likeit.aqe365.activity.main.MainActivity;
 import com.likeit.aqe365.constants.Constants;
 import com.likeit.aqe365.listener.IEditTextChangeListener;
 import com.likeit.aqe365.utils.AppManager;
+import com.likeit.aqe365.utils.CheckPermissionUtils;
 import com.likeit.aqe365.utils.EditTextSizeCheckUtil;
 import com.likeit.aqe365.utils.SharedPreferencesUtils;
 import com.likeit.aqe365.utils.StatusBarUtil;
 import com.likeit.aqe365.utils.StringUtils;
 
+import java.util.List;
+
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import pub.devrel.easypermissions.AfterPermissionGranted;
+import pub.devrel.easypermissions.AppSettingsDialog;
+import pub.devrel.easypermissions.EasyPermissions;
 
 import static com.likeit.aqe365.Interface.BaseInterface.KEY_FRAGMENT;
 
@@ -54,6 +63,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         addListeners();
         initData();
     }
+
 
     public void initUI() {
         tb_password = findViewById(R.id.tb_re_pwd);
@@ -167,4 +177,5 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         }
 
     }
+
 }

@@ -90,4 +90,5 @@
     <color name="orange">#fd7903</color>
     <!-- 橄榄色 -->
     <color name="purple">#800080</color>
+    <color name="scan_corner_color">#0effc2</color>
 </resources>

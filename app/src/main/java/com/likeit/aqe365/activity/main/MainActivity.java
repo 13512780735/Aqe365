@@ -12,8 +12,10 @@ import com.likeit.aqe365.view.tablayout.AbstractCommonTabLayout;
 
 import java.util.ArrayList;
 
+import pub.devrel.easypermissions.EasyPermissions;
 
-public class MainActivity extends AbstractCommonTabLayout {
+
+public class MainActivity extends AbstractCommonTabLayout{
     private String[] mTitles = {"首页", "分类", "品牌库", "购物车", "我的"};
     private int[] mIconUnselectIds = {
             R.mipmap.main_tab_home_unselected, R.mipmap.main_tab_sort_unselected,
