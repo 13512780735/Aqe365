@@ -23,6 +23,7 @@ import com.likeit.aqe365.activity.people.activity.FeedbackActivity;
 import com.likeit.aqe365.activity.people.activity.FootprintActivity;
 import com.likeit.aqe365.activity.people.activity.GoodsAttentionActivity;
 import com.likeit.aqe365.activity.people.activity.GoodsIndentActivity;
+import com.likeit.aqe365.activity.people.activity.OftenBuyGoodsActivity;
 import com.likeit.aqe365.activity.people.activity.QrCodesAcctivity;
 import com.likeit.aqe365.activity.people.activity.ShopAttentionActivity;
 import com.likeit.aqe365.activity.people.activity.UserInfoActivity;
@@ -121,6 +122,7 @@ public class MainPeopleFragment extends BaseFragment implements View.OnClickList
                         toActivity(FeedbackActivity.class);
                         break;
                     case 7://常购商品
+                        toActivity(OftenBuyGoodsActivity.class);
                         break;
                 }
             }

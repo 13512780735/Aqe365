@@ -24,6 +24,7 @@ import com.likeit.aqe365.R;
 import com.likeit.aqe365.activity.FrameActivity;
 import com.likeit.aqe365.activity.ZxingActivity;
 import com.likeit.aqe365.activity.home.activity.CouponActivity;
+import com.likeit.aqe365.activity.people.activity.FootprintActivity;
 import com.likeit.aqe365.base.BaseFragment;
 import com.likeit.aqe365.constants.Constants;
 import com.likeit.aqe365.utils.CheckPermissionUtils;
@@ -132,7 +133,7 @@ public class MainHomeFragment extends BaseFragment implements EasyPermissions.Pe
                     case 7://试用中心
                         break;
                     case 8://我的足迹
-                        startFrameActivity(Constants.FRAGMENT_PEOPLE_FOOTPRINT);
+                        startActivity(new Intent(getActivity(), FootprintActivity.class));
                         break;
                     case 9://推荐有礼
                         break;
