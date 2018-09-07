@@ -3,22 +3,22 @@ package com.likeit.aqe365.activity.main.fragment;
 
 import android.content.Context;
 import android.content.DialogInterface;
-import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.likeit.aqe365.R;
-import com.likeit.aqe365.activity.cart.activity.ConfirmOrderActivity;
 import com.likeit.aqe365.activity.cart.adapter.ShopcartExpandableListViewAdapter;
-import com.likeit.aqe365.activity.cart.bean.GroupInfo;
-import com.likeit.aqe365.activity.cart.bean.ProductInfo;
 import com.likeit.aqe365.base.BaseFragment;
+import com.likeit.aqe365.network.model.BaseResponse;
+import com.likeit.aqe365.network.model.EmptyEntity;
+import com.likeit.aqe365.network.model.cart.CartListModel;
+import com.likeit.aqe365.network.util.RetrofitUtil;
+import com.likeit.aqe365.utils.LogUtils;
+import com.likeit.aqe365.utils.SignUtils;
 import com.likeit.aqe365.view.SuperExpandableListView;
 
 import java.util.ArrayList;
@@ -27,7 +27,7 @@ import java.util.List;
 import java.util.Map;
 
 import butterknife.BindView;
-import butterknife.OnClick;
+import rx.Subscriber;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -55,8 +55,8 @@ public class MainCartFragment extends BaseFragment implements ShopcartExpandable
     private int totalCount = 0;// 购买的商品总数量
     private boolean flag = false;//判断是编辑还是完成按钮
     private ShopcartExpandableListViewAdapter selva;
-    private List<GroupInfo> groups = new ArrayList<GroupInfo>();// 组元素数据列表
-    private Map<String, List<ProductInfo>> children = new HashMap<>();// 子元素数据列表
+    private List<CartListModel.ListBeanXX> groups = new ArrayList<>();// 组元素数据列表
+    private Map<String, List<CartListModel.ListBeanXX.ListBeanX>> children = new HashMap<>();// 子元素数据列表
     private View view;
 
     public MainCartFragment() {
@@ -66,12 +66,8 @@ public class MainCartFragment extends BaseFragment implements ShopcartExpandable
 
     public void initUI() {
         context = getActivity();
-        virtualData();
     }
 
-    public void initData() {
-
-    }
 
     public void addListeners() {
 
@@ -88,18 +84,18 @@ public class MainCartFragment extends BaseFragment implements ShopcartExpandable
         mToolbarRighTv.setText("编辑");
         setTitle("购物车");
         initUI();
-        initEvents();
+        virtualData();
         addListeners();
-        initData();
 
     }
 
     private void initEvents() {
+        LogUtils.d("groups-->" + groups);
+        LogUtils.d("children-->" + children);
         selva = new ShopcartExpandableListViewAdapter(groups, children, getActivity());
         selva.setCheckInterface(this);// 关键步骤1,设置复选框接口
         selva.setModifyCountInterface(this);// 关键步骤2,设置数量增减接口
         mExListView.setAdapter(selva);
-
         for (int i = 0; i < selva.getGroupCount(); i++) {
             mExListView.expandGroup(i);// 关键步骤3,初始化时，将ExpandableListView以展开的方式呈现
         }
@@ -116,21 +112,61 @@ public class MainCartFragment extends BaseFragment implements ShopcartExpandable
      * 其键是组元素的Id(通常是一个唯一指定组元素身份的值)
      */
     private void virtualData() {
+        LoaddingShow();
+        String sign = SignUtils.getSign(getActivity());
+        String signs[] = sign.split("##");
+        String signature = signs[0];
+        String newtime = signs[1];
+        String random = signs[2];
+        RetrofitUtil.getInstance().getCartList(token, signature, newtime, random, new Subscriber<BaseResponse<CartListModel>>() {
+            @Override
+            public void onCompleted() {
 
-        for (int i = 0; i < 2; i++) {
-            groups.add(new GroupInfo(i + "", "澳泉医销网" + (i + 1) + "号店"));
-            List<ProductInfo> products = new ArrayList<>();
-            for (int j = 0; j <= i; j++) {
-                products.add(new ProductInfo(j + "", "商品", "", groups.get(i).getName() + "的第" + (j + 1) + "个商品", 120.00 + i * j, 1 + j));
             }
-            children.put(groups.get(i).getId(), products);// 将组元素的一个唯一值，这里取Id，作为子元素List的Key
-        }
+
+            @Override
+            public void onError(Throwable e) {
+                LoaddingDismiss();
+            }
+
+            @Override
+            public void onNext(BaseResponse<CartListModel> baseResponse) {
+                LogUtils.d("data-->" + baseResponse.getData().getRecoms().getList().get(0).getTitle());
+                LoaddingDismiss();
+                if (baseResponse.code == 200) {
+                    CartListModel cartListModel = baseResponse.getData();
+                    //groups.addAll(cartListModel.getList());
+                    //  groups = cartListModel.getList();
+                    for (int i = 0; i < cartListModel.getList().size(); i++) {
+                        // groups = cartListModel.getList();
+                        groups.add(new CartListModel.ListBeanXX(i + "", cartListModel.getList().get(i).getMerchname(), cartListModel.getList().get(i).getMerchid(), cartListModel.getList().get(i).getList()));
+                        List<CartListModel.ListBeanXX.ListBeanX> products = new ArrayList<>();
+                        for (int j = 0; j <= i; j++) {
+                            products = groups.get(i).getList();
+                        }
+                        children.put(groups.get(i).getId(), products);
+                    }
+                    initEvents();
+                }
+            }
+        });
     }
 
+    //    private void virtualData() {
+//
+//        for (int i = 0; i < 2; i++) {
+//            groups.add(new GroupInfo(i + "", "澳泉医销网" + (i + 1) + "号店"));
+//            List<ProductInfo> products = new ArrayList<>();
+//            for (int j = 0; j <= i; j++) {
+//                products.add(new ProductInfo(j + "", "商品", "", groups.get(i).getName() + "的第" + (j + 1) + "个商品", 120.00 + i * j, 1 + j));
+//            }
+//            children.put(groups.get(i).getId(), products);// 将组元素的一个唯一值，这里取Id，作为子元素List的Key
+//        }
+//    }
     @Override
     public void checkGroup(int groupPosition, boolean isChecked) {
-        GroupInfo group = groups.get(groupPosition);
-        List<ProductInfo> childs = children.get(group.getId());
+        CartListModel.ListBeanXX group = groups.get(groupPosition);
+        List<CartListModel.ListBeanXX.ListBeanX> childs = children.get(group.getId());
         for (int i = 0; i < childs.size(); i++) {
             childs.get(i).setChoosed(isChecked);
         }
@@ -145,8 +181,8 @@ public class MainCartFragment extends BaseFragment implements ShopcartExpandable
     @Override
     public void checkChild(int groupPosition, int childPosition, boolean isChecked) {
         boolean allChildSameState = true;// 判断改组下面的所有子元素是否是同一种状态
-        GroupInfo group = groups.get(groupPosition);
-        List<ProductInfo> childs = children.get(group.getId());
+        CartListModel.ListBeanXX group = groups.get(groupPosition);
+        List<CartListModel.ListBeanXX.ListBeanX> childs = children.get(group.getId());
         for (int i = 0; i < childs.size(); i++) {
             if (childs.get(i).isChoosed() != isChecked) {
                 allChildSameState = false;
@@ -168,11 +204,12 @@ public class MainCartFragment extends BaseFragment implements ShopcartExpandable
     }
 
     @Override
-    public void doIncrease(int groupPosition, int childPosition, View showCountView, boolean isChecked) {
-        ProductInfo product = (ProductInfo) selva.getChild(groupPosition, childPosition);
-        int currentCount = product.getCount();
+    public void doIncrease(int groupPosition, int childPosition, View showCountView,
+                           boolean isChecked) {
+        CartListModel.ListBeanXX.ListBeanX product = (CartListModel.ListBeanXX.ListBeanX) selva.getChild(groupPosition, childPosition);
+        int currentCount = Integer.valueOf(product.getTotal());
         currentCount++;
-        product.setCount(currentCount);
+        product.setTotal(String.valueOf(currentCount));
         ((TextView) showCountView).setText(currentCount + "");
 
         selva.notifyDataSetChanged();
@@ -180,14 +217,15 @@ public class MainCartFragment extends BaseFragment implements ShopcartExpandable
     }
 
     @Override
-    public void doDecrease(int groupPosition, int childPosition, View showCountView, boolean isChecked) {
-        ProductInfo product = (ProductInfo) selva.getChild(groupPosition, childPosition);
-        int currentCount = product.getCount();
+    public void doDecrease(int groupPosition, int childPosition, View showCountView,
+                           boolean isChecked) {
+        CartListModel.ListBeanXX.ListBeanX product = (CartListModel.ListBeanXX.ListBeanX) selva.getChild(groupPosition, childPosition);
+        int currentCount = Integer.valueOf(product.getTotal());
         if (currentCount == 1)
             return;
         currentCount--;
 
-        product.setCount(currentCount);
+        product.setTotal(String.valueOf(currentCount));
         ((TextView) showCountView).setText(currentCount + "");
 
         selva.notifyDataSetChanged();
@@ -218,7 +256,8 @@ public class MainCartFragment extends BaseFragment implements ShopcartExpandable
                 alert.setButton(DialogInterface.BUTTON_POSITIVE, "确定", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        toActivity(ConfirmOrderActivity.class);
+                        //toActivity(ConfirmOrderActivity.class);
+                        showProgress("暂未实现");
                         //  return;
                     }
                 });
@@ -276,28 +315,64 @@ public class MainCartFragment extends BaseFragment implements ShopcartExpandable
      * 2.现将要删除的对象放进相应的列表容器中，待遍历完后，以removeAll的方式进行删除
      */
     public void doDelete() {
-        List<GroupInfo> toBeDeleteGroups = new ArrayList<GroupInfo>();// 待删除的组元素列表
+        List<CartListModel.ListBeanXX> toBeDeleteGroups = new ArrayList<CartListModel.ListBeanXX>();// 待删除的组元素列表
+        String goodsId = null;
         for (int i = 0; i < groups.size(); i++) {
-            GroupInfo group = groups.get(i);
+            CartListModel.ListBeanXX group = groups.get(i);
             if (group.isChoosed()) {
 
                 toBeDeleteGroups.add(group);
             }
-            List<ProductInfo> toBeDeleteProducts = new ArrayList<ProductInfo>();// 待删除的子元素列表
-            List<ProductInfo> childs = children.get(group.getId());
+            List<CartListModel.ListBeanXX.ListBeanX> toBeDeleteProducts = new ArrayList<CartListModel.ListBeanXX.ListBeanX>();// 待删除的子元素列表
+            String ids = "";
+
+            List<CartListModel.ListBeanXX.ListBeanX> childs = children.get(group.getId());
             for (int j = 0; j < childs.size(); j++) {
                 if (childs.get(j).isChoosed()) {
                     toBeDeleteProducts.add(childs.get(j));
+                    String temp = childs.get(j).getId();
+                    ids += temp + ",";
                 }
             }
+            if (ids != null) {
+                goodsId = ids.substring(0, ids.length() - 1);
+                LogUtils.d("goodsId-->" + goodsId);
+            }
+            delectCart(goodsId);
             childs.removeAll(toBeDeleteProducts);
-
         }
-
         groups.removeAll(toBeDeleteGroups);
 
         selva.notifyDataSetChanged();
         calculate();
+    }
+
+    private void delectCart(String goodsId) {
+        String sign = SignUtils.getSign(getActivity());
+        String signs[] = sign.split("##");
+        String signature = signs[0];
+        String newtime = signs[1];
+        String random = signs[2];
+        RetrofitUtil.getInstance().removeCart(token, signature, newtime, random, goodsId, new Subscriber<BaseResponse<EmptyEntity>>() {
+            @Override
+            public void onCompleted() {
+
+            }
+
+            @Override
+            public void onError(Throwable e) {
+
+            }
+
+            @Override
+            public void onNext(BaseResponse<EmptyEntity> baseResponse) {
+                if (baseResponse.code == 200) {
+                    showProgress("删除成功！");
+                } else {
+                    showProgress(baseResponse.getMsg());
+                }
+            }
+        });
     }
 
     /**
@@ -306,8 +381,8 @@ public class MainCartFragment extends BaseFragment implements ShopcartExpandable
     private void doCheckAll() {
         for (int i = 0; i < groups.size(); i++) {
             groups.get(i).setChoosed(mAllChekbox.isChecked());
-            GroupInfo group = groups.get(i);
-            List<ProductInfo> childs = children.get(group.getId());
+            CartListModel.ListBeanXX group = groups.get(i);
+            List<CartListModel.ListBeanXX.ListBeanX> childs = children.get(group.getId());
             for (int j = 0; j < childs.size(); j++) {
                 childs.get(j).setChoosed(mAllChekbox.isChecked());
             }
@@ -326,13 +401,13 @@ public class MainCartFragment extends BaseFragment implements ShopcartExpandable
         totalCount = 0;
         totalPrice = 0.00;
         for (int i = 0; i < groups.size(); i++) {
-            GroupInfo group = groups.get(i);
-            List<ProductInfo> childs = children.get(group.getId());
+            CartListModel.ListBeanXX group = groups.get(i);
+            List<CartListModel.ListBeanXX.ListBeanX> childs = children.get(group.getId());
             for (int j = 0; j < childs.size(); j++) {
-                ProductInfo product = childs.get(j);
+                CartListModel.ListBeanXX.ListBeanX product = childs.get(j);
                 if (product.isChoosed()) {
                     totalCount++;
-                    totalPrice += product.getPrice() * product.getCount();
+                    totalPrice += Double.valueOf(product.getMarketprice()) * Double.valueOf(product.getTotal());
                 }
             }
         }
@@ -342,7 +417,7 @@ public class MainCartFragment extends BaseFragment implements ShopcartExpandable
     }
 
     private boolean isAllCheck() {
-        for (GroupInfo group : groups) {
+        for (CartListModel.ListBeanXX group : groups) {
             if (!group.isChoosed())
                 return false;
         }

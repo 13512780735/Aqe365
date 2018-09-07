@@ -19,6 +19,8 @@ import android.widget.Toast;
 
 import com.likeit.aqe365.R;
 import com.likeit.aqe365.utils.CustomDialog;
+import com.likeit.aqe365.utils.LoaddingDialog;
+import com.likeit.aqe365.utils.SharedPreferencesUtils;
 
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
@@ -37,6 +39,8 @@ public abstract class BaseFragment extends Fragment {
     private View view;
     private CustomDialog dialog;
     private Unbinder unbinder;
+    public LoaddingDialog loaddingDialog;
+    public String token;
 
     @Nullable
     @Override
@@ -45,9 +49,19 @@ public abstract class BaseFragment extends Fragment {
         isInit = true;
         /**初始化的时候去加载数据**/
         unbinder = ButterKnife.bind(this, view);
+        token= SharedPreferencesUtils.getString(getActivity(),"token");
+        loaddingDialog=new LoaddingDialog(getActivity());
         isCanLoadData();
         return view;
     }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        LoaddingDismiss();
+    }
+
+
 
     /**
      * 视图是否已经对用户可见，系统的方法
@@ -172,7 +186,7 @@ public abstract class BaseFragment extends Fragment {
     public void showProgress(String message) {
         // dialog = new CustomDialog(getActivity());
         dialog = new CustomDialog(getActivity()).builder()
-                .setGravity(Gravity.CENTER).setTitle("提示", getResources().getColor(R.color.sd_color_black))//可以不设置标题颜色，默认系统颜色
+                .setGravity(Gravity.CENTER).setTitle01("提示", getResources().getColor(R.color.sd_color_black))//可以不设置标题颜色，默认系统颜色
                 .setSubTitle(message);
         dialog.show();
         new Handler().postDelayed(new Runnable() {
@@ -220,6 +234,22 @@ public abstract class BaseFragment extends Fragment {
             Toast.makeText(getContext(), message, Toast.LENGTH_SHORT).show();
         }
 
+    }
+
+    public void LoaddingDismiss() {
+        if (loaddingDialog != null && loaddingDialog.isShowing()) {
+            loaddingDialog.dismiss();
+        }
+    }
+
+    public void LoaddingShow() {
+        if (loaddingDialog == null) {
+            loaddingDialog = new LoaddingDialog(getActivity());
+        }
+
+        if (!loaddingDialog.isShowing()) {
+            loaddingDialog.show();
+        }
     }
 
     /**

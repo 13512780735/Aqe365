@@ -20,6 +20,7 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.listener.SimpleClickListener;
 import com.likeit.aqe365.R;
 import com.likeit.aqe365.activity.sort.adapter.GoodListAdapter;
+import com.likeit.aqe365.activity.sort.bean.CategoryListItemsModel;
 import com.likeit.aqe365.activity.sort.filter.adapter.LeftAdapter;
 import com.likeit.aqe365.activity.sort.filter.adapter.MiddleAdapter;
 import com.likeit.aqe365.activity.sort.filter.adapter.RightAdapter;
@@ -29,7 +30,11 @@ import com.likeit.aqe365.activity.sort.filter.bean.ShopSortItemBean;
 import com.likeit.aqe365.activity.sort.filter.bean.ShopSortListBean;
 import com.likeit.aqe365.activity.sort.goods.GoodsDetailsActivity;
 import com.likeit.aqe365.base.BaseActivity;
+import com.likeit.aqe365.network.model.BaseResponse;
 import com.likeit.aqe365.network.model.CaseEntity;
+import com.likeit.aqe365.network.util.RetrofitUtil;
+import com.likeit.aqe365.utils.LogUtils;
+import com.likeit.aqe365.utils.SignUtils;
 import com.zhy.view.flowlayout.FlowLayout;
 import com.zhy.view.flowlayout.TagAdapter;
 import com.zhy.view.flowlayout.TagFlowLayout;
@@ -40,6 +45,7 @@ import java.util.Set;
 
 import butterknife.BindView;
 import butterknife.OnClick;
+import rx.Subscriber;
 
 public class GoodListActivity extends BaseActivity implements BaseQuickAdapter.RequestLoadMoreListener, SwipeRefreshLayout.OnRefreshListener {
 
@@ -90,10 +96,10 @@ public class GoodListActivity extends BaseActivity implements BaseQuickAdapter.R
     private boolean filterFalg = false;
 
 
-    private ArrayList<CaseEntity> data;
+    //private ArrayList<CaseEntity> data;
     private int pageNum = 1;
-    private static final int PAGE_SIZE = 6;//为什么是6呢？
-    private boolean isErr;
+    private static final int PAGE_SIZE = 1;//为什么是6呢？
+    private boolean isErr = true;
     private boolean mLoadMoreEndGone = false; //是否加载更多完毕
     private int mCurrentCounter = 0;
     int TOTAL_COUNTER = 0;
@@ -107,28 +113,31 @@ public class GoodListActivity extends BaseActivity implements BaseQuickAdapter.R
     private MiddleAdapter middleAdapter;
     private RightAdapter rightAdapter;
     private ArrayList<ShopSortItemBean> rightBeanList;
+    private String cid;
+    private CategoryListItemsModel categoryListItemsModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_good_list);
+        cid = getIntent().getStringExtra("cid");
+        LogUtils.d("GoodListActivity--cid-->" + cid);
         initUI();
         initFilter();
     }
 
     private void initFilter() {
-        // filterPop=new FilterPopupWindow(mFilter,this);
         filterView = getLayoutInflater().inflate(R.layout.good_filter_popwindows_items, null);
         filterPop = new PopupWindow(filterView, WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.MATCH_PARENT);
         filterPop.setBackgroundDrawable(null);
         filterPop.setFocusable(true);//可以试试设为false的结果
         filterPop.setOutsideTouchable(false); // 设置非PopupWindow区域可触摸
-        tvCancel = (TextView) filterView.findViewById(R.id.tv_cancel);
-        tvConfirm = (TextView) filterView.findViewById(R.id.tv_confirm);
-        mFlowLayout = (TagFlowLayout) filterView.findViewById(R.id.item_main_right_taglayout);
-        mLeftRvRecyclerView = (RecyclerView) filterView.findViewById(R.id.filter_left_rv);
-        mRightRvRecyclerView = (RecyclerView) filterView.findViewById(R.id.filter_right_rv);
-        mMiddleRvRecyclerView = (RecyclerView) filterView.findViewById(R.id.filter_middle_rv);
+        tvCancel = filterView.findViewById(R.id.tv_cancel);
+        tvConfirm = filterView.findViewById(R.id.tv_confirm);
+        mFlowLayout = filterView.findViewById(R.id.item_main_right_taglayout);
+        mLeftRvRecyclerView =  filterView.findViewById(R.id.filter_left_rv);
+        mRightRvRecyclerView =filterView.findViewById(R.id.filter_right_rv);
+        mMiddleRvRecyclerView = filterView.findViewById(R.id.filter_middle_rv);
         final LayoutInflater mInflater = LayoutInflater.from(this);
         mFlowLayout.setAdapter(new TagAdapter<String>(mValues) {
 
@@ -385,7 +394,7 @@ public class GoodListActivity extends BaseActivity implements BaseQuickAdapter.R
         mSwipeRefreshLayout.setOnRefreshListener(this);
         mSwipeRefreshLayout.setColorSchemeColors(Color.rgb(47, 223, 189));
         mRecyclerView.setLayoutManager(new GridLayoutManager(this, 2));
-        initData();
+
         initAdapter();
 
     }
@@ -461,28 +470,68 @@ public class GoodListActivity extends BaseActivity implements BaseQuickAdapter.R
         mAdapter = new GoodListAdapter(R.layout.good_listview_items, data);
         mAdapter.setOnLoadMoreListener(this, mRecyclerView);
         mRecyclerView.setAdapter(mAdapter);
+        initData(pageNum, false);
         mCurrentCounter = mAdapter.getData().size();
         mAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-                toActivity(GoodsDetailsActivity.class);
+                LogUtils.d(data.get(position).getId());
+                Bundle bundle=new Bundle();
+                bundle.putString("id",data.get(position).getId());
+                toActivity(GoodsDetailsActivity.class,bundle);
             }
         });
     }
 
-    public void initData() {
-        data = new ArrayList<>();
-        for (int i = 0; i < 4; i++) {
-            CaseEntity caseEntity = new CaseEntity();
-            caseEntity.setUrl(i + "");
-            data.add(caseEntity);
-        }
+    private List<CategoryListItemsModel.ListBean> data = new ArrayList<>();
+
+    public void initData(int pageNum, final boolean isloadmore) {
+        LoaddingShow();
+        String sign = SignUtils.getSign(this);
+        String signs[] = sign.split("##");
+        String signature = signs[0];
+        String newtime = signs[1];
+        String random = signs[2];
+        LogUtils.d("5555" + token + "<-->" + signature + "<-->" + newtime + "<-->" + random + "<-->" + cid + "<-->" + pageNum);
+        RetrofitUtil.getInstance().CategoryList(token, cid, signature, newtime, random, String.valueOf(pageNum), "", "", "", "", "", "", "", new Subscriber<BaseResponse<CategoryListItemsModel>>() {
+            @Override
+            public void onCompleted() {
+
+            }
+
+            @Override
+            public void onError(Throwable e) {
+                LoaddingDismiss();
+            }
+
+            @Override
+            public void onNext(BaseResponse<CategoryListItemsModel> baseResponse) {
+                LoaddingDismiss();
+                if (baseResponse.code == 200) {
+                    categoryListItemsModel = baseResponse.getData();
+                    List<CategoryListItemsModel.ListBean> list = categoryListItemsModel.getList();
+                    if (list != null && list.size() > 0) {
+                        if (!isloadmore) {
+                            data = list;
+                        } else {
+                            data.addAll(list);
+                        }
+                        mAdapter.setNewData(data);
+                        mAdapter.notifyDataSetChanged();
+                    } else {
+                        mAdapter.setEmptyView(R.layout.notdata_view);
+                    }
+                } else {
+                    showProgress(baseResponse.getMsg());
+                }
+            }
+        });
     }
 
     @Override
     public void onLoadMoreRequested() {
         mSwipeRefreshLayout.setEnabled(false);
-        //  TOTAL_COUNTER = Integer.valueOf(myfollowModel.getTotal());
+        TOTAL_COUNTER = Integer.valueOf(categoryListItemsModel.getTotal());
         if (mAdapter.getData().size() < PAGE_SIZE) {
             mAdapter.loadMoreEnd(true);
         } else {
@@ -491,7 +540,7 @@ public class GoodListActivity extends BaseActivity implements BaseQuickAdapter.R
             } else {
                 if (isErr) {
                     pageNum += 1;
-                    //  initDate(pageNum, true);
+                    initData(pageNum, true);
                     //    mAdapter.addData(data);
                     mCurrentCounter = mAdapter.getData().size();
                     mAdapter.loadMoreComplete();
@@ -512,7 +561,7 @@ public class GoodListActivity extends BaseActivity implements BaseQuickAdapter.R
             @Override
             public void run() {
                 // mAdapter.setNewData(data);
-                isErr = false;
+                isErr = true;
                 mCurrentCounter = PAGE_SIZE;
                 pageNum = 1;//页数置为1 才能继续重新加载
                 mSwipeRefreshLayout.setRefreshing(false);

@@ -17,7 +17,8 @@
     <color name="theme_bg">#4D98FE</color>
     <color name="home_tab_select">#298DBE</color>
     <color name="home_tab_unselect">#939495</color>
-
+    <!--背景颜色-->
+    <color name="windowBackground">#f2f2f2</color>
 
     <color name="content_color">#F3F3F3</color>
     <color name="transparent">#00000000</color>

@@ -43,7 +43,7 @@ public class EditTextSizeCheckUtil {
 
 
         private void initEditListener() {
-            Log.i("TAG", "调用了遍历editext的方法");
+          //  Log.i("TAG", "调用了遍历editext的方法");
             for (EditText editText : editTexts) {
                 editText.addTextChangedListener(new textChange());
             }
@@ -62,12 +62,12 @@ public class EditTextSizeCheckUtil {
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
                 if (checkAllEdit()) {
-                    Log.i("TAG", "所有edittext有值了");
+                   // Log.i("TAG", "所有edittext有值了");
                     mChangeListener.textChange(true);
                     button.setEnabled(true);
                 } else {
                     button.setEnabled(false);
-                    Log.i("TAG", "有edittext没值了");
+                 //   Log.i("TAG", "有edittext没值了");
                     mChangeListener.textChange(false);
                 }
             }

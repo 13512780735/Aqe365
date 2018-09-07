@@ -15,7 +15,7 @@ public class AppRegister extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
         final IWXAPI msgApi = WXAPIFactory.createWXAPI(context, null);
-        String WX_APPID = "wx5132fa74303fb155";
+        String WX_APPID = "wx53ba9da9956a74aa";
         // 将该app注册到微信
         msgApi.registerApp(WX_APPID);
 

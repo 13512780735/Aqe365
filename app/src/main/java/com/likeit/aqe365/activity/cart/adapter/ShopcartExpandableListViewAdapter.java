@@ -6,24 +6,23 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.BaseExpandableListAdapter;
 import android.widget.CheckBox;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 
 import com.likeit.aqe365.R;
-import com.likeit.aqe365.activity.cart.bean.GroupInfo;
-import com.likeit.aqe365.activity.cart.bean.ProductInfo;
+import com.likeit.aqe365.network.model.cart.CartListModel;
 import com.likeit.aqe365.view.SlideView;
+import com.nostra13.universalimageloader.core.ImageLoader;
 
 import java.util.List;
 import java.util.Map;
 
 
 public class ShopcartExpandableListViewAdapter extends BaseExpandableListAdapter {
-    private List<GroupInfo> groups;
-    private Map<String, List<ProductInfo>> children;
+    private List<CartListModel.ListBeanXX> groups;
+    private Map<String, List<CartListModel.ListBeanXX.ListBeanX>> children;
     private Context context;
-    //HashMap<Integer, View> groupMap = new HashMap<Integer, View>();
-    //HashMap<Integer, View> childrenMap = new HashMap<Integer, View>();
     private CheckInterface checkInterface;
     private ModifyCountInterface modifyCountInterface;
 
@@ -34,7 +33,7 @@ public class ShopcartExpandableListViewAdapter extends BaseExpandableListAdapter
      * @param children 子元素列表
      * @param context
      */
-    public ShopcartExpandableListViewAdapter(List<GroupInfo> groups, Map<String, List<ProductInfo>> children, Context context) {
+    public ShopcartExpandableListViewAdapter(List<CartListModel.ListBeanXX> groups, Map<String, List<CartListModel.ListBeanXX.ListBeanX>> children, Context context) {
         super();
         this.groups = groups;
         this.children = children;
@@ -67,7 +66,7 @@ public class ShopcartExpandableListViewAdapter extends BaseExpandableListAdapter
 
     @Override
     public Object getChild(int groupPosition, int childPosition) {
-        List<ProductInfo> childs = children.get(groups.get(groupPosition).getId());
+        List<CartListModel.ListBeanXX.ListBeanX> childs = children.get(groups.get(groupPosition).getId());
 
         return childs.get(childPosition);
     }
@@ -101,7 +100,7 @@ public class ShopcartExpandableListViewAdapter extends BaseExpandableListAdapter
             // convertView = groupMap.get(groupPosition);
             gholder = (GroupHolder) convertView.getTag();
         }
-        final GroupInfo group = (GroupInfo) getGroup(groupPosition);
+        final CartListModel.ListBeanXX group = (CartListModel.ListBeanXX) getGroup(groupPosition);
         if (group != null) {
             gholder.tv_group_name.setText(group.getName());
             gholder.cb_check.setOnClickListener(new OnClickListener() {
@@ -128,13 +127,14 @@ public class ShopcartExpandableListViewAdapter extends BaseExpandableListAdapter
             slideView = new SlideView(context, context.getResources(), view);
             convertView = slideView;
             cholder.cb_check = (CheckBox) convertView.findViewById(R.id.check_box);
+            cholder.iv_url = (ImageView) convertView.findViewById(R.id.iv_adapter_list_pic);
 
             cholder.tv_product_desc = (TextView) convertView.findViewById(R.id.tv_intro);
             cholder.tv_price = (TextView) convertView.findViewById(R.id.tv_price);
             cholder.iv_increase = (TextView) convertView.findViewById(R.id.tv_add);
             cholder.iv_decrease = (TextView) convertView.findViewById(R.id.tv_reduce);
             cholder.tv_count = (TextView) convertView.findViewById(R.id.tv_num);
-
+            cholder.tv_type_size = (TextView) convertView.findViewById(R.id.tv_type_size);
             cholder.tv_delete = (TextView) convertView.findViewById(R.id.back);
             // childrenMap.put(groupPosition, convertView);
             convertView.setTag(cholder);
@@ -142,13 +142,14 @@ public class ShopcartExpandableListViewAdapter extends BaseExpandableListAdapter
             // convertView = childrenMap.get(groupPosition);
             cholder = (ChildHolder) convertView.getTag();
         }
-        final ProductInfo product = (ProductInfo) getChild(groupPosition, childPosition);
+        final CartListModel.ListBeanXX.ListBeanX product = (CartListModel.ListBeanXX.ListBeanX) getChild(groupPosition, childPosition);
 
         if (product != null) {
-
-            cholder.tv_product_desc.setText(product.getDesc());
-            cholder.tv_price.setText("￥" + product.getPrice() + "");
-            cholder.tv_count.setText(product.getCount() + "");
+            ImageLoader.getInstance().displayImage(product.getThumb(), cholder.iv_url);
+            cholder.tv_product_desc.setText(product.getTitle());
+            cholder.tv_price.setText("￥" + product.getMarketprice() + "");
+            cholder.tv_count.setText(product.getTotal() + "");
+            cholder.tv_type_size.setText(product.getOptiontitle() + "");
             cholder.cb_check.setChecked(product.isChoosed());
             cholder.cb_check.setOnClickListener(new OnClickListener() {
                 @Override
@@ -175,9 +176,9 @@ public class ShopcartExpandableListViewAdapter extends BaseExpandableListAdapter
 
             @Override
             public void onClick(View v) {
-                List<ProductInfo> childs = children.get(groups.get(groupPosition).getId());
+                List<CartListModel.ListBeanXX.ListBeanX> childs = children.get(groups.get(groupPosition).getId());
                 childs.remove(childPosition);
-                if(childs.size() ==0){//child没有了，group也就没有了
+                if (childs.size() == 0) {//child没有了，group也就没有了
                     groups.remove(groupPosition);
                 }
                 notifyDataSetChanged();
@@ -207,11 +208,13 @@ public class ShopcartExpandableListViewAdapter extends BaseExpandableListAdapter
 
         TextView tv_product_name;
         TextView tv_product_desc;
+        TextView tv_type_size;
         TextView tv_price;
         TextView iv_increase;
         TextView tv_count;
         TextView iv_decrease;
         TextView tv_delete;
+        ImageView iv_url;
     }
 
     /**

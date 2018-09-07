@@ -7,12 +7,15 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
+import android.util.DisplayMetrics;
 import android.view.View;
 
 
 import com.likeit.aqe365.R;
 import com.likeit.aqe365.utils.AppManager;
+import com.likeit.aqe365.utils.SharedPreferencesUtils;
 import com.likeit.aqe365.utils.StatusBarUtil;
+import com.likeit.aqe365.view.NoScrollViewPager;
 import com.likeit.aqe365.view.tablayout.bean.CustomTabEntity;
 import com.likeit.aqe365.view.tablayout.bean.TabEntity;
 import com.likeit.aqe365.view.tablayout.listener.OnTabSelectListener;
@@ -30,7 +33,7 @@ public abstract class AbstractCommonTabLayout extends AppCompatActivity {
     private ArrayList<Fragment> mFragments = null;//Fragment 集合
     private CommonTabLayout mTabLayout;//自定义Tablout 控件
     private View mDecorView;
-    private ViewPager mViewPager;//viewpager 对象
+    private NoScrollViewPager mViewPager;//viewpager 对象
     protected Context mContext;//上下文对象
     /**
      * 默认选中的索引
@@ -44,6 +47,12 @@ public abstract class AbstractCommonTabLayout extends AppCompatActivity {
         StatusBarUtil.setColor(this, color, 0);
         StatusBarUtil.setLightMode(this);
         AppManager.getAppManager().addActivity(this);
+        DisplayMetrics metrics = new DisplayMetrics();
+        getWindowManager().getDefaultDisplay().getMetrics(metrics);
+        int width = metrics.widthPixels;
+        int height = width / 2 - 20;
+        SharedPreferencesUtils.put(this,"width", width);
+        SharedPreferencesUtils.put(this, "height", height);
         //  requestWindowFeature(Window.FEATURE_NO_TITLE);
         mContext = this;
         setContentView();

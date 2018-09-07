@@ -29,6 +29,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/dp_72"
                 android:orientation="horizontal"
+                android:background="@color/white"
                 android:paddingLeft="@dimen/dp_10"
                 android:visibility="gone">
 
@@ -63,6 +64,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text=""
+                            android:layout_marginLeft="@dimen/dp_20"
                             android:textColor="@color/black" />
                     </LinearLayout>
 

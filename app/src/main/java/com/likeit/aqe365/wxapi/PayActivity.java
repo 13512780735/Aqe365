@@ -19,15 +19,26 @@ import com.alipay.sdk.app.PayTask;
 import com.likeit.aqe365.R;
 import com.likeit.aqe365.activity.people.activity.GoodsIndentActivity;
 import com.likeit.aqe365.base.BaseActivity;
+import com.likeit.aqe365.network.model.BaseResponse;
+import com.likeit.aqe365.network.model.goods.PayIndentModel;
+import com.likeit.aqe365.network.model.pay.AlipayPayAModel;
+import com.likeit.aqe365.network.model.pay.WechatPayModel;
+import com.likeit.aqe365.network.util.RetrofitUtil;
 import com.likeit.aqe365.utils.CustomDialog;
+import com.likeit.aqe365.utils.LogUtils;
+import com.likeit.aqe365.utils.SignUtils;
 import com.likeit.aqe365.wxapi.alipay.PayResult;
 import com.tencent.mm.sdk.modelpay.PayReq;
 import com.tencent.mm.sdk.openapi.IWXAPI;
 import com.tencent.mm.sdk.openapi.WXAPIFactory;
 
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import butterknife.BindView;
 import butterknife.OnClick;
+import rx.Subscriber;
 
 
 public class PayActivity extends BaseActivity implements OnClickListener {
@@ -94,8 +105,9 @@ public class PayActivity extends BaseActivity implements OnClickListener {
     private String paykey;
     private CustomDialog dialog;
     private PayActivity mContext;
-    private String ukey;
+    private String ukey, tid, money;
     private int status;
+    private String WX_APPID;
 
 
     @Override
@@ -117,17 +129,17 @@ public class PayActivity extends BaseActivity implements OnClickListener {
                 finish();
             }
         });
-        Intent intent = getIntent();
-        String WX_APPID = "wx53ba9da9956a74aa";
+        WX_APPID = "wx53ba9da9956a74aa";
         api = WXAPIFactory.createWXAPI(this, WX_APPID, false);
         api.registerApp(WX_APPID);
-
+        tid = getIntent().getExtras().getString("tid");
+        money = getIntent().getExtras().getString("money");
         initView();
     }
 
     private void initView() {
-        tv_indent_number.setText("SH20180124064250464768");
-        tvPrice.setText("¥ " + 1000);
+        tv_indent_number.setText(tid);
+        tvPrice.setText("¥ " + money);
     }
 
 
@@ -137,18 +149,109 @@ public class PayActivity extends BaseActivity implements OnClickListener {
             //微信支付
             case R.id.rl_pay_weixin:
                 pay_type = "wxpay";
-                showProgress("暂未开通");
+                wechatPay();
                 break;
 //            //支付宝支付
             case R.id.rl_pay_zhifubao:
                 pay_type = "alipay";
-                showProgress("暂未开通");
+                alipayPay();
                 break;
             case R.id.rl_pay_union:
                 showProgress("暂未开通");
                 break;
 
         }
+    }
+
+    /**
+     * 微信支付
+     */
+    private void wechatPay() {
+        loaddingDialog.show();
+        final String sign = SignUtils.getSign(mContext);
+        String signs[] = sign.split("##");
+        String signature = signs[0];
+        String newtime = signs[1];
+        String random = signs[2];
+        RetrofitUtil.getInstance().appWechat(token, signature, newtime, random, tid, money, new Subscriber<BaseResponse<WechatPayModel>>() {
+            @Override
+            public void onCompleted() {
+
+            }
+
+            @Override
+            public void onError(Throwable e) {
+                loaddingDialog.dismiss();
+            }
+
+            @Override
+            public void onNext(BaseResponse<WechatPayModel> baseResponse) {
+                loaddingDialog.dismiss();
+                if (baseResponse.code == 200) {
+                    String data = baseResponse.getData().getAppwechat();
+                    try {
+                        JSONObject object = new JSONObject(data);
+                        String appId = object.optString("appid");
+                        String partnerId = object.optString("mch_id");
+                        String prepayId = object.optString("prepay_id");
+                        String nonceStr = object.optString("nonce_str");
+                        String packageValue = "Sign=Wxpay";
+                        long timeMills = System.currentTimeMillis() / 1000;
+                        String timeStamp = String.valueOf(timeMills);
+                        String stringA =
+                                "appid=" + appId
+                                        + "&noncestr=" + nonceStr
+                                        + "&package=" + packageValue
+                                        + "&partnerid=" + partnerId
+                                        + "&prepayid=" + prepayId
+                                        + "&timestamp=" + timeStamp;
+                        String key = "dahgdrh678fdh4sdhtui527gjsdtasaa";
+                        String stringSignTemp = stringA + "&key=" + key;
+                        String sign = MD5.getMessageDigest(stringSignTemp.getBytes()).toUpperCase();
+                        LogUtils.d("TAG" + "WX_APPID-->" + WX_APPID + "appId-->" + appId + "partnerId-->" + partnerId + "prepayId-->" + prepayId + "nonceStr-->" + nonceStr + "packageValue-->" + packageValue);
+                        sendPayred(appId, partnerId, prepayId, nonceStr, packageValue, sign, timeStamp);
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                } else {
+                    showProgress(baseResponse.getMsg());
+                }
+            }
+        });
+    }
+
+    /**
+     * 支付宝
+     */
+    private void alipayPay() {
+        loaddingDialog.show();
+        final String sign = SignUtils.getSign(mContext);
+        String signs[] = sign.split("##");
+        String signature = signs[0];
+        String newtime = signs[1];
+        String random = signs[2];
+        RetrofitUtil.getInstance().appAlipay(token, signature, newtime, random, tid, money, new Subscriber<BaseResponse<AlipayPayAModel>>() {
+            @Override
+            public void onCompleted() {
+
+            }
+
+            @Override
+            public void onError(Throwable e) {
+                loaddingDialog.dismiss();
+            }
+
+            @Override
+            public void onNext(BaseResponse<AlipayPayAModel> baseResponse) {
+                loaddingDialog.dismiss();
+                if (baseResponse.code == 200) {
+                    String data = baseResponse.getData().getAppalipay();
+                    alipay(data);
+                } else {
+                    showProgress(baseResponse.getMsg());
+                }
+            }
+        });
     }
 
 
@@ -178,62 +281,6 @@ public class PayActivity extends BaseActivity implements OnClickListener {
     }
 
 
-
-/*
-    private void inidata() {
-        RetrofitUtil.getInstance().PayWxpay(ukey, ordersn, new Subscriber<BaseResponse<WeixinModel>>() {
-            @Override
-            public void onCompleted() {
-
-            }
-
-            @Override
-            public void onError(Throwable e) {
-                loaddingdialog.dismiss();
-            }
-
-            @Override
-            public void onNext(BaseResponse<WeixinModel> baseResponse) {
-                loaddingdialog.dismiss();
-                if (baseResponse.ret == 200) {
-                    String appId = baseResponse.getData().getAppid();
-                    String partnerId = baseResponse.getData().getMch_id();
-                    String prepayId = baseResponse.getData().getPrepay_id();
-                    String nonceStr = baseResponse.getData().getNonce_str();
-                    String packageValue = "Sign=Wxpay";
-                    long timeMills = System.currentTimeMillis() / 1000;
-                    String timeStamp = String.valueOf(timeMills);
-                    String stringA =
-                            "appid=" + appId
-                                    + "&noncestr=" + nonceStr
-                                    + "&package=" + packageValue
-                                    + "&partnerid=" + partnerId
-                                    + "&prepayid=" + prepayId
-                                    + "&timestamp=" + timeStamp;
-                    //   String key = "9ijy7876yuio987yhjkfjdklkjhy6543";
-                    //String key = "177b59d8b56ae5c63145d9824f661020";
-                    String key = "kldghur52525fhsdhdsfhdfklgjadlgt";
-                    // String key = baseResponse.getData().getSign();
-                    String stringSignTemp = stringA + "&key=" + key;
-                    String sign = MD5.getMessageDigest(stringSignTemp.getBytes()).toUpperCase();
-                    Log.d("TAG", "sign-->" + sign);
-                    Log.d("TAG", "appId-->" + appId + "partnerId-->" + partnerId + "prepayId-->" + prepayId + "nonceStr-->" + nonceStr + "packageValue-->" + packageValue);
-                    sendPayred(appId, partnerId, prepayId, nonceStr, packageValue, sign, timeStamp);
-                } else {
-                    if ("Ukey不合法".equals(baseResponse.getMsg())) {
-                        showProgress01("您的帐号已在其他设备登录！");
-                        return;
-                    } else {
-                        showProgress(baseResponse.getMsg());
-                    }
-                }
-            }
-        });
-
-
-    }
-*/
-
     private void sendPayred(String appId, String partnerId, String prepayId, String nonceStr, String packageValue, String sign, String timeStamp) {
         PayReq request = new PayReq();
         request.appId = appId;
@@ -246,42 +293,5 @@ public class PayActivity extends BaseActivity implements OnClickListener {
         api.sendReq(request);
     }
 
-    /**
-     * 显示字符串消息
-     *
-     * @param message
-     */
-    public void showProgress(String message) {
-        // dialog = new CustomDialog(getActivity());
-        dialog = new CustomDialog(this).builder()
-                .setGravity(Gravity.CENTER).setTitle01("提示")//可以不设置标题颜色，默认系统颜色
-                .setSubTitle(message);
-        dialog.show();
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                dialog.dismiss();
-            }
-        }, 1000);
-    }
 
-    public void showProgress01(String message) {
-        // dialog = new CustomDialog(getActivity());
-        dialog = new CustomDialog(this).builder()
-                .setGravity(Gravity.CENTER).setTitle("提示", getResources().getColor(R.color.sd_color_black))//可以不设置标题颜色，默认系统颜色
-                .setSubTitle(message);
-        dialog.show();
-//        new Handler().postDelayed(new Runnable() {
-//            @Override
-//            public void run() {
-//                dialog.dismiss();
-//                //toActivityFinish(Login_RegisterActivity.class);
-//                Intent intent = new Intent(mContext, Login_RegisterActivity.class);
-//                startActivity(intent);
-//                finish();
-//                MyActivityManager.getInstance().finishAllActivity();
-//            }
-//        }, 1000);
-
-    }
 }

@@ -9,6 +9,7 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.likeit.aqe365.R;
 import com.likeit.aqe365.network.model.CaseEntity;
+import com.likeit.aqe365.network.model.Indent.IndentListModel;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
 import java.util.ArrayList;
@@ -18,21 +19,22 @@ import java.util.List;
  * Created by admin on 2018/5/11.
  */
 
-public class GoodIndent02Adapter extends BaseQuickAdapter<CaseEntity, BaseViewHolder> {
-    private List<CaseEntity> datas;
+public class GoodIndent02Adapter extends BaseQuickAdapter<IndentListModel.ListBean, BaseViewHolder> {
+    private List<IndentListModel.ListBean.GoodsBean> datas;;
     private IndentShopListAdapter mAdapter;
-    public GoodIndent02Adapter(int layoutResId, List<CaseEntity> data) {
+    public GoodIndent02Adapter(int layoutResId, List<IndentListModel.ListBean> data) {
         super(R.layout.goods_indent_items, data);
     }
 
     @Override
-    protected void convert(BaseViewHolder baseViewHolder, CaseEntity item) {
-        baseViewHolder.setText(R.id.tv_indent_number, "订单号：" + "SH20180124064250464768");
-        baseViewHolder.setText(R.id.tv_indent_status, "待发货");
-        baseViewHolder.setText(R.id.tv_indent_name, "奥泉医销网");
+    protected void convert(BaseViewHolder baseViewHolder, IndentListModel.ListBean item) {
+        datas = item.getGoods();
+        mAdapter = new IndentShopListAdapter(R.layout.layout_indent_shop_listitems, datas);
+        baseViewHolder.setText(R.id.tv_indent_number, "订单号：" + item.getOrdersn());
+        baseViewHolder.setText(R.id.tv_indent_name, item.getMerchname());
 
-        baseViewHolder.setText(R.id.tv_total_number, "共 " + "1" + " 个商品,合计");
-        baseViewHolder.setText(R.id.tv_total_price, "¥ 69.00");
+        baseViewHolder.setText(R.id.tv_total_number, "共 " + item.getSum() + " 个商品,合计");
+        baseViewHolder.setText(R.id.tv_total_price, "¥ " + item.getPrice());
         baseViewHolder.getView(R.id.ll_indent_button).setVisibility(View.GONE);
         // baseViewHolder.getView(R.id.tv_cancel_indent).setVisibility(View.VISIBLE);
         // baseViewHolder.getView(R.id.tv_pay).setVisibility(View.VISIBLE);
@@ -41,19 +43,10 @@ public class GoodIndent02Adapter extends BaseQuickAdapter<CaseEntity, BaseViewHo
         //baseViewHolder.addOnClickListener(R.id.tv_pay);
         //baseViewHolder.addOnClickListener(R.id.tv_cancel_indent);
         baseViewHolder.addOnClickListener(R.id.rl_indent_details);
-        datas=new ArrayList<>();
-        initData();
         mAdapter = new IndentShopListAdapter(R.layout.layout_indent_shop_listitems, datas);
         RecyclerView mRecyclerView = baseViewHolder.getView(R.id.RecyclerView);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(mContext));
         mRecyclerView.setAdapter(mAdapter);
-    }
-    private void initData() {
-        for (int i = 0; i <2; i++) {
-            CaseEntity caseEntity = new CaseEntity();
-            caseEntity.setUrl(i + "");
-            datas.add(caseEntity);
-        }
     }
 
 }

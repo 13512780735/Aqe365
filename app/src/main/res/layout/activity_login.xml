@@ -137,6 +137,7 @@
                 android:layout_weight="1"
                 android:gravity="left|center_vertical"
                 android:text="@string/login_phone_login"
+                android:visibility="gone"
                 android:textColor="@color/register_text_color"
                 android:textSize="@dimen/sp_16" />
 
@@ -189,6 +190,7 @@
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
         android:layout_marginTop="20dp"
+        android:visibility="gone"
         android:gravity="center_vertical">
 
         <View
@@ -218,6 +220,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/ll_line"
+        android:visibility="gone"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="20dp"
         android:gravity="center_horizontal">

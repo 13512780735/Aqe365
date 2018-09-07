@@ -20,11 +20,21 @@ public final class Consts {
     /**
      * 外网可访问的API地址
      */
- //  public final static String APP_HOST = "http://yingyunapp.wbteam.cn/api/";
     /**
-     * 香港服务器可访问的API地址
+     * 测试的API地址
      */
-    public final static String APP_HOST = "http://app.yun-nao.com/api/";
+    //public final static String APP_HOST = "http://aqe365.wbteam.cn/app/index.php?i=1&c=entry&m=ewei_shopv2&do=mobile&r=/";
+  //  public final static String APP_HOST = "http://aqe365.wbteam.cn/api/";
+    /**
+     * 中转服
+     * 测试的API地址
+     */
+   public final static String APP_HOST = "http://aoquan.maimaitoo.com/api/";
+    /**
+     * 正式服
+     * 的API地址
+     */
+    // public final static String APP_HOST = "http://wx.aqe365.com/api/";
 
 
 }

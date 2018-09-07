@@ -1,19 +1,12 @@
 package com.likeit.aqe365.activity.sort.adapter;
 
-import android.content.Context;
-import android.graphics.Color;
-import android.view.LayoutInflater;
-import android.view.View;
 import android.widget.ImageView;
-import android.widget.TextView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.likeit.aqe365.R;
-import com.likeit.aqe365.activity.sort.bean.ShopSortItemBean;
+import com.likeit.aqe365.network.model.GoodCategory.GoodsCategoryModel;
 import com.nostra13.universalimageloader.core.ImageLoader;
-import com.zhy.view.flowlayout.FlowLayout;
-import com.zhy.view.flowlayout.TagAdapter;
 
 import java.util.List;
 
@@ -23,16 +16,16 @@ import java.util.List;
  * Time: 16:32
  * describe:  药品标签
  */
-public class ShopSortTagAdapter extends BaseQuickAdapter<ShopSortItemBean,BaseViewHolder> {
-	public ShopSortTagAdapter(int layoutResId, List<ShopSortItemBean> data) {
-		super(R.layout.item_medical_tv, data);
-	}
+public class ShopSortTagAdapter extends BaseQuickAdapter<GoodsCategoryModel.ListBean.TwotierBean.GoodsBean, BaseViewHolder> {
+    public ShopSortTagAdapter(int layoutResId, List<GoodsCategoryModel.ListBean.TwotierBean.GoodsBean> data) {
+        super(R.layout.item_medical_tv, data);
+    }
 
-	@Override
-	protected void convert(BaseViewHolder baseViewHolder, ShopSortItemBean item) {
-		baseViewHolder.setText(R.id.tv_name,item.getName());
-		ImageLoader.getInstance().displayImage("", (ImageView) baseViewHolder.getView(R.id.iv_avatar));
-	}
+    @Override
+    protected void convert(BaseViewHolder baseViewHolder, GoodsCategoryModel.ListBean.TwotierBean.GoodsBean item) {
+        baseViewHolder.setText(R.id.tv_name, item.getName());
+        ImageLoader.getInstance().displayImage(item.getThumb(), (ImageView) baseViewHolder.getView(R.id.iv_avatar));
+    }
 
 
 //	private LayoutInflater mInflater;

@@ -47,7 +47,12 @@ public class DateUtil {
         Calendar cal= Calendar.getInstance();
         return cal.get(Calendar.YEAR);
     }
+    public static String getTime() {
+        long time = System.currentTimeMillis() / 1000;//获取系统时间的10位的时间戳
+        String str = String.valueOf(time);
+        return str;
 
+    }
     /**
      * 获取当前月
      * @return

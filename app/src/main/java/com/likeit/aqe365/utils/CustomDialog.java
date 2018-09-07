@@ -108,11 +108,12 @@ public class CustomDialog {
     }
 
     /**
-     *  无按钮的标题
+     * 无按钮的标题
+     *
      * @param title
      * @return
      */
-    public CustomDialog setTitle01(String title) {
+    public CustomDialog setTitle01(String title, int color) {
         if ("".equals(title)) {
             mTvTitle.setText("标题");
         } else {
@@ -120,6 +121,7 @@ public class CustomDialog {
             mRelativeBottom.setVisibility(View.GONE);
 
         }
+        mTvTitle.setTextColor(color);
         return this;
     }
 

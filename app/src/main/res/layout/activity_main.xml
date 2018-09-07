@@ -7,11 +7,16 @@
     android:orientation="vertical"
     tools:context="com.likeit.aqe365.activity.main.MainActivity">
 
-    <android.support.v4.view.ViewPager
+    <com.likeit.aqe365.view.NoScrollViewPager
         android:id="@+id/main_viewpager"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_weight="0.8" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/line"></View>
 
     <com.likeit.aqe365.view.tablayout.CommonTabLayout
         android:id="@+id/main_CommonTabLayout"

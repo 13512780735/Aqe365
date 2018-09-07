@@ -14,13 +14,17 @@ import android.widget.Toast;
 
 import com.likeit.aqe365.R;
 import com.likeit.aqe365.base.BaseActivity;
+import com.likeit.aqe365.event.PayEventMessage;
 import com.likeit.aqe365.utils.CustomDialog;
+import com.likeit.aqe365.utils.SharedPreferencesUtils;
 import com.tencent.mm.sdk.constants.ConstantsAPI;
 import com.tencent.mm.sdk.modelbase.BaseReq;
 import com.tencent.mm.sdk.modelbase.BaseResp;
 import com.tencent.mm.sdk.openapi.IWXAPI;
 import com.tencent.mm.sdk.openapi.IWXAPIEventHandler;
 import com.tencent.mm.sdk.openapi.WXAPIFactory;
+
+import org.greenrobot.eventbus.EventBus;
 
 
 public class WXPayEntryActivity extends BaseActivity implements IWXAPIEventHandler {
@@ -64,12 +68,15 @@ public class WXPayEntryActivity extends BaseActivity implements IWXAPIEventHandl
             int code = resp.errCode;
             Log.d("TAg", code + "");
             Log.d("TAG", +resp.getType() + "");
+            SharedPreferencesUtils.put(mContext,"type","WXPay");
+            SharedPreferencesUtils.put(mContext,"code",code);
             if (code == 0) {
                 new AlertDialog.Builder(this).setMessage("支付订单成功！").setPositiveButton("确定", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
+                        EventBus.getDefault().post(new PayEventMessage("1"));
                         dialog.dismiss();
-
+                        onBackPressed();
                     }
                 }).setTitle("微信支付结果").setCancelable(false).show();
 
@@ -77,7 +84,9 @@ public class WXPayEntryActivity extends BaseActivity implements IWXAPIEventHandl
                 new AlertDialog.Builder(this).setMessage("取消支付").setPositiveButton("确定", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
+                        EventBus.getDefault().post(new PayEventMessage("2"));
                         dialog.dismiss();
+
                         onBackPressed();
                     }
                 }).setTitle("微信支付结果").setCancelable(false).show();
@@ -86,6 +95,7 @@ public class WXPayEntryActivity extends BaseActivity implements IWXAPIEventHandl
                 new AlertDialog.Builder(this).setMessage("交易出错").setPositiveButton("确定", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
+                        EventBus.getDefault().post(new PayEventMessage("2"));
                         dialog.dismiss();
                         onBackPressed();
                     }

@@ -16,11 +16,18 @@ import com.likeit.aqe365.activity.people.activity.IndentAppraiseActivity;
 import com.likeit.aqe365.activity.people.activity.IndentDetailsActivity;
 import com.likeit.aqe365.activity.people.adapter.GoodIndent04Adapter;
 import com.likeit.aqe365.base.BaseFragment;
+import com.likeit.aqe365.network.model.BaseResponse;
 import com.likeit.aqe365.network.model.CaseEntity;
+import com.likeit.aqe365.network.model.Indent.IndentListModel;
+import com.likeit.aqe365.network.util.RetrofitUtil;
+import com.likeit.aqe365.utils.LogUtils;
+import com.likeit.aqe365.utils.SignUtils;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.BindView;
+import rx.Subscriber;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -33,13 +40,13 @@ public class Indent04Fragment extends BaseFragment implements BaseQuickAdapter.R
     private GoodIndent04Adapter mAdapter;
 
     private int pageNum = 1;
-    private static final int PAGE_SIZE = 6;//为什么是6呢？
-    private boolean isErr;
+    private static final int PAGE_SIZE =1;//为什么是6呢？
+    private boolean isErr=true;
     private boolean mLoadMoreEndGone = false; //是否加载更多完毕
     private int mCurrentCounter = 0;
     int TOTAL_COUNTER = 0;
-    private ArrayList<CaseEntity> data;
     private Bundle bundle;
+    private IndentListModel indentListModel;
 
 
     @Override
@@ -56,7 +63,6 @@ public class Indent04Fragment extends BaseFragment implements BaseQuickAdapter.R
         mSwipeRefreshLayout.setOnRefreshListener(this);
         mSwipeRefreshLayout.setColorSchemeColors(Color.rgb(47, 223, 189));
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-        initData();
         initAdapter();
         mAdapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
             @Override
@@ -84,17 +90,57 @@ public class Indent04Fragment extends BaseFragment implements BaseQuickAdapter.R
         mAdapter = new GoodIndent04Adapter(R.layout.goods_indent_items, data);
         mAdapter.setOnLoadMoreListener(this, mRecyclerView);
         mRecyclerView.setAdapter(mAdapter);
+        mAdapter.disableLoadMoreIfNotFullPage();
+        mSwipeRefreshLayout.setOnRefreshListener(this);
+        initData(pageNum, false);
         mCurrentCounter = mAdapter.getData().size();
     }
 
-    public void initData() {
-        data = new ArrayList<>();
-        for (int i = 0; i < 4; i++) {
-            CaseEntity caseEntity = new CaseEntity();
-            caseEntity.setUrl(i + "");
-            data.add(caseEntity);
-        }
+    private List<IndentListModel.ListBean> data = new ArrayList<>();
+
+    public void initData(int pageNum, final boolean isloadmore) {
+        LoaddingShow();
+        String sign = SignUtils.getSign(getActivity());
+        String signs[] = sign.split("##");
+        String signature = signs[0];
+        String newtime = signs[1];
+        String random = signs[2];
+        RetrofitUtil.getInstance().Orderform(token, signature, newtime, random, "3", String.valueOf(pageNum), new Subscriber<BaseResponse<IndentListModel>>() {
+            @Override
+            public void onCompleted() {
+
+            }
+
+            @Override
+            public void onError(Throwable e) {
+                LoaddingDismiss();
+                LogUtils.d("AllIndentFragment" + e);
+            }
+
+            @Override
+            public void onNext(BaseResponse<IndentListModel> baseResponse) {
+                LoaddingDismiss();
+                if (baseResponse.code == 200) {
+                    indentListModel = baseResponse.getData();
+                    List<IndentListModel.ListBean> list = indentListModel.getList();
+                    if (list != null && list.size() > 0) {
+                        if (!isloadmore) {
+                            data = list;
+                        } else {
+                            data.addAll(list);
+                        }
+                        mAdapter.setNewData(data);
+                        mAdapter.notifyDataSetChanged();
+                    } else {
+                        mAdapter.setEmptyView(R.layout.notdata_view);
+                    }
+                } else {
+                    showProgress(baseResponse.getMsg());
+                }
+            }
+        });
     }
+
 
     @Override
     public void onLoadMoreRequested() {
@@ -129,7 +175,7 @@ public class Indent04Fragment extends BaseFragment implements BaseQuickAdapter.R
             @Override
             public void run() {
                 // mAdapter.setNewData(data);
-                isErr = false;
+                isErr = true;
                 mCurrentCounter = PAGE_SIZE;
                 pageNum = 1;//页数置为1 才能继续重新加载
                 mSwipeRefreshLayout.setRefreshing(false);

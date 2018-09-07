@@ -15,12 +15,18 @@ import com.likeit.aqe365.R;
 import com.likeit.aqe365.activity.people.activity.IndentDetailsActivity;
 import com.likeit.aqe365.activity.people.adapter.GoodIndent01Adapter;
 import com.likeit.aqe365.base.BaseFragment;
-import com.likeit.aqe365.network.model.CaseEntity;
+import com.likeit.aqe365.network.model.BaseResponse;
+import com.likeit.aqe365.network.model.Indent.IndentListModel;
+import com.likeit.aqe365.network.util.RetrofitUtil;
+import com.likeit.aqe365.utils.LogUtils;
+import com.likeit.aqe365.utils.SignUtils;
 import com.likeit.aqe365.wxapi.PayActivity;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.BindView;
+import rx.Subscriber;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -33,13 +39,13 @@ public class Indent01Fragment extends BaseFragment implements BaseQuickAdapter.R
     private GoodIndent01Adapter mAdapter;
 
     private int pageNum = 1;
-    private static final int PAGE_SIZE = 6;//为什么是6呢？
-    private boolean isErr;
+    private static final int PAGE_SIZE = 1;//为什么是6呢？
+    private boolean isErr = true;
     private boolean mLoadMoreEndGone = false; //是否加载更多完毕
     private int mCurrentCounter = 0;
     int TOTAL_COUNTER = 0;
-    private ArrayList<CaseEntity> data;
     private Bundle bundle;
+    private IndentListModel indentListModel;
 
     @Override
     protected int setContentView() {
@@ -55,7 +61,6 @@ public class Indent01Fragment extends BaseFragment implements BaseQuickAdapter.R
         mSwipeRefreshLayout.setOnRefreshListener(this);
         mSwipeRefreshLayout.setColorSchemeColors(Color.rgb(47, 223, 189));
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-        initData();
         initAdapter();
         mAdapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
             @Override
@@ -71,9 +76,11 @@ public class Indent01Fragment extends BaseFragment implements BaseQuickAdapter.R
                     case R.id.tv_del_indent://删除订单
                         break;
                     case R.id.tv_pay://支付订单
-                        String IndentId = "SH20180124064250464768";
+                        String IndentId = data.get(position).getOrdersn();
+                        String money = data.get(position).getPrice();
                         bundle = new Bundle();
-                        bundle.putString("IndentId", IndentId);
+                        bundle.putString("tid", IndentId);
+                        bundle.putString("money", money);
                         toActivity(PayActivity.class, bundle);
                         break;
                     case R.id.tv_check_wuLiu://查看无聊
@@ -90,22 +97,64 @@ public class Indent01Fragment extends BaseFragment implements BaseQuickAdapter.R
         mAdapter = new GoodIndent01Adapter(R.layout.goods_indent_items, data);
         mAdapter.setOnLoadMoreListener(this, mRecyclerView);
         mRecyclerView.setAdapter(mAdapter);
+        mAdapter.disableLoadMoreIfNotFullPage();
+        mSwipeRefreshLayout.setOnRefreshListener(this);
+        initData(pageNum, false);
         mCurrentCounter = mAdapter.getData().size();
     }
 
-    public void initData() {
-        data = new ArrayList<>();
-        for (int i = 0; i < 4; i++) {
-            CaseEntity caseEntity = new CaseEntity();
-            caseEntity.setUrl(i + "");
-            data.add(caseEntity);
-        }
+    private List<IndentListModel.ListBean> data = new ArrayList<>();
+
+    public void initData(int pageNum, final boolean isloadmore) {
+        LoaddingShow();
+        String sign = SignUtils.getSign(getActivity());
+        String signs[] = sign.split("##");
+        String signature = signs[0];
+        String newtime = signs[1];
+        String random = signs[2];
+        RetrofitUtil.getInstance().Orderform(token, signature, newtime, random, "5", String.valueOf(pageNum), new Subscriber<BaseResponse<IndentListModel>>() {
+            @Override
+            public void onCompleted() {
+
+            }
+
+            @Override
+            public void onError(Throwable e) {
+                LoaddingDismiss();
+                LogUtils.d("Indent01Fragment" + e);
+            }
+
+            @Override
+            public void onNext(BaseResponse<IndentListModel> baseResponse) {
+                LoaddingDismiss();
+                if (baseResponse.code == 200) {
+                    indentListModel = baseResponse.getData();
+                    List<IndentListModel.ListBean> list = indentListModel.getList();
+
+                    if (list != null && list.size() > 0) {
+                        if (!isloadmore) {
+                            data = list;
+                        } else {
+                            data.addAll(list);
+                        }
+                        mAdapter.setNewData(data);
+                        mAdapter.notifyDataSetChanged();
+                    } else {
+
+                        mAdapter.setEmptyView(R.layout.notdata_view);
+                    }
+
+                } else {
+                    showProgress(baseResponse.getMsg());
+                }
+            }
+        });
     }
 
     @Override
     public void onLoadMoreRequested() {
         mSwipeRefreshLayout.setEnabled(false);
-        //  TOTAL_COUNTER = Integer.valueOf(myfollowModel.getTotal());
+        TOTAL_COUNTER = Integer.valueOf(indentListModel.getTotal());
         if (mAdapter.getData().size() < PAGE_SIZE) {
             mAdapter.loadMoreEnd(true);
         } else {
@@ -114,7 +163,7 @@ public class Indent01Fragment extends BaseFragment implements BaseQuickAdapter.R
             } else {
                 if (isErr) {
                     pageNum += 1;
-                    //  initDate(pageNum, true);
+                    initData(pageNum, true);
                     //    mAdapter.addData(data);
                     mCurrentCounter = mAdapter.getData().size();
                     mAdapter.loadMoreComplete();
@@ -135,7 +184,7 @@ public class Indent01Fragment extends BaseFragment implements BaseQuickAdapter.R
             @Override
             public void run() {
                 // mAdapter.setNewData(data);
-                isErr = false;
+                isErr = true;
                 mCurrentCounter = PAGE_SIZE;
                 pageNum = 1;//页数置为1 才能继续重新加载
                 mSwipeRefreshLayout.setRefreshing(false);

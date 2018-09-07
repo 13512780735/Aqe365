@@ -5,8 +5,7 @@ import android.graphics.Color;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.likeit.aqe365.R;
-import com.likeit.aqe365.activity.sort.bean.ShopSortBean;
-import com.likeit.aqe365.network.model.CaseEntity;
+import com.likeit.aqe365.network.model.GoodCategory.GoodsCategoryModel;
 
 import java.util.List;
 
@@ -17,16 +16,16 @@ import java.util.List;
  * Time: 15:19
  * describe:  左侧适配器
  */
-public class LeftAdapter extends BaseQuickAdapter<ShopSortBean,BaseViewHolder> {
+public class LeftAdapter extends BaseQuickAdapter<GoodsCategoryModel.ListBean,BaseViewHolder> {
 	private int selectPos=0;
 //	public LeftAdapter( List<ShopSortBean> data) {
 //		super(R.layout.item_main_left, data);
 //	}
-	public LeftAdapter(int layoutResId, List<ShopSortBean> data) {
+	public LeftAdapter(int layoutResId, List<GoodsCategoryModel.ListBean> data) {
 		super(R.layout.item_main_left, data);
 	}
 	@Override
-	protected void convert(BaseViewHolder helper, ShopSortBean bean) {
+	protected void convert(BaseViewHolder helper, GoodsCategoryModel.ListBean bean) {
 		if(selectPos==helper.getAdapterPosition()){
 			helper.setVisible(R.id.item_main_left_bg,true);
 			helper.convertView.setBackgroundColor(Color.parseColor("#FFFFFF"));
@@ -37,7 +36,7 @@ public class LeftAdapter extends BaseQuickAdapter<ShopSortBean,BaseViewHolder> {
 			helper.setVisible(R.id.item_main_left_bg,false);
 		}
 
-		helper.setText(R.id.item_main_left_type,bean.getTitle());
+		helper.setText(R.id.item_main_left_type,bean.getName());
 
 	}
 

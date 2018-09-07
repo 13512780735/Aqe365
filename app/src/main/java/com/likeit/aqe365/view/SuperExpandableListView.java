@@ -197,4 +197,5 @@ public class SuperExpandableListView extends ExpandableListView {
     interface ButtonClickListener {
         public void clickHappend(int position);
     }
+
 }

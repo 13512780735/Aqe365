@@ -17,11 +17,12 @@
         android:layout_height="wrap_content"
         android:drawableLeft="@mipmap/icon_shop_logo"
         android:drawablePadding="@dimen/dp_10"
+        android:drawableRight="@mipmap/icon_more"
         android:gravity="center_vertical"
         android:padding="@dimen/dp_10"
-        android:drawableRight="@mipmap/icon_more"
         android:text=""
         android:textColor="@color/black_text_color" />
+
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
@@ -29,8 +30,18 @@
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/RecyclerView"
+
         android:layout_width="match_parent"
         android:layout_height="wrap_content"></android.support.v7.widget.RecyclerView>
+
+    <LinearLayout
+        android:id="@+id/ll_indent_items"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:visibility="gone">
+        <include layout="@layout/confrim_indent_items_ones"></include>
+    </LinearLayout>
 
 
     <View

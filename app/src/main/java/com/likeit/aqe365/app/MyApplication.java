@@ -42,8 +42,9 @@ public class MyApplication extends Application {
         instance = this;
         applicationContext = this;
         ZXingLibrary.initDisplayOpinion(this);
+        initX5WebView();
         // DemoHelper.getInstance().init(mContext);
-       //                                                           initX5WebView();
+        //                                                           initX5WebView();
 
     }
 
@@ -83,5 +84,6 @@ public class MyApplication extends Application {
                 .writeDebugLogs().build();
         ImageLoader.getInstance().init(config);
     }
+
 
 }

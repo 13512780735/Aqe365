@@ -22,10 +22,12 @@
     <uses-permission android:name="android.permission.ACCESS_LOCATION_EXTRA_COMMANDS" />
     <!-- 用于申请调用相机 -->
     <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.VIBRATE"></uses-permission>
 
     <application
         android:name=".app.MyApplication"
         android:allowBackup="true"
+        android:hardwareAccelerated="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:supportsRtl="true"
@@ -83,7 +85,12 @@
             </intent-filter>
         </receiver>
 
-        <activity android:name=".activity.main.MainActivity" />
+        <activity
+            android:name=".activity.main.MainActivity"
+            android:exported="true">
+
+
+        </activity>
         <activity android:name=".activity.login.activity.LoginActivity" />
         <activity android:name=".activity.login.activity.WelcomeActivity">
             <intent-filter>
@@ -101,7 +108,14 @@
         <activity android:name=".activity.cart.activity.SelectAddressActivity" />
         <activity android:name=".activity.cart.activity.EditAddressActivity" />
         <activity android:name=".activity.people.activity.BindPhoneActivity" />
-        <activity android:name=".activity.cart.activity.ConfirmOrderActivity" />
+        <activity
+            android:name=".activity.cart.activity.ConfirmOrderActivity"
+            android:configChanges="orientation|keyboardHidden"
+            android:windowSoftInputMode="adjustUnspecified|stateHidden">
+
+
+        </activity>
+
         <activity android:name=".activity.sort.goods.GoodsDetailsActivity" />
         <activity android:name=".activity.sort.filter.GoodListActivity" />
         <activity android:name=".activity.home.activity.CouponActivity" />
@@ -116,7 +130,9 @@
         <activity android:name=".activity.people.activity.FootprintActivity" />
         <activity android:name=".activity.ZxingActivity" />
         <activity android:name=".activity.people.activity.QrCodesAcctivity" />
-        <activity android:name=".activity.people.activity.OftenBuyGoodsActivity"></activity>
+        <activity android:name=".activity.people.activity.OftenBuyGoodsActivity" />
+        <activity android:name=".activity.TestActivity" />
+        <activity android:name=".activity.web.jsinterface.JsInterfaceActivity"></activity>
     </application>
 
 </manifest>

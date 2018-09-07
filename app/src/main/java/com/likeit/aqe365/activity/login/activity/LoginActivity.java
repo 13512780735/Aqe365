@@ -1,42 +1,47 @@
 package com.likeit.aqe365.activity.login.activity;
 
 
-import android.Manifest;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Selection;
 import android.text.Spannable;
 import android.text.method.HideReturnsTransformationMethod;
 import android.text.method.PasswordTransformationMethod;
+import android.util.Log;
 import android.view.View;
 import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
 import android.widget.ToggleButton;
 
 import com.likeit.aqe365.R;
 import com.likeit.aqe365.activity.FrameActivity;
+import com.likeit.aqe365.activity.TestActivity;
 import com.likeit.aqe365.activity.main.MainActivity;
+import com.likeit.aqe365.activity.web.jsinterface.JsInterfaceActivity;
 import com.likeit.aqe365.constants.Constants;
 import com.likeit.aqe365.listener.IEditTextChangeListener;
+import com.likeit.aqe365.network.model.BaseResponse;
+import com.likeit.aqe365.network.model.LoginRegisterModel;
+import com.likeit.aqe365.network.util.RetrofitUtil;
 import com.likeit.aqe365.utils.AppManager;
-import com.likeit.aqe365.utils.CheckPermissionUtils;
 import com.likeit.aqe365.utils.EditTextSizeCheckUtil;
+import com.likeit.aqe365.utils.LoaddingDialog;
+import com.likeit.aqe365.utils.LogUtils;
+import com.likeit.aqe365.utils.MD5Utils;
+import com.likeit.aqe365.utils.SHAUtils;
 import com.likeit.aqe365.utils.SharedPreferencesUtils;
+import com.likeit.aqe365.utils.SignUtils;
 import com.likeit.aqe365.utils.StatusBarUtil;
 import com.likeit.aqe365.utils.StringUtils;
+import com.likeit.aqe365.utils.ToastUtils;
 
-import java.util.List;
 
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import pub.devrel.easypermissions.AfterPermissionGranted;
-import pub.devrel.easypermissions.AppSettingsDialog;
-import pub.devrel.easypermissions.EasyPermissions;
+import rx.Subscriber;
 
 import static com.likeit.aqe365.Interface.BaseInterface.KEY_FRAGMENT;
 
@@ -48,6 +53,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     private TextView tv_login;
     private EditText et_phone, et_pwd;
     private String phone, pwd;
+    private LoaddingDialog mDialog;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -55,6 +61,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         setContentView(R.layout.activity_login);
         AppManager.getAppManager().addActivity(this);
         int color = getResources().getColor(R.color.theme_bg);
+        mDialog = new LoaddingDialog(this);
         StatusBarUtil.setColor(this, color, 0);
         StatusBarUtil.setLightMode(this);
         ButterKnife.bind(this);
@@ -77,7 +84,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             tv_login.setBackgroundResource(R.drawable.shape_round_blue_bg_5);
             tv_login.setOnClickListener(LoginActivity.this);
         }
-
 
     }
 
@@ -170,12 +176,59 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             case R.id.tv_login:
                 phone = et_phone.getText().toString().trim();
                 pwd = et_pwd.getText().toString().trim();
-                SharedPreferencesUtils.put(this, "phone", phone);
-                SharedPreferencesUtils.put(this, "pwd", pwd);
-                startMainActivity();
+                Login(phone, pwd);
                 break;
         }
 
+    }
+
+    private void Login(final String phone, final String pwd) {
+        String Lkey = "uKmy0e45wgh0B3e7";
+        String Lappid = "200001";
+        String sign = SignUtils.getSign(LoginActivity.this);
+        String signs[] = sign.split("##");
+        String signature = signs[0];
+        String newtime = signs[1];
+        String random = signs[2];
+        //ToastUtils.showToast(this, sign);
+        mDialog.show();
+        RetrofitUtil.getInstance().getUsersLogin(phone, pwd, signature, newtime, random, new Subscriber<BaseResponse<LoginRegisterModel>>() {
+            @Override
+            public void onCompleted() {
+
+            }
+
+            @Override
+            public void onError(Throwable e) {
+                mDialog.dismiss();
+                LogUtils.d(e + "");
+            }
+
+            @Override
+            public void onNext(BaseResponse<LoginRegisterModel> baseResponse) {
+                mDialog.dismiss();
+                LogUtils.d("code-->" + baseResponse.code);
+                if (baseResponse.code == 200) {
+                    SharedPreferencesUtils.put(LoginActivity.this, "phone", phone);
+                    SharedPreferencesUtils.put(LoginActivity.this, "pwd", pwd);
+                    SharedPreferencesUtils.put(LoginActivity.this, "token", baseResponse.getData().getToken());
+                    LogUtils.d(baseResponse.getData().getMember().getNickname());
+              startMainActivity();
+//                    Intent intent = new Intent(LoginActivity.this, TestActivity.class);
+//                    startActivity(intent);
+                    /**
+                     * 跳转网页
+                     */
+//                    Intent intent = new Intent(LoginActivity.this, JsInterfaceActivity.class);
+//                    startActivity(intent);
+
+                } else {
+                    Log.d("TAG", baseResponse.getMsg());
+                    ToastUtils.showToast(LoginActivity.this, baseResponse.getMsg());
+                }
+
+            }
+        });
     }
 
 }

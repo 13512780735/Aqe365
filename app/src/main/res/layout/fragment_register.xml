@@ -209,6 +209,7 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/dip_edittext"
         android:background="@color/white"
+        android:visibility="gone"
         android:orientation="horizontal"
         android:padding="10dip">
 
@@ -238,6 +239,7 @@
         android:layout_height="1dip"
         android:layout_marginLeft="@dimen/dp_50"
         android:layout_marginRight="@dimen/dp_10"
+        android:visibility="gone"
         android:background="@color/line"></View>
 
     <LinearLayout
@@ -245,6 +247,7 @@
         android:layout_height="@dimen/dip_edittext"
         android:background="@color/white"
         android:orientation="horizontal"
+        android:visibility="gone"
         android:padding="10dip">
 
         <ImageView
@@ -319,7 +322,7 @@
             android:layout_height="wrap_content"
             android:paddingBottom="10dp"
             android:paddingTop="10dp"
-            android:text="《奥泉医销网用户协议》"
+            android:text="《澳泉医销网用户协议》"
             android:textColor="@color/colorAccent"
             android:textSize="12sp" />
     </LinearLayout>

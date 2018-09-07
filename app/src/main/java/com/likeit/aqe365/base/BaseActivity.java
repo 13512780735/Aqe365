@@ -21,6 +21,8 @@ import com.likeit.aqe365.Interface.BaseInterface;
 import com.likeit.aqe365.R;
 import com.likeit.aqe365.utils.AppManager;
 import com.likeit.aqe365.utils.CustomDialog;
+import com.likeit.aqe365.utils.LoaddingDialog;
+import com.likeit.aqe365.utils.SharedPreferencesUtils;
 import com.likeit.aqe365.utils.StatusBarUtil;
 import com.likeit.aqe365.utils.ToastUtils;
 
@@ -51,6 +53,8 @@ public class BaseActivity extends AppCompatActivity implements BaseInterface {
     protected String easemob_id;
     protected String isvip;
     private CustomDialog dialog;
+    public String token;
+    public LoaddingDialog loaddingDialog;
 
     /**
      * 初始化创建
@@ -64,6 +68,8 @@ public class BaseActivity extends AppCompatActivity implements BaseInterface {
         int color = getResources().getColor(R.color.white);
         StatusBarUtil.setColor(this, color, 0);
         StatusBarUtil.setLightMode(this);
+        loaddingDialog = new LoaddingDialog(this);
+        token = SharedPreferencesUtils.getString(this, "token");
         // RxBus.get().register(this);
         //  ukey = UtilPreference.getStringValue(this, "ukey");
     }
@@ -260,7 +266,7 @@ public class BaseActivity extends AppCompatActivity implements BaseInterface {
     public void showProgress(String message) {
         // dialog = new CustomDialog(getActivity());
         dialog = new CustomDialog(this).builder()
-                .setGravity(Gravity.CENTER).setTitle("提示", getResources().getColor(R.color.sd_color_black))//可以不设置标题颜色，默认系统颜色
+                .setGravity(Gravity.CENTER).setTitle01("提示",getResources().getColor(R.color.sd_color_black))//可以不设置标题颜色，默认系统颜色
                 .setSubTitle(message);
         dialog.show();
         new Handler().postDelayed(new Runnable() {
@@ -428,5 +434,19 @@ public class BaseActivity extends AppCompatActivity implements BaseInterface {
         ToastUtils.showToast(mContext, msg);
     }
 
+    public void LoaddingDismiss() {
+        if (loaddingDialog != null && loaddingDialog.isShowing()) {
+            loaddingDialog.dismiss();
+        }
+    }
 
+    public void LoaddingShow() {
+        if (loaddingDialog == null) {
+            loaddingDialog = new LoaddingDialog(this);
+        }
+
+        if (!loaddingDialog.isShowing()) {
+            loaddingDialog.show();
+        }
+    }
 }

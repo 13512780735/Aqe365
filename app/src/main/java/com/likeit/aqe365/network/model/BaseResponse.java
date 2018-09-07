@@ -12,7 +12,7 @@ import java.io.Serializable;
  */
 
 public class BaseResponse<T> implements Serializable {
-    public int ret;
+    public int code;
     public String total;
     public String msg;
     public T data;
@@ -29,13 +29,12 @@ public class BaseResponse<T> implements Serializable {
         this.data = data;
     }
 
-
-    public int getRet() {
-        return ret;
+    public int getCode() {
+        return code;
     }
 
-    public void setRet(int ret) {
-        this.ret = ret;
+    public void setCode(int code) {
+        this.code = code;
     }
 
     public String getMsg() {
