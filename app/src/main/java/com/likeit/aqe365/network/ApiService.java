@@ -1,12 +1,17 @@
 package com.likeit.aqe365.network;
 
+import com.likeit.aqe365.activity.brand.model.BrandModel;
+import com.likeit.aqe365.activity.brand.model.BrandRefreshModel;
+import com.likeit.aqe365.activity.sort.bean.CartDeleteModel;
 import com.likeit.aqe365.activity.sort.bean.CategoryListItemsModel;
+import com.likeit.aqe365.network.consts.Consts;
 import com.likeit.aqe365.network.model.BaseResponse;
 import com.likeit.aqe365.network.model.EmptyEntity;
 import com.likeit.aqe365.network.model.GoodCategory.GoodsCategoryModel;
 import com.likeit.aqe365.network.model.Indent.IndentListModel;
 import com.likeit.aqe365.network.model.Indent.OrderCreateModel;
 import com.likeit.aqe365.network.model.LoginRegisterModel;
+import com.likeit.aqe365.network.model.ThirdLoginModel;
 import com.likeit.aqe365.network.model.cart.CartListModel;
 import com.likeit.aqe365.network.model.goods.AddressModel;
 import com.likeit.aqe365.network.model.goods.CaculateModel;
@@ -29,6 +34,10 @@ import rx.Observable;
 
 public interface ApiService {
 
+    /**
+     * 商品规格
+     */
+    public static final String Goods_Sales= Consts.APP_HOST+ "app.goods.andetail_sales";
     /**
      * 用户登录接口
      *
@@ -236,7 +245,7 @@ public interface ApiService {
      * @return
      */
     @FormUrlEncoded
-    @POST("app.goods.detail_sale")
+    @POST("app.goods.andetail_sales")
     Observable<BaseResponse<GoodsSalesModel>> goodsSales(@Field("token") String token,
                                                          @Field("signature") String signature,
                                                          @Field("newtime") String newtime,
@@ -348,7 +357,7 @@ public interface ApiService {
                                                      @Field("area") String area);
 
     /**
-     * 确认订单
+     * 商品详情确认订单
      *
      * @param token
      * @param signature
@@ -520,11 +529,128 @@ public interface ApiService {
      */
     @FormUrlEncoded
     @POST("app.member.cart.removecart")
-    Observable<BaseResponse<EmptyEntity>> removeCart(@Field("token") String token,
-                                                     @Field("signature") String signature,
-                                                     @Field("newtime") String newtime,
-                                                     @Field("random") String random1,
-                                                     @Field("ids") String ids
+    Observable<BaseResponse<CartDeleteModel>> removeCart(@Field("token") String token,
+                                                         @Field("signature") String signature,
+                                                         @Field("newtime") String newtime,
+                                                         @Field("random") String random1,
+                                                         @Field("ids") String ids
+
+    );
+
+    /**
+     * 购物车确认订单
+     *
+     * @param token
+     * @param signature
+     * @param newtime
+     * @param random1
+     * @param cartids
+     * @param cartnum
+     * @return
+     */
+    @FormUrlEncoded
+    @POST("app.order.create")
+    Observable<BaseResponse<OrderCreateModel>> CreateCartOrder(@Field("token") String token,
+                                                               @Field("signature") String signature,
+                                                               @Field("newtime") String newtime,
+                                                               @Field("random") String random1,
+                                                               @Field("cartids") String cartids,
+                                                               @Field("cartnum") String cartnum
+
+    );
+
+    /**
+     * 购物车生成订单
+     *
+     * @param token
+     * @param signature
+     * @param newtime
+     * @param random1
+     * @param cartids
+     * @param cartoption
+     * @param carttotal
+     * @param addressid
+     * @return
+     */
+    @FormUrlEncoded
+    @POST("app.order.create.submitorder")
+    Observable<BaseResponse<PayIndentModel>> CreateCartSubmitorder(@Field("token") String token,
+                                                                   @Field("signature") String signature,
+                                                                   @Field("newtime") String newtime,
+                                                                   @Field("random") String random1,
+                                                                   @Field("cartid") String cartids,
+                                                                   @Field("cartoption") String cartoption,
+                                                                   @Field("carttotal") String carttotal,
+                                                                   @Field("addressid") String addressid
+
+    );
+
+    /**
+     * 判断是否关联帐号
+     */
+    @FormUrlEncoded
+    @POST("app.account.snslogin")
+    Observable<BaseResponse<LoginRegisterModel>> ThirdLogin(@Field("openid") String openid,
+                                                            @Field("type") String type
+
+    );
+
+    /**
+     * 关联帐号
+     */
+    @FormUrlEncoded
+    @POST("app.account.snsbind")
+    Observable<BaseResponse<LoginRegisterModel>> snsBind(@Field("openid") String openid,
+                                                         @Field("type") String type,
+                                                         @Field("mobile") String mobile,
+                                                         @Field("pwd") String pwd
+
+    );
+
+    /**
+     * 品牌列表
+     *
+     * @param token
+     * @param signature
+     * @param newtime
+     * @param random1
+     * @return
+     */
+    @FormUrlEncoded
+    @POST("app.brands.brands.getbrands")
+    Observable<BaseResponse<BrandModel>> getBrands(@Field("token") String token,
+                                                   @Field("signature") String signature,
+                                                   @Field("newtime") String newtime,
+                                                   @Field("random") String random1
+
+    );
+
+    /**
+     * 品牌刷新
+     *
+     * @param token
+     * @param signature
+     * @param newtime
+     * @param random1
+     * @param num
+     * @return
+     */
+    @FormUrlEncoded
+    @POST("app.brands.brands.transform")
+    Observable<BaseResponse<BrandRefreshModel>> brandsRefresh(@Field("token") String token,
+                                                              @Field("signature") String signature,
+                                                              @Field("newtime") String newtime,
+                                                              @Field("random") String random1,
+                                                              @Field("num") String num
+
+    );
+
+    @FormUrlEncoded
+    @POST("app.sale.my.getcouponlist")
+    Observable<BaseResponse<BrandRefreshModel>> getCouponlist(@Field("token") String token,
+                                                              @Field("signature") String signature,
+                                                              @Field("newtime") String newtime,
+                                                              @Field("random") String random1
 
     );
 }

@@ -41,18 +41,18 @@ public class HomeAdapter extends BaseQuickAdapter<MainListItemsModel.GoodsgroupB
             mAdapter = new HomeGoodsListAdapter(R.layout.home_goods_list_items_gridview_items, goodsData);
             mAdapter.setNewData(goodsData);
             mAdapter.notifyDataSetChanged();
-          //  initAdapter();
+            //  initAdapter();
             mRecyclerView.setAdapter(mAdapter);
             mAdapter.setOnItemClickListener(new OnItemClickListener() {
                 @Override
                 public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
                     String cid = goodsData.get(position).getId();
-                Intent intent = new Intent(mContext, GoodsDetailsActivity.class);
-                Bundle bundle = new Bundle();
-                bundle.putString("id", cid);
-                intent.putExtras(bundle);
-                mContext.startActivity(intent);
-                      LogUtils.d("cid2-->" + cid);
+                    Intent intent = new Intent(mContext, GoodsDetailsActivity.class);
+                    Bundle bundle = new Bundle();
+                    bundle.putString("id", cid);
+                    intent.putExtras(bundle);
+                    mContext.startActivity(intent);
+                    LogUtils.d("cid2-->" + cid);
                 }
             });
         } else if ("block".equals(listStyle)) {
@@ -61,18 +61,18 @@ public class HomeAdapter extends BaseQuickAdapter<MainListItemsModel.GoodsgroupB
             mAdapter = new HomeGoodsListAdapter(R.layout.home_goods_list_items_gridview_items, goodsData);
             mAdapter.setNewData(goodsData);
             mAdapter.notifyDataSetChanged();
-       //     initAdapter();
+            //     initAdapter();
             mRecyclerView.setAdapter(mAdapter);
             mAdapter.setOnItemClickListener(new OnItemClickListener() {
                 @Override
                 public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-                  String cid = goodsData.get(position).getId();
+                    String cid = goodsData.get(position).getId();
                     Intent intent = new Intent(mContext, GoodsDetailsActivity.class);
                     Bundle bundle = new Bundle();
                     bundle.putString("id", cid);
                     intent.putExtras(bundle);
                     mContext.startActivity(intent);
-                     LogUtils.d("cid2-->" + cid);
+                    LogUtils.d("cid2-->" + cid);
                 }
             });
         }

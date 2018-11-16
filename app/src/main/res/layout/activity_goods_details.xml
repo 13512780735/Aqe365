@@ -120,7 +120,7 @@
                 android:layout_height="match_parent"
                 android:textColor="@color/footbar_text_color"
                 android:drawableTop="@mipmap/icon_details_shop"
-                android:text="店铺"
+                android:text="首页"
                 android:gravity="center"
                 android:paddingTop="5dip"
                 android:paddingLeft="@dimen/dp_10"

@@ -6,16 +6,21 @@ public class OrderCreateModel {
 
 
     /**
-     * address : {"id":"816","realname":"11","mobile":"13655488742","province":"辽宁省","city":"大连市","area":"沙河口区","address":"11"}
-     * goods_list : [{"shopname":"中山市芯澳医疗产品有限公司","shopid":0,"goods":[{"goodsid":"377","title":"日本松风 Beautifil Flow光固化树脂 2ml/支 F02 另含5支注射头","optionid":"","optiontitle":"","minbuy":"0","totalmaxbuy":"10639","unit":"","thumb":"http://aoquan.maimaitoo.com/attachment/images/1/merch/118/Xo9W9wWHAW2hXbr66eHIoI62EHEou6.jpg","marketprice":"150.00","total":"1","isdiscountprice":"0"}]}]
+     * address : {"id":"819","realname":"test","mobile":"13666522214","province":"辽宁省","city":"大连市","area":"西岗区","address":"111"}
+     * goods_list : [{"shopname":"上海泉晖贸易有限公司","shopid":0,"goods":[{"goodsid":"343","title":"西湖巴尔 金属网底标准型MBT直丝弓托槽","optionid":"","optiontitle":"","minbuy":"0","totalmaxbuy":"","unit":"","thumb":"http://aoquan.maimaitoo.com/attachment/images/1/merch/117/ndy085TGJ61GN0zgk01717g0gn0bYT.jpg","marketprice":"85.80","total":"1","isdiscountprice":"0"}]}]
      * total : 1
      * totalprice :
      * deductcredit : 0
      * deductmoney : 0
      * include_dispath :
-     * endprice :
-     * goodsprice : 150
+     * endprice : 85.8
+     * goodsprice : 85.8
      * dispatch_price : 0
+     * discounts : 0
+     * enough :
+     * enoughprice :
+     * deduct :
+     * deduct2 :
      */
 
     private AddressBean address;
@@ -27,6 +32,11 @@ public class OrderCreateModel {
     private String endprice;
     private String goodsprice;
     private String dispatch_price;
+    private String discounts;
+    private String enough;
+    private String enoughprice;
+    private String deduct;
+    private String deduct2;
     private List<GoodsListBean> goods_list;
 
     public AddressBean getAddress() {
@@ -101,6 +111,46 @@ public class OrderCreateModel {
         this.dispatch_price = dispatch_price;
     }
 
+    public String getDiscounts() {
+        return discounts;
+    }
+
+    public void setDiscounts(String discounts) {
+        this.discounts = discounts;
+    }
+
+    public String getEnough() {
+        return enough;
+    }
+
+    public void setEnough(String enough) {
+        this.enough = enough;
+    }
+
+    public String getEnoughprice() {
+        return enoughprice;
+    }
+
+    public void setEnoughprice(String enoughprice) {
+        this.enoughprice = enoughprice;
+    }
+
+    public String getDeduct() {
+        return deduct;
+    }
+
+    public void setDeduct(String deduct) {
+        this.deduct = deduct;
+    }
+
+    public String getDeduct2() {
+        return deduct2;
+    }
+
+    public void setDeduct2(String deduct2) {
+        this.deduct2 = deduct2;
+    }
+
     public List<GoodsListBean> getGoods_list() {
         return goods_list;
     }
@@ -111,13 +161,13 @@ public class OrderCreateModel {
 
     public static class AddressBean {
         /**
-         * id : 816
-         * realname : 11
-         * mobile : 13655488742
+         * id : 819
+         * realname : test
+         * mobile : 13666522214
          * province : 辽宁省
          * city : 大连市
-         * area : 沙河口区
-         * address : 11
+         * area : 西岗区
+         * address : 111
          */
 
         private String id;
@@ -187,9 +237,9 @@ public class OrderCreateModel {
 
     public static class GoodsListBean {
         /**
-         * shopname : 中山市芯澳医疗产品有限公司
+         * shopname : 上海泉晖贸易有限公司
          * shopid : 0
-         * goods : [{"goodsid":"377","title":"日本松风 Beautifil Flow光固化树脂 2ml/支 F02 另含5支注射头","optionid":"","optiontitle":"","minbuy":"0","totalmaxbuy":"10639","unit":"","thumb":"http://aoquan.maimaitoo.com/attachment/images/1/merch/118/Xo9W9wWHAW2hXbr66eHIoI62EHEou6.jpg","marketprice":"150.00","total":"1","isdiscountprice":"0"}]
+         * goods : [{"goodsid":"343","title":"西湖巴尔 金属网底标准型MBT直丝弓托槽","optionid":"","optiontitle":"","minbuy":"0","totalmaxbuy":"","unit":"","thumb":"http://aoquan.maimaitoo.com/attachment/images/1/merch/117/ndy085TGJ61GN0zgk01717g0gn0bYT.jpg","marketprice":"85.80","total":"1","isdiscountprice":"0"}]
          */
 
         private String shopname;
@@ -222,15 +272,15 @@ public class OrderCreateModel {
 
         public static class GoodsBean {
             /**
-             * goodsid : 377
-             * title : 日本松风 Beautifil Flow光固化树脂 2ml/支 F02 另含5支注射头
+             * goodsid : 343
+             * title : 西湖巴尔 金属网底标准型MBT直丝弓托槽
              * optionid :
              * optiontitle :
              * minbuy : 0
-             * totalmaxbuy : 10639
+             * totalmaxbuy :
              * unit :
-             * thumb : http://aoquan.maimaitoo.com/attachment/images/1/merch/118/Xo9W9wWHAW2hXbr66eHIoI62EHEou6.jpg
-             * marketprice : 150.00
+             * thumb : http://aoquan.maimaitoo.com/attachment/images/1/merch/117/ndy085TGJ61GN0zgk01717g0gn0bYT.jpg
+             * marketprice : 85.80
              * total : 1
              * isdiscountprice : 0
              */

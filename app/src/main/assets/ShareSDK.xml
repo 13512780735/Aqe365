@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<DevInfor>
+    <ShareSDK AppKey="28bd7a05ab6e8" />
+    <SinaWeibo Enable="false" />
+    <TencentWeibo Enable="false" />
+    <Douban Enable="false" />
+    <QZone AppId="1106774774" AppKey="09ac56de9L7RGFWK" BypassApproval="false" Enable="true" Id="4"
+        ShareByAppClient="true" SortId="4" />
+    <Renren Enable="false" />
+    <KaiXin Enable="false" />
+    <Facebook Enable="false" />
+    <Twitter Enable="false" />
+    <Evernote Enable="false" />
+    <FourSquare Enable="false" />
+    <GooglePlus Enable="false" />
+    <Instagram Enable="false" />
+    <LinkedIn Enable="false" />
+    <Tumblr Enable="false" />
+    <Email Enable="false" />
+    <ShortMessage
+        Id="6"
+        SortId="6"
+        Enable="true" />
+    <Wechat AppId="wx53ba9da9956a74aa" AppSecret="3421314263de4aa0ac384c29283ac203"
+        BypassApproval="false" Enable="true" Id="1" MiniprogramType="0" SortId="1"
+        WithShareTicket="true" path="pages/index/index.html?id=1" userName="gh_afb25ac019c9" />
+    <WechatMoments AppId="wx53ba9da9956a74aa" AppSecret="3421314263de4aa0ac384c29283ac203"
+        BypassApproval="false" Enable="true" Id="2" SortId="2" />
+    <QQ AppId="1106774774" AppKey="09ac56de9L7RGFWK" BypassApproval="false" Enable="true" Id="3"
+        ShareByAppClient="true" SortId="3" />
+    <WechatFavorite
+        Id="5"
+        SortId="5"
+        AppId="wx53ba9da9956a74aa"
+        AppSecret="3421314263de4aa0ac384c29283ac203"
+        Enable="true" />
+    <Instapaper Enable="false" />
+    <Pocket Enable="false" />
+    <YouDao Enable="false" />
+    <Pinterest Enable="false" />
+    <Flickr Enable="false" />
+    <Dropbox Enable="false" />
+    <VKontakte Enable="false" />
+    <Yixin Enable="false" />
+    <YixinMoments Enable="false" />
+    <Mingdao Enable="false" />
+    <Line Enable="false" />
+    <WhatsApp Enable="false" />
+    <KakaoTalk Enable="false" />
+    <KakaoStory Enable="false" />
+    <FacebookMessenger Enable="false" />
+    <Alipay Enable="false" />
+    <AlipayMoments Enable="false" />
+    <Dingding Enable="false" />
+    <Youtube Enable="false" />
+    <Meipai Enable="false" />
+    <Telegram Enable="false" />
+    <Cmcc Enable="false" />
+    <Reddit Enable="false" />
+</DevInfor>

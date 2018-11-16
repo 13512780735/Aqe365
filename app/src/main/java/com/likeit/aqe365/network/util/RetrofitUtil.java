@@ -1,6 +1,9 @@
 package com.likeit.aqe365.network.util;
 
 
+import com.likeit.aqe365.activity.brand.model.BrandModel;
+import com.likeit.aqe365.activity.brand.model.BrandRefreshModel;
+import com.likeit.aqe365.activity.sort.bean.CartDeleteModel;
 import com.likeit.aqe365.activity.sort.bean.CategoryListItemsModel;
 import com.likeit.aqe365.network.ApiService;
 import com.likeit.aqe365.network.consts.Consts;
@@ -10,6 +13,7 @@ import com.likeit.aqe365.network.model.GoodCategory.GoodsCategoryModel;
 import com.likeit.aqe365.network.model.Indent.IndentListModel;
 import com.likeit.aqe365.network.model.Indent.OrderCreateModel;
 import com.likeit.aqe365.network.model.LoginRegisterModel;
+import com.likeit.aqe365.network.model.ThirdLoginModel;
 import com.likeit.aqe365.network.model.cart.CartListModel;
 import com.likeit.aqe365.network.model.goods.AddressModel;
 import com.likeit.aqe365.network.model.goods.CaculateModel;
@@ -27,7 +31,6 @@ import okhttp3.OkHttpClient;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
-import retrofit2.http.Field;
 import rx.Observable;
 import rx.Subscriber;
 import rx.android.schedulers.AndroidSchedulers;
@@ -509,8 +512,122 @@ public class RetrofitUtil {
      * @param subscriber
      */
     public void removeCart(String token, String signature, String newtime, String random, String ids,
-                           Subscriber<BaseResponse<EmptyEntity>> subscriber) {
+                           Subscriber<BaseResponse<CartDeleteModel>> subscriber) {
         mApiService.removeCart(token, signature, newtime, random, ids)
+                .subscribeOn(Schedulers.io())
+                .unsubscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(subscriber);
+    }
+
+    /**
+     * 购物车确认订单
+     *
+     * @param token
+     * @param signature
+     * @param newtime
+     * @param random
+     * @param cartids
+     * @param cartnum
+     * @param subscriber
+     */
+    public void CreateCartOrder(String token, String signature, String newtime, String random, String cartids, String cartnum,
+                                Subscriber<BaseResponse<OrderCreateModel>> subscriber) {
+        mApiService.CreateCartOrder(token, signature, newtime, random, cartids, cartnum)
+                .subscribeOn(Schedulers.io())
+                .unsubscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(subscriber);
+    }
+
+    /**
+     * 购物车生成订单
+     *
+     * @param token
+     * @param signature
+     * @param newtime
+     * @param random
+     * @param cartids
+     * @param cartoption
+     * @param carttotal
+     * @param addressid
+     * @param subscriber
+     */
+    public void CreateCartSubmitorder(String token, String signature, String newtime, String random, String cartids, String cartoption, String carttotal, String addressid
+            ,
+                                      Subscriber<BaseResponse<PayIndentModel>> subscriber) {
+        mApiService.CreateCartSubmitorder(token, signature, newtime, random, cartids, cartoption, carttotal, addressid)
+                .subscribeOn(Schedulers.io())
+                .unsubscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(subscriber);
+    }
+
+    /**
+     * 判断是否关联帐号
+     *
+     * @param openid
+     * @param type
+     * @param subscriber
+     */
+    public void ThirdLogin(String openid, String type
+            ,
+                           Subscriber<BaseResponse<LoginRegisterModel>> subscriber) {
+        mApiService.ThirdLogin(openid, type)
+                .subscribeOn(Schedulers.io())
+                .unsubscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(subscriber);
+    }
+
+    /**
+     * 关联帐号
+     *
+     * @param openid
+     * @param type
+     * @param moblie
+     * @param pwd
+     * @param subscriber
+     */
+    public void snsBind(String openid, String type, String mobile, String pwd,
+                        Subscriber<BaseResponse<LoginRegisterModel>> subscriber) {
+        mApiService.snsBind(openid, type, mobile, pwd)
+                .subscribeOn(Schedulers.io())
+                .unsubscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(subscriber);
+    }
+
+    /**
+     * 品牌列表
+     *
+     * @param token
+     * @param signature
+     * @param newtime
+     * @param random
+     * @param subscriber
+     */
+    public void getBrands(String token, String signature, String newtime, String random,
+                          Subscriber<BaseResponse<BrandModel>> subscriber) {
+        mApiService.getBrands(token, signature, newtime, random)
+                .subscribeOn(Schedulers.io())
+                .unsubscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(subscriber);
+    }
+
+    /**
+     * 刷新品牌
+     * @param token
+     * @param signature
+     * @param newtime
+     * @param random
+     * @param num
+     * @param subscriber
+     */
+    public void brandsRefresh(String token, String signature, String newtime, String random, String num,
+                          Subscriber<BaseResponse<BrandRefreshModel>>subscriber) {
+        mApiService.brandsRefresh(token, signature, newtime, random, num)
                 .subscribeOn(Schedulers.io())
                 .unsubscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())

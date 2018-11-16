@@ -6,6 +6,7 @@ import android.view.KeyEvent;
 import com.likeit.aqe365.R;
 import com.likeit.aqe365.activity.web.base.BaseActivity;
 import com.likeit.aqe365.activity.web.listener.FragmentBackListener;
+import com.likeit.aqe365.utils.AppManager;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -15,6 +16,7 @@ public class JsInterfaceActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_intercept);
+        AppManager.getAppManager().addActivity(this);
         //EventBus.getDefault().register(this);
         JsInterfaceFragment fragment = (JsInterfaceFragment) getFragmentManager().findFragmentById(R.id.content_frame);
         if (fragment == null) {

@@ -42,6 +42,17 @@ public class JsInterfaceLogic {
     }
 
     @JavascriptInterface
+    public void showShare(String str) {
+        mFragment.appShare(str);
+    }
+
+
+    @JavascriptInterface
+    public void tologin() {
+        mFragment.tologin();
+    }
+
+    @JavascriptInterface
     public String getLoginUser() {
         return new JSONObject(new HashMap(4) {{
             put("user_id", 666);

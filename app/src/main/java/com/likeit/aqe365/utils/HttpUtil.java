@@ -44,7 +44,7 @@ public class HttpUtil {
      * @param res
      */
     public static void get(String url, RequestParams params, final RequestListener res) {
-        Log.i("HttpUtil", url + "?" + params.toString());
+        //Log.i("HttpUtil", url + "?" + params.toString());
 
         client.get(url, params, new JsonHttpResponseHandler() {
 

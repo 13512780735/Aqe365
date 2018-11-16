@@ -1,26 +1,42 @@
 package com.likeit.aqe365.activity.sort.goods;
 
+import android.databinding.DataBindingUtil;
+import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import com.likeit.aqe365.R;
 import com.likeit.aqe365.activity.main.MainActivity;
 import com.likeit.aqe365.activity.people.adapter.GoodsIndentTabAdapter;
+import com.likeit.aqe365.activity.sort.product.ProductSkuDialog;
+import com.likeit.aqe365.activity.sort.product.bean.Product;
 import com.likeit.aqe365.base.BaseActivity;
+import com.likeit.aqe365.network.ApiService;
 import com.likeit.aqe365.network.model.BaseResponse;
 import com.likeit.aqe365.network.model.EmptyEntity;
 import com.likeit.aqe365.network.model.goods.GoodDetailModel;
 import com.likeit.aqe365.network.model.goods.GoodsSalesModel;
 import com.likeit.aqe365.network.util.RetrofitUtil;
+import com.likeit.aqe365.utils.AppManager;
+import com.likeit.aqe365.utils.HttpUtil;
 import com.likeit.aqe365.utils.LogUtils;
 import com.likeit.aqe365.utils.SharedPreferencesUtils;
 import com.likeit.aqe365.utils.SignUtils;
 import com.likeit.aqe365.view.NoScrollViewPager;
+import com.loopj.android.http.RequestParams;
+import com.wuhenzhizao.sku.bean.Sku;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -53,17 +69,22 @@ public class GoodsDetailsActivity extends BaseActivity {
     TextView mTvBuy;
 
     private ArrayList<String> mTitles;
-    private ShopDialogFragment dialog;
+    private ProductSkuDialog dialog;
     private Bundle bundle;
     private String id;
     private GoodDetailModel goodDetailModel;
     private String collect;
     private GoodsSalesModel goodsSalesModel = null;
+    private String json;
+    private Product product;
+    private int shoppingCartNum = 0;
+    private String key;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_goods_details);
+        //  binding = DataBindingUtil.setContentView(this, R.layout.activity_goods_details);
         ButterKnife.bind(this);
         id = getIntent().getExtras().getString("id");
         LogUtils.d(id + "");
@@ -127,30 +148,43 @@ public class GoodsDetailsActivity extends BaseActivity {
         String signature = signs[0];
         String newtime = signs[1];
         String random = signs[2];
-        RetrofitUtil.getInstance().goodsSales(token, signature, newtime, random, id, new Subscriber<BaseResponse<GoodsSalesModel>>() {
+        String url = ApiService.Goods_Sales;
+        RequestParams params = new RequestParams();
+        params.put("token", token);
+        params.put("signature", signature);
+        params.put("newtime", newtime);
+        params.put("random", random);
+        params.put("id", id);
+        HttpUtil.post(url, params, new HttpUtil.RequestListener() {
             @Override
-            public void onCompleted() {
-
-            }
-
-            @Override
-            public void onError(Throwable e) {
+            public void success(String response) {
                 loaddingDialog.dismiss();
-                LogUtils.d("333-->" + e);
-            }
-
-            @Override
-            public void onNext(BaseResponse<GoodsSalesModel> baseResponse) {
-                loaddingDialog.dismiss();
-                LogUtils.d("222-->" + baseResponse.getCode() + "");
-                if (baseResponse.code == 200) {
-                    goodsSalesModel = baseResponse.getData();
-                } else {
-                    showProgress(baseResponse.getMsg());
+                // String json = response;
+                try {
+                    JSONObject object = new JSONObject(response);
+                    json = object.optString("data");
+                } catch (JSONException e) {
+                    e.printStackTrace();
                 }
+                Log.d("TAg", json);
+                product = new Gson().fromJson(json, new TypeToken<Product>() {
+                }.getType());
                 initUI();
             }
+
+            @Override
+            public void failed(Throwable e) {
+                loaddingDialog.dismiss();
+            }
+
+            @Override
+            public void onFinish() {
+                super.onFinish();
+                loaddingDialog.dismiss();
+            }
         });
+
+
     }
 
     private Drawable img;
@@ -166,8 +200,10 @@ public class GoodsDetailsActivity extends BaseActivity {
         GoodsDetails04Fragment goodsDetails04Fragment = new GoodsDetails04Fragment();
         Bundle bundle = new Bundle();
         bundle.putSerializable("goodDetailModel", goodDetailModel);
-        bundle.putSerializable("goodsSalesModel", goodsSalesModel);
+        bundle.putParcelable("product", product);
         goodsDetails01Fragment.setArguments(bundle);
+        goodsDetails02Fragment.setArguments(bundle);
+        goodsDetails03Fragment.setArguments(bundle);
         mfragments.add(goodsDetails01Fragment);
         mfragments.add(goodsDetails02Fragment);
         mfragments.add(goodsDetails03Fragment);
@@ -238,31 +274,38 @@ public class GoodsDetailsActivity extends BaseActivity {
                 });
                 break;
             case R.id.tv_shop:
+                bundle = new Bundle();
+                bundle.putString("flag", "0");
+                toActivity(MainActivity.class, bundle);
+                AppManager.getAppManager().finishAllActivity();
                 break;
             case R.id.tv_cart:
                 bundle = new Bundle();
                 bundle.putString("flag", "1");
                 toActivity(MainActivity.class, bundle);
+                AppManager.getAppManager().finishAllActivity();
                 break;
             case R.id.tv_add://添加购物车
-                dialog = new ShopDialogFragment();
-                bundle = new Bundle();
-                bundle.putString("keys", "1");
-                bundle.putSerializable("goodDetailModel", goodDetailModel);
-                bundle.putSerializable("goodsSalesModel", goodsSalesModel);
-                dialog.setArguments(bundle);
-                dialog.show(this.getSupportFragmentManager(), "ShopDialogFragment");
+                SharedPreferencesUtils.put(this, "keys", "1");
+                showSkuDialog();
                 break;
             case R.id.tv_buy://立即购买
-            //    SharedPreferencesUtils.put(this, "indentFlag", "1");//表示从详情进入确认订单
-                dialog = new ShopDialogFragment();
-                bundle = new Bundle();
-                bundle.putString("keys", "2");
-                bundle.putSerializable("goodDetailModel", goodDetailModel);
-                bundle.putSerializable("goodsSalesModel", goodsSalesModel);
-                dialog.setArguments(bundle);
-                dialog.show(this.getSupportFragmentManager(), "ShopDialogFragment");
+                SharedPreferencesUtils.put(this, "keys", "2");
+                showSkuDialog();
                 break;
         }
+    }
+
+    private void showSkuDialog() {
+        if (dialog == null) {
+            dialog = new ProductSkuDialog(GoodsDetailsActivity.this);
+            dialog.setData(product, new ProductSkuDialog.Callback() {
+                @Override
+                public void onAdded(Sku sku, int quantity) {
+
+                }
+            });
+        }
+        dialog.show();
     }
 }

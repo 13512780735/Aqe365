@@ -506,6 +506,8 @@ public class ShopDialogFragment extends DialogFragment {
                             bundle.putString("id", goodDetailModel.getDetail_tab().getId());
                             bundle.putString("optionid", goodsId);
                             bundle.putString("total", String.valueOf(countNum));
+                            bundle.putString("cartids", "");
+                            bundle.putString("cartnum", "");
                             bundle.putString("indentFlag", "1");
                             intent.putExtras(bundle);
                             getActivity().startActivity(intent);

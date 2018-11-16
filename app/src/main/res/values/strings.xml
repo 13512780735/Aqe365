@@ -25,7 +25,7 @@
     <string name="third_login_now">立即登录</string>
     <string name="login_send_code">发送验证码</string>
     <string name="login_confirm">确定</string>
-    <string name="login_details">为了给您更好的服务，请关联一个奥泉医销网帐号</string>
+    <string name="login_details">为了给您更好的服务，请关联一个澳泉医销网帐号</string>
     <string name="login_register_quick">快速注册</string>
     <string name="login_quick_relevance">立即关联</string>
     <string name="login_relevance">关联</string>
@@ -83,4 +83,17 @@
     <!--我的订单-->
     <string name="app_people_indent_title">我的订单</string>
     <string name="title_activity_feedback">FeedbackActivity</string>
+
+    <!--商品规格选择-->
+    <string name="comm_price_format">¥ %s</string>
+
+    <string name="product_detail">商品详情</string>
+    <string name="product_detail_sku_quantity">购买数量</string>
+    <string name="product_detail_sku_confirm">确定</string>
+    <string name="product_detail_sku_recommend_price">价格：¥%1$s/%2$s</string>
+    <string name="product_detail_sku_stock">(库存:%1$s)</string>
+    <string name="product_detail_sku_quantity_over">购买数量超出最大库存，请修改购买数量</string>
+    <string name="product_detail_sku_quantity_empty">购买数量不能为空</string>
+    <string name="product_detail_sku_add_succeed">商品添加成功，请前往进货单查看</string>
+    <string name="title_activity_coupon_list">CouponListActivity</string>
 </resources>

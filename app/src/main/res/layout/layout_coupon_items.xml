@@ -16,7 +16,7 @@
             android:layout_width="wrap_content"
             android:layout_height="0dp"
             android:layout_weight="1"
-            android:textSize="@dimen/sp_16"
+            android:textSize="@dimen/sp_12"
             android:gravity="center_vertical"
             android:textColor="@color/theme_bg"
             android:layout_gravity="center"

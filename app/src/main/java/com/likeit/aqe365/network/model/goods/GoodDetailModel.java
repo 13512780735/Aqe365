@@ -5,13 +5,20 @@ import java.util.List;
 
 public class GoodDetailModel implements Serializable {
 
-    /**
-     * detail_tab : {"id":"377","title":"日本松风 Beautifil Flow光固化树脂 2ml/支 F02 另含5支注射头","thumb":[{"imgurl":"http://aoquan.maimaitoo.com/attachment/images/1/merch/118/Xo9W9wWHAW2hXbr66eHIoI62EHEou6.jpg","linkurl":""}],"productprice":"180.00","marketprice":"150.00","goodssn":"","merchid":"118","sales":"0","collect":"0","dispatchprice":0,"hasSales":true}
-     * detail_sale : {"detail_tab":{"share":{"hideshare":"0","share":"分享","share_link":"","share_icon":"icon-share"}},"coupon":[{"id":"6","title":"新用户专享","enough":"199.00"},{"id":"7","title":"通用券部分商品除外","enough":"399.00"},{"id":"12","title":"150元无门槛","enough":"0.00"},{"id":"13","title":"30元全场通用卷","enough":"1500.00"}]}
-     */
+
     private static final long serialVersionUID = 1L;
+
+    /**
+     * detail_tab : {"id":"252","title":"丝瑞妮 漱口水","thumb":[{"imgurl":"http://aoquan.maimaitoo.com/attachment/images/1/merch/117/W77844ecjc8J87ECc8cFeI8t81H1iJ.jpg","linkurl":""},{"imgurl":"http://aoquan.maimaitoo.com/attachment/images/1/merch/117/rV1KwlqoVVXNwbvb1CWKpNQoMwKCzx.jpg","linkurl":""},{"imgurl":"http://aoquan.maimaitoo.com/attachment/images/1/merch/117/nUII8tCuTri8f18KQ7VTv1VT1zujqv.jpg","linkurl":""}],"productprice":"15.00","marketprice":"12.00","goodssn":"","merchid":"117","sales":"10","collect":"0","dispatchprice":8,"stock":"886","registnum":"","area":" "}
+     * detail_sale : {"detail_tab":{"share":{"hideshare":"0","share":"分享","share_link":"","share_icon":"icon-share"}},"coupon":[{"id":"6","title":"新用户专享","enough":"199.00","usecredit2":null},{"id":"7","title":"通用券部分商品除外","enough":"399.00","usecredit2":null},{"id":"13","title":"30元全场通用卷","enough":"1500.00","usecredit2":null}]}
+     * parameter : [{"title":"产品名称","value":"丝瑞妮 漱口水"}]
+     * particulars : http://aoquan.maimaitoo.com/app/./index.php?i=1&c=entry&m=ewei_shopv2&do=mobile&r=goods.appparticulars&id=252
+     */
+
     private DetailTabBean detail_tab;
     private DetailSaleBean detail_sale;
+    private String particulars;
+    private List<ParameterBean> parameter;
 
     public DetailTabBean getDetail_tab() {
         return detail_tab;
@@ -29,21 +36,37 @@ public class GoodDetailModel implements Serializable {
         this.detail_sale = detail_sale;
     }
 
-    public static class DetailTabBean implements Serializable {
+    public String getParticulars() {
+        return particulars;
+    }
+
+    public void setParticulars(String particulars) {
+        this.particulars = particulars;
+    }
+
+    public List<ParameterBean> getParameter() {
+        return parameter;
+    }
+
+    public void setParameter(List<ParameterBean> parameter) {
+        this.parameter = parameter;
+    }
+
+    public static class DetailTabBean {
         /**
-         * id : 377
-         * title : 日本松风 Beautifil Flow光固化树脂 2ml/支 F02 另含5支注射头
-         * thumb : [{"imgurl":"http://aoquan.maimaitoo.com/attachment/images/1/merch/118/Xo9W9wWHAW2hXbr66eHIoI62EHEou6.jpg","linkurl":""}]
-         * productprice : 180.00
-         * marketprice : 150.00
+         * id : 252
+         * title : 丝瑞妮 漱口水
+         * thumb : [{"imgurl":"http://aoquan.maimaitoo.com/attachment/images/1/merch/117/W77844ecjc8J87ECc8cFeI8t81H1iJ.jpg","linkurl":""},{"imgurl":"http://aoquan.maimaitoo.com/attachment/images/1/merch/117/rV1KwlqoVVXNwbvb1CWKpNQoMwKCzx.jpg","linkurl":""},{"imgurl":"http://aoquan.maimaitoo.com/attachment/images/1/merch/117/nUII8tCuTri8f18KQ7VTv1VT1zujqv.jpg","linkurl":""}]
+         * productprice : 15.00
+         * marketprice : 12.00
          * goodssn :
-         * merchid : 118
-         * sales : 0
+         * merchid : 117
+         * sales : 10
          * collect : 0
-         * dispatchprice : 0
-         * hasSales : true
-         * registnum": "2223",
-         * "area": "广东省 中山市"
+         * dispatchprice : 8
+         * stock : 886
+         * registnum :
+         * area :
          */
 
         private String id;
@@ -55,36 +78,10 @@ public class GoodDetailModel implements Serializable {
         private String sales;
         private String collect;
         private int dispatchprice;
-        private boolean hasSales;
+        private String stock;
         private String registnum;
         private String area;
-        private String stock;
-
-        public String getStock() {
-            return stock;
-        }
-
-        public void setStock(String stock) {
-            this.stock = stock;
-        }
-
         private List<ThumbBean> thumb;
-
-        public String getRegistnum() {
-            return registnum;
-        }
-
-        public void setRegistnum(String registnum) {
-            this.registnum = registnum;
-        }
-
-        public String getArea() {
-            return area;
-        }
-
-        public void setArea(String area) {
-            this.area = area;
-        }
 
         public String getId() {
             return id;
@@ -158,12 +155,28 @@ public class GoodDetailModel implements Serializable {
             this.dispatchprice = dispatchprice;
         }
 
-        public boolean isHasSales() {
-            return hasSales;
+        public String getStock() {
+            return stock;
         }
 
-        public void setHasSales(boolean hasSales) {
-            this.hasSales = hasSales;
+        public void setStock(String stock) {
+            this.stock = stock;
+        }
+
+        public String getRegistnum() {
+            return registnum;
+        }
+
+        public void setRegistnum(String registnum) {
+            this.registnum = registnum;
+        }
+
+        public String getArea() {
+            return area;
+        }
+
+        public void setArea(String area) {
+            this.area = area;
         }
 
         public List<ThumbBean> getThumb() {
@@ -174,9 +187,9 @@ public class GoodDetailModel implements Serializable {
             this.thumb = thumb;
         }
 
-        public static class ThumbBean implements Serializable {
+        public static class ThumbBean {
             /**
-             * imgurl : http://aoquan.maimaitoo.com/attachment/images/1/merch/118/Xo9W9wWHAW2hXbr66eHIoI62EHEou6.jpg
+             * imgurl : http://aoquan.maimaitoo.com/attachment/images/1/merch/117/W77844ecjc8J87ECc8cFeI8t81H1iJ.jpg
              * linkurl :
              */
 
@@ -201,10 +214,10 @@ public class GoodDetailModel implements Serializable {
         }
     }
 
-    public static class DetailSaleBean implements Serializable {
+    public static class DetailSaleBean implements Serializable{
         /**
          * detail_tab : {"share":{"hideshare":"0","share":"分享","share_link":"","share_icon":"icon-share"}}
-         * coupon : [{"id":"6","title":"新用户专享","enough":"199.00"},{"id":"7","title":"通用券部分商品除外","enough":"399.00"},{"id":"12","title":"150元无门槛","enough":"0.00"},{"id":"13","title":"30元全场通用卷","enough":"1500.00"}]
+         * coupon : [{"id":"6","title":"新用户专享","enough":"199.00","usecredit2":null},{"id":"7","title":"通用券部分商品除外","enough":"399.00","usecredit2":null},{"id":"13","title":"30元全场通用卷","enough":"1500.00","usecredit2":null}]
          */
 
         private DetailTabBeanX detail_tab;
@@ -226,7 +239,7 @@ public class GoodDetailModel implements Serializable {
             this.coupon = coupon;
         }
 
-        public static class DetailTabBeanX implements Serializable {
+        public static class DetailTabBeanX implements Serializable{
             /**
              * share : {"hideshare":"0","share":"分享","share_link":"","share_icon":"icon-share"}
              */
@@ -241,7 +254,7 @@ public class GoodDetailModel implements Serializable {
                 this.share = share;
             }
 
-            public static class ShareBean implements Serializable {
+            public static class ShareBean implements Serializable{
                 /**
                  * hideshare : 0
                  * share : 分享
@@ -288,16 +301,18 @@ public class GoodDetailModel implements Serializable {
             }
         }
 
-        public static class CouponBean implements Serializable {
+        public static class CouponBean implements Serializable{
             /**
              * id : 6
              * title : 新用户专享
              * enough : 199.00
+             * usecredit2 : null
              */
 
             private String id;
             private String title;
             private String enough;
+            private Object usecredit2;
 
             public String getId() {
                 return id;
@@ -322,6 +337,40 @@ public class GoodDetailModel implements Serializable {
             public void setEnough(String enough) {
                 this.enough = enough;
             }
+
+            public Object getUsecredit2() {
+                return usecredit2;
+            }
+
+            public void setUsecredit2(Object usecredit2) {
+                this.usecredit2 = usecredit2;
+            }
+        }
+    }
+
+    public static class ParameterBean implements Serializable{
+        /**
+         * title : 产品名称
+         * value : 丝瑞妮 漱口水
+         */
+
+        private String title;
+        private String value;
+
+        public String getTitle() {
+            return title;
+        }
+
+        public void setTitle(String title) {
+            this.title = title;
+        }
+
+        public String getValue() {
+            return value;
+        }
+
+        public void setValue(String value) {
+            this.value = value;
         }
     }
 }

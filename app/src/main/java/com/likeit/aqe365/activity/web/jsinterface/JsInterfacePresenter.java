@@ -3,8 +3,13 @@ package com.likeit.aqe365.activity.web.jsinterface;
 
 import android.app.Fragment;
 
+import com.likeit.aqe365.activity.login.activity.LoginActivity;
+import com.likeit.aqe365.activity.login.activity.WelcomeActivity;
 import com.likeit.aqe365.activity.web.base.BasePresenter;
+import com.likeit.aqe365.network.consts.Consts;
+import com.likeit.aqe365.utils.LogUtils;
 import com.likeit.aqe365.utils.SharedPreferencesUtils;
+import com.nostra13.universalimageloader.utils.L;
 
 public class JsInterfacePresenter extends BasePresenter implements JsInterfaceContract.Presenter {
     private final JsInterfaceContract.View mView;
@@ -15,15 +20,30 @@ public class JsInterfacePresenter extends BasePresenter implements JsInterfaceCo
 
     @Override
     protected void start(boolean isFirstStart) {
-
+        String Login = SharedPreferencesUtils.getString(((Fragment) mView).getActivity(), "login");
+        String mobile = SharedPreferencesUtils.getString(((Fragment) mView).getActivity(), "phone");
+        String pwd = SharedPreferencesUtils.getString(((Fragment) mView).getActivity(), "pwd");
+        String token = SharedPreferencesUtils.getString(((Fragment) mView).getActivity(), "token");
         if (isFirstStart) {
             //Activity activity= ((Activity)mView);
-            String mobile = SharedPreferencesUtils.getString(((Fragment) mView).getActivity(), "phone");
-            String pwd = SharedPreferencesUtils.getString(((Fragment) mView).getActivity(), "pwd");
-           //mView.renderUrl("http://aqe365.wbteam.cn/app/index.php?i=1&c=entry&m=ewei_shopv2&do=mobile&r=member&mobile=" + mobile + "&pwd=" + pwd + "&act=auto");
-            mView.renderUrl("http://wx.aqe365.com/app/index.php?i=1&c=entry&m=ewei_shopv2&do=mobile&r=member&mobile=" + mobile + "&pwd=" + pwd + "&act=auto");
-            // mView.renderUrl("http://aqe365.wbteam.cn/app/index.php?i=1&c=entry&m=ewei_shopv2&do=mobile&r=member&mobile=13680260576&pwd=123456&act=auto");
+
+            LogUtils.d("token111-->" + Consts.HOME_HOST + "app/index.php?i=1&c=entry&m=ewei_shopv2&do=mobile" + token);
+            LogUtils.d("Login-->" + Login);
+            if ("1".equals(Login)) {
+                mView.renderUrl(Consts.HOME_HOST + "app/index.php?i=1&c=entry&m=ewei_shopv2&do=mobile");
+            } else {
+                // mView.renderUrl("http://aoquan.maimaitoo.com/app/index.php?i=1&c=entry&m=ewei_shopv2&do=mobile&r=member&mobile=" + mobile + "&pwd=" + pwd + "&act=auto");
+                mView.renderUrl(Consts.HOME_HOST + "app/index.php?i=1&c=entry&m=ewei_shopv2&do=mobile&token=" + token);
+            }
         }
+//        else  {
+//            if ("1".equals(Login)) {
+//                mView.renderUrl(Consts.HOME_HOST + "app/index.php?i=1&c=entry&m=ewei_shopv2&do=mobile");
+//            } else {
+//                // mView.renderUrl("http://aoquan.maimaitoo.com/app/index.php?i=1&c=entry&m=ewei_shopv2&do=mobile&r=member&mobile=" + mobile + "&pwd=" + pwd + "&act=auto");
+//                mView.renderUrl(Consts.HOME_HOST + "app/index.php?i=1&c=entry&m=ewei_shopv2&do=mobile&token=" + token);
+//            }
+//        }
     }
 
     @Override
@@ -35,4 +55,5 @@ public class JsInterfacePresenter extends BasePresenter implements JsInterfaceCo
     public void clickBtn2() {
         mView.execJavaScript("faild()");
     }
+
 }

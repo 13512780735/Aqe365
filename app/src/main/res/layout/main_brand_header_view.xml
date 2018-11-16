@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <com.bigkoo.convenientbanner.ConvenientBanner xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/banner"
+        android:layout_width="match_parent"
+        android:layout_height="180dp"
+        android:gravity="center_horizontal"
+        app:canLoop="true" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/width50"
+        android:background="@color/white">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:drawableLeft="@mipmap/icon_line01"
+            android:drawableRight="@mipmap/icon_line01"
+            android:text="品牌精选"
+            android:textColor="@color/theme_bg"
+            android:textSize="@dimen/sp_16" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:drawableRight="@mipmap/icon_more"
+            android:gravity="center_vertical"
+            android:paddingRight="@dimen/dp_8"
+            android:text="更多" />
+    </RelativeLayout>
+
+    <com.likeit.aqe365.view.custom_scrollview.MyRecyclerView
+        android:id="@+id/mRecyclerView01"
+        android:layout_width="match_parent"
+        android:layout_height="110dp"></com.likeit.aqe365.view.custom_scrollview.MyRecyclerView>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/width50"
+        android:background="@color/white">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_marginTop="@dimen/dp_10"
+            android:drawableLeft="@mipmap/icon_line01"
+            android:drawableRight="@mipmap/icon_line01"
+            android:text="推荐品牌"
+            android:textColor="@color/theme_bg"
+            android:textSize="@dimen/sp_16" />
+
+    </RelativeLayout>
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/mRecyclerView02"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"></android.support.v7.widget.RecyclerView>
+</LinearLayout>

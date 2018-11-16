@@ -7,86 +7,15 @@
 
     <include layout="@layout/common_toolbar"></include>
     <!-- TODO: Update blank fragment layout -->
-    <ScrollView
+    <android.support.v4.widget.SwipeRefreshLayout
+        android:id="@+id/SwipeRefreshLayout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="match_parent">
 
-        <LinearLayout
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/RecyclerView"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:layout_height="wrap_content"></android.support.v7.widget.RecyclerView>
+    </android.support.v4.widget.SwipeRefreshLayout>
 
-
-            <com.bigkoo.convenientbanner.ConvenientBanner xmlns:app="http://schemas.android.com/apk/res-auto"
-                android:id="@+id/banner"
-                android:layout_width="match_parent"
-                android:layout_height="180dp"
-                android:gravity="center_horizontal"
-                app:canLoop="true" />
-
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/width50"
-                android:background="@color/white">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerInParent="true"
-                    android:drawableLeft="@mipmap/icon_line01"
-                    android:drawableRight="@mipmap/icon_line01"
-                    android:text="品牌精选"
-                    android:textColor="@color/theme_bg"
-                    android:textSize="@dimen/sp_16" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"
-                    android:layout_centerVertical="true"
-                    android:drawableRight="@mipmap/icon_more"
-                    android:gravity="center_vertical"
-                    android:paddingRight="@dimen/dp_8"
-                    android:text="更多" />
-            </RelativeLayout>
-
-            <com.likeit.aqe365.view.MyGridView
-                android:id="@+id/GridView"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:numColumns="4"
-                android:horizontalSpacing="@dimen/dp_5"
-                android:layout_marginVertical="@dimen/dp_5"
-                android:padding="@dimen/dp_10"
-                android:verticalSpacing="5dip"></com.likeit.aqe365.view.MyGridView>
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/width50"
-                android:background="@color/white">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerInParent="true"
-                    android:drawableLeft="@mipmap/icon_line01"
-                    android:drawableRight="@mipmap/icon_line01"
-                    android:layout_marginTop="@dimen/dp_10"
-                    android:text="推荐品牌"
-                    android:textColor="@color/theme_bg"
-                    android:textSize="@dimen/sp_16" />
-
-            </RelativeLayout>
-            <com.likeit.aqe365.view.MyGridView
-                android:id="@+id/GridView01"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:numColumns="2"
-                android:background="@color/white"
-                android:horizontalSpacing="@dimen/dp_5"
-                android:layout_marginVertical="@dimen/dp_5"
-                android:padding="@dimen/dp_10"
-                android:verticalSpacing="5dip"></com.likeit.aqe365.view.MyGridView>
-        </LinearLayout>
-
-    </ScrollView>
 </LinearLayout>

@@ -16,12 +16,21 @@ import android.widget.ToggleButton;
 
 import com.likeit.aqe365.R;
 import com.likeit.aqe365.activity.FrameActivity;
+import com.likeit.aqe365.activity.login.activity.LoginActivity;
 import com.likeit.aqe365.activity.main.MainActivity;
+import com.likeit.aqe365.activity.web.jsinterface.JsInterfaceActivity;
 import com.likeit.aqe365.base.BaseFragment;
 import com.likeit.aqe365.constants.Constants;
 import com.likeit.aqe365.listener.IEditTextChangeListener;
+import com.likeit.aqe365.network.model.BaseResponse;
+import com.likeit.aqe365.network.model.LoginRegisterModel;
+import com.likeit.aqe365.network.util.RetrofitUtil;
 import com.likeit.aqe365.utils.AppManager;
 import com.likeit.aqe365.utils.EditTextSizeCheckUtil;
+import com.likeit.aqe365.utils.LogUtils;
+import com.likeit.aqe365.utils.SharedPreferencesUtils;
+
+import rx.Subscriber;
 
 import static com.likeit.aqe365.Interface.BaseInterface.KEY_FRAGMENT;
 
@@ -35,6 +44,9 @@ public class RelevanceUserFragment extends BaseFragment implements View.OnClickL
     private TextView tv_relevance;
     private ToggleButton tb_re_pwd;
     private EditText et_pwd, et_phone;
+    private String type;
+    private String openid;
+    private String isWeb;
 
     public static RelevanceUserFragment newInstance() {
         Bundle bundle = new Bundle();
@@ -43,6 +55,13 @@ public class RelevanceUserFragment extends BaseFragment implements View.OnClickL
         return fragment;
     }
 
+    @Override
+    public void onStart() {
+        super.onStart();
+        type = SharedPreferencesUtils.getString(getActivity(), "type");
+        openid = SharedPreferencesUtils.getString(getActivity(), "openid");
+        isWeb=SharedPreferencesUtils.getString(getActivity(),"isWeb");
+    }
 
     public void initUI() {
         setBackView();
@@ -80,16 +99,62 @@ public class RelevanceUserFragment extends BaseFragment implements View.OnClickL
                 startFrameActivity(Constants.FRAGMENT_FORGET_PWD);
                 break;
             case R.id.tv_relevance:
-                startMainActivity();
+                //startMainActivity();
+                snsBind();
+               // startMainActivity();
                 break;
         }
     }
 
+    private void snsBind() {
+        LogUtils.d("openid-->" + openid);
+        LogUtils.d("type-->" + type);
+        final String mobile = et_phone.getText().toString().trim();
+        final String pwd = et_pwd.getText().toString().trim();
+        RetrofitUtil.getInstance().snsBind(openid, type, mobile, pwd, new Subscriber<BaseResponse<LoginRegisterModel>>() {
+            @Override
+            public void onCompleted() {
+
+            }
+
+            @Override
+            public void onError(Throwable e) {
+                LogUtils.d("错误：" + e);
+            }
+
+            @Override
+            public void onNext(BaseResponse<LoginRegisterModel> baseResponse) {
+                if (baseResponse.code == 200) {
+                    SharedPreferencesUtils.put(getActivity(), "phone", mobile);
+                    SharedPreferencesUtils.put(getActivity(), "pwd", pwd);
+                    SharedPreferencesUtils.put(getActivity(), "token", baseResponse.getData().getToken());
+                    LogUtils.d(baseResponse.getData().getMember().getNickname());
+                    if ("1".equals(isWeb)) {
+                        startMainActivity();
+                    } else {
+                        startWebActivity();
+                    }
+                } else {
+                    showProgress(baseResponse.getMsg());
+                }
+
+            }
+        });
+    }
+    private void startWebActivity() {
+        /**
+         * 跳转网页
+         */
+        SharedPreferencesUtils.put(getActivity(), "login", "2");
+        Intent intent = new Intent(getActivity(), JsInterfaceActivity.class);
+        startActivity(intent);
+    }
     private void startMainActivity() {
         Bundle bundle = new Bundle();
         bundle.putString("flag", "0");
         Intent intent = new Intent(getActivity(), MainActivity.class);
         intent.putExtras(bundle);
+        startActivity(intent);
         AppManager.getAppManager().finishAllActivity();
     }
 

@@ -12,7 +12,7 @@ import com.likeit.aqe365.base.BaseFragment;
  * 品牌关注
  * A simple {@link Fragment} subclass.
  */
-public class BrandAttentionFragment extends BaseFragment {
+public class    BrandAttentionFragment extends BaseFragment {
 
 
     public static BrandAttentionFragment newInstance() {

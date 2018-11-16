@@ -3,22 +3,37 @@ package com.likeit.aqe365.activity.main.fragment;
 
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
+import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.CheckBox;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.likeit.aqe365.R;
+import com.likeit.aqe365.activity.cart.activity.ConfirmOrderActivity;
+import com.likeit.aqe365.activity.cart.adapter.CartRecomAdapter;
 import com.likeit.aqe365.activity.cart.adapter.ShopcartExpandableListViewAdapter;
+import com.likeit.aqe365.activity.main.MainActivity;
+import com.likeit.aqe365.activity.sort.bean.CartDeleteModel;
+import com.likeit.aqe365.activity.sort.goods.GoodsDetailsActivity;
+import com.likeit.aqe365.activity.sort.view.ChooseGoodsSales.BigDecimalUtils;
 import com.likeit.aqe365.base.BaseFragment;
 import com.likeit.aqe365.network.model.BaseResponse;
 import com.likeit.aqe365.network.model.EmptyEntity;
 import com.likeit.aqe365.network.model.cart.CartListModel;
 import com.likeit.aqe365.network.util.RetrofitUtil;
+import com.likeit.aqe365.utils.AppManager;
 import com.likeit.aqe365.utils.LogUtils;
 import com.likeit.aqe365.utils.SignUtils;
+import com.likeit.aqe365.utils.ToastUtils;
 import com.likeit.aqe365.view.SuperExpandableListView;
 
 import java.util.ArrayList;
@@ -49,6 +64,9 @@ public class MainCartFragment extends BaseFragment implements ShopcartExpandable
     TextView mTvGoToPay;
     @BindView(R.id.toolbar_righ_tv)
     TextView mToolbarRighTv;
+    @BindView(R.id.ll_cart_bottom)
+    LinearLayout ll_cart_bottom;
+    RecyclerView mRecyclerView;
     private Context context;
 
     private double totalPrice = 0.00;// 购买的商品总价
@@ -58,6 +76,11 @@ public class MainCartFragment extends BaseFragment implements ShopcartExpandable
     private List<CartListModel.ListBeanXX> groups = new ArrayList<>();// 组元素数据列表
     private Map<String, List<CartListModel.ListBeanXX.ListBeanX>> children = new HashMap<>();// 子元素数据列表
     private View view;
+    private List<CartListModel.RecomsBean.ListBean> recomsBean;
+    private CartRecomAdapter mAdapter;
+    private TextView mTvGoHome;
+    private CartListModel cartListModel;
+    private View header;
 
     public MainCartFragment() {
         // Required empty public constructor
@@ -66,6 +89,7 @@ public class MainCartFragment extends BaseFragment implements ShopcartExpandable
 
     public void initUI() {
         context = getActivity();
+
     }
 
 
@@ -86,12 +110,27 @@ public class MainCartFragment extends BaseFragment implements ShopcartExpandable
         initUI();
         virtualData();
         addListeners();
+    }
 
+    private void refresh() {
+        initEvents();
     }
 
     private void initEvents() {
-        LogUtils.d("groups-->" + groups);
-        LogUtils.d("children-->" + children);
+        //mExListView.addFooterView();
+        View footer = LayoutInflater.from(getActivity()).inflate(R.layout.home_cart_footview, null);
+        header = LayoutInflater.from(getActivity()).inflate(R.layout.home_cart_empty_view, null);
+        mTvGoHome = header.findViewById(R.id.tv_go_home);
+        mRecyclerView = footer.findViewById(R.id.RecyclerView);
+        mTvGoHome.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Bundle bundle = new Bundle();
+                bundle.putString("flag", "0");
+                toActivity(MainActivity.class, bundle);
+                AppManager.getAppManager().finishAllActivity();
+            }
+        });
         selva = new ShopcartExpandableListViewAdapter(groups, children, getActivity());
         selva.setCheckInterface(this);// 关键步骤1,设置复选框接口
         selva.setModifyCountInterface(this);// 关键步骤2,设置数量增减接口
@@ -99,7 +138,14 @@ public class MainCartFragment extends BaseFragment implements ShopcartExpandable
         for (int i = 0; i < selva.getGroupCount(); i++) {
             mExListView.expandGroup(i);// 关键步骤3,初始化时，将ExpandableListView以展开的方式呈现
         }
-
+        initRecom();
+        LogUtils.d("test-->" + cartListModel.getList());
+        if (cartListModel.getList() == null) {
+            mExListView.addHeaderView(header);
+            mToolbarRighTv.setVisibility(View.GONE);
+            ll_cart_bottom.setVisibility(View.GONE);
+        }
+        mExListView.addFooterView(footer);
         mAllChekbox.setOnClickListener(this);
         mTvDelete.setOnClickListener(this);
         mTvGoToPay.setOnClickListener(this);
@@ -134,35 +180,50 @@ public class MainCartFragment extends BaseFragment implements ShopcartExpandable
                 LogUtils.d("data-->" + baseResponse.getData().getRecoms().getList().get(0).getTitle());
                 LoaddingDismiss();
                 if (baseResponse.code == 200) {
-                    CartListModel cartListModel = baseResponse.getData();
-                    //groups.addAll(cartListModel.getList());
-                    //  groups = cartListModel.getList();
-                    for (int i = 0; i < cartListModel.getList().size(); i++) {
-                        // groups = cartListModel.getList();
-                        groups.add(new CartListModel.ListBeanXX(i + "", cartListModel.getList().get(i).getMerchname(), cartListModel.getList().get(i).getMerchid(), cartListModel.getList().get(i).getList()));
-                        List<CartListModel.ListBeanXX.ListBeanX> products = new ArrayList<>();
-                        for (int j = 0; j <= i; j++) {
-                            products = groups.get(i).getList();
+                    cartListModel = baseResponse.getData();
+                    recomsBean = cartListModel.getRecoms().getList();
+                    if (cartListModel.getList() != null) {
+                        if (groups.size() > 0) {
+                            groups.clear();
                         }
-                        children.put(groups.get(i).getId(), products);
+                        for (int i = 0; i < cartListModel.getList().size(); i++) {
+                            // groups = cartListModel.getList();
+                            groups.add(new CartListModel.ListBeanXX(i + "", cartListModel.getList().get(i).getMerchname(), cartListModel.getList().get(i).getMerchid(), cartListModel.getList().get(i).getList()));
+                            List<CartListModel.ListBeanXX.ListBeanX> products = new ArrayList<>();
+                            for (int j = 0; j <= i; j++) {
+                                products = groups.get(i).getList();
+                            }
+                            children.put(groups.get(i).getId(), products);
+                        }
                     }
-                    initEvents();
+                    refresh();
+                    // LogUtils.d("recomsBean" + recomsBean.get(0).getTitle());
+
+                    // initRecom();
                 }
             }
         });
     }
 
-    //    private void virtualData() {
-//
-//        for (int i = 0; i < 2; i++) {
-//            groups.add(new GroupInfo(i + "", "澳泉医销网" + (i + 1) + "号店"));
-//            List<ProductInfo> products = new ArrayList<>();
-//            for (int j = 0; j <= i; j++) {
-//                products.add(new ProductInfo(j + "", "商品", "", groups.get(i).getName() + "的第" + (j + 1) + "个商品", 120.00 + i * j, 1 + j));
-//            }
-//            children.put(groups.get(i).getId(), products);// 将组元素的一个唯一值，这里取Id，作为子元素List的Key
-//        }
-//    }
+    private void initRecom() {
+        mRecyclerView.setLayoutManager(new GridLayoutManager(getActivity(), 3));
+        mAdapter = new CartRecomAdapter(R.layout.cart_recom_items, recomsBean);
+        mAdapter.setNewData(recomsBean);
+        mRecyclerView.setAdapter(mAdapter);
+        mAdapter.notifyDataSetChanged();
+        mAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+                String cid = recomsBean.get(position).getId();
+                Intent intent = new Intent(getActivity(), GoodsDetailsActivity.class);
+                Bundle bundle = new Bundle();
+                bundle.putString("id", cid);
+                intent.putExtras(bundle);
+                startActivity(intent);
+            }
+        });
+    }
+
     @Override
     public void checkGroup(int groupPosition, boolean isChecked) {
         CartListModel.ListBeanXX group = groups.get(groupPosition);
@@ -256,9 +317,19 @@ public class MainCartFragment extends BaseFragment implements ShopcartExpandable
                 alert.setButton(DialogInterface.BUTTON_POSITIVE, "确定", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        //toActivity(ConfirmOrderActivity.class);
-                        showProgress("暂未实现");
-                        //  return;
+                        LogUtils.d("cartids-->" + cartIds);
+                        LogUtils.d("optionid-->" + optionids);
+                        LogUtils.d("cartnum-->" + cartNums);
+                        Intent intent = new Intent(getActivity(), ConfirmOrderActivity.class);
+                        Bundle bundle = new Bundle();
+                        bundle.putString("id", "");
+                        bundle.putString("optionid", optionids);
+                        bundle.putString("total", "");
+                        bundle.putString("cartids", cartIds);
+                        bundle.putString("cartnum", cartNums);
+                        bundle.putString("goodsIds", goodsIds);
+                        bundle.putString("indentFlag", "2");
+                        toActivity(ConfirmOrderActivity.class, bundle);
                     }
                 });
                 alert.show();
@@ -315,45 +386,48 @@ public class MainCartFragment extends BaseFragment implements ShopcartExpandable
      * 2.现将要删除的对象放进相应的列表容器中，待遍历完后，以removeAll的方式进行删除
      */
     public void doDelete() {
-        List<CartListModel.ListBeanXX> toBeDeleteGroups = new ArrayList<CartListModel.ListBeanXX>();// 待删除的组元素列表
+        List<CartListModel.ListBeanXX> toBeDeleteGroups = new ArrayList<>();// 待删除的组元素列表
         String goodsId = null;
+        String ids = "";
+        String temp = "";
         for (int i = 0; i < groups.size(); i++) {
             CartListModel.ListBeanXX group = groups.get(i);
             if (group.isChoosed()) {
 
                 toBeDeleteGroups.add(group);
             }
-            List<CartListModel.ListBeanXX.ListBeanX> toBeDeleteProducts = new ArrayList<CartListModel.ListBeanXX.ListBeanX>();// 待删除的子元素列表
-            String ids = "";
+            List<CartListModel.ListBeanXX.ListBeanX> toBeDeleteProducts = new ArrayList<>();// 待删除的子元素列表
 
             List<CartListModel.ListBeanXX.ListBeanX> childs = children.get(group.getId());
             for (int j = 0; j < childs.size(); j++) {
                 if (childs.get(j).isChoosed()) {
                     toBeDeleteProducts.add(childs.get(j));
-                    String temp = childs.get(j).getId();
+                    temp = childs.get(j).getId();
                     ids += temp + ",";
+
                 }
             }
-            if (ids != null) {
-                goodsId = ids.substring(0, ids.length() - 1);
-                LogUtils.d("goodsId-->" + goodsId);
-            }
-            delectCart(goodsId);
             childs.removeAll(toBeDeleteProducts);
         }
         groups.removeAll(toBeDeleteGroups);
-
+        LogUtils.d("temp-->" + ids);
+        if (ids.length() > 0) {
+            goodsId = ids.substring(0, ids.length() - 1);
+            LogUtils.d("goodsId-->" + goodsId);
+        }
+        delectCart(goodsId);
         selva.notifyDataSetChanged();
         calculate();
     }
 
     private void delectCart(String goodsId) {
+        LogUtils.d("goodsId11-->" + goodsId);
         String sign = SignUtils.getSign(getActivity());
         String signs[] = sign.split("##");
         String signature = signs[0];
-        String newtime = signs[1];
+        final String newtime = signs[1];
         String random = signs[2];
-        RetrofitUtil.getInstance().removeCart(token, signature, newtime, random, goodsId, new Subscriber<BaseResponse<EmptyEntity>>() {
+        RetrofitUtil.getInstance().removeCart(token, signature, newtime, random, goodsId, new Subscriber<BaseResponse<CartDeleteModel>>() {
             @Override
             public void onCompleted() {
 
@@ -365,9 +439,17 @@ public class MainCartFragment extends BaseFragment implements ShopcartExpandable
             }
 
             @Override
-            public void onNext(BaseResponse<EmptyEntity> baseResponse) {
+            public void onNext(BaseResponse<CartDeleteModel> baseResponse) {
                 if (baseResponse.code == 200) {
-                    showProgress("删除成功！");
+                    String number = baseResponse.getData().getNum();
+                    LogUtils.d("number-->" + number);
+                    ToastUtils.showToast(getActivity(), "删除成功！");
+                    // virtualData();
+                    if ("0".equals(number)) {
+                        mExListView.addHeaderView(header);
+                        mToolbarRighTv.setVisibility(View.GONE);
+                        ll_cart_bottom.setVisibility(View.GONE);
+                    }
                 } else {
                     showProgress(baseResponse.getMsg());
                 }
@@ -397,9 +479,22 @@ public class MainCartFragment extends BaseFragment implements ShopcartExpandable
      * 2.遍历所有子元素，只要是被选中状态的，就进行相关的计算操作<br>
      * 3.给底部的textView进行数据填充
      */
+
+
+    String cartIds = "";
+    String cartNums = "";
+    String optionids = "";
+    String goodsIds = "";
+
     private void calculate() {
+
         totalCount = 0;
         totalPrice = 0.00;
+        String cartId = "";
+        String cartNum = "";
+        String optionid = "";
+        String goodsId = "";
+
         for (int i = 0; i < groups.size(); i++) {
             CartListModel.ListBeanXX group = groups.get(i);
             List<CartListModel.ListBeanXX.ListBeanX> childs = children.get(group.getId());
@@ -407,11 +502,42 @@ public class MainCartFragment extends BaseFragment implements ShopcartExpandable
                 CartListModel.ListBeanXX.ListBeanX product = childs.get(j);
                 if (product.isChoosed()) {
                     totalCount++;
-                    totalPrice += Double.valueOf(product.getMarketprice()) * Double.valueOf(product.getTotal());
+                    totalPrice += Double.valueOf(product.getMarketprice()) * Integer.valueOf(product.getTotal());
+                    String temp01 = product.getId();
+                    String temp02 = product.getTotal();
+                    String temp03 = product.getOptionid();
+                    String temp04 = product.getGoodsid();
+
+                    cartId += temp01 + ",";
+                    cartNum += temp02 + ",";
+                    optionid += temp03 + ",";
+                    goodsId += temp04 + ",";
                 }
             }
         }
-        mTvTotalPrice.setText("￥" + totalPrice);
+
+        if (cartId.length() > 0) {
+            cartIds = cartId.substring(0, cartId.length() - 1);
+        }
+        if (cartNum.length() > 0) {
+            cartNums = cartNum.substring(0, cartNum.length() - 1);
+        }
+        if (optionid.length() > 0) {
+            optionids = optionid.substring(0, optionid.length() - 1);
+        }
+        if (goodsId.length() > 0) {
+            goodsIds = goodsId.substring(0, goodsId.length() - 1);
+        }
+        LogUtils.d("cartId-->" + cartId);
+        LogUtils.d("cartIds-->" + cartIds);
+        LogUtils.d("cartNum-->" + cartNum);
+        LogUtils.d("cartNums-->" + cartNums);
+//        if (ids.length() > 0) {
+//            goodsId = ids.substring(0, ids.length() - 1);
+//            LogUtils.d("goodsId-->" + goodsId);
+//        }
+//
+        mTvTotalPrice.setText("￥" + BigDecimalUtils.toDecimal(totalPrice, 2));
         mTvGoToPay.setText("去支付(" + totalCount + ")");
         mTvDelete.setText("删除（" + totalCount + ")");
     }

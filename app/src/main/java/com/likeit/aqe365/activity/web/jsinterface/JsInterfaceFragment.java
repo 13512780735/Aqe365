@@ -2,7 +2,10 @@ package com.likeit.aqe365.activity.web.jsinterface;
 
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
+import android.content.res.Resources;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -17,7 +20,9 @@ import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.webkit.JsResult;
 import android.webkit.ValueCallback;
+import android.webkit.WebChromeClient;
 import android.webkit.WebResourceError;
 import android.webkit.WebResourceRequest;
 import android.webkit.WebSettings;
@@ -31,9 +36,11 @@ import android.widget.Toast;
 
 import com.alipay.sdk.app.PayTask;
 import com.likeit.aqe365.R;
+import com.likeit.aqe365.activity.login.activity.LoginActivity;
 import com.likeit.aqe365.activity.web.base.BaseFragment;
 import com.likeit.aqe365.activity.web.model.JsInterfaceLogic;
 import com.likeit.aqe365.event.PayEventMessage;
+import com.likeit.aqe365.network.consts.Consts;
 import com.likeit.aqe365.utils.CustomDialog;
 import com.likeit.aqe365.utils.LoaddingDialog;
 import com.likeit.aqe365.utils.LogUtils;
@@ -52,6 +59,7 @@ import org.json.JSONObject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import onekeyshare.OnekeyShare;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -122,18 +130,18 @@ public class JsInterfaceFragment extends BaseFragment<JsInterfaceContract.Presen
         }
 
     };
-    private String url;
     private String mobile, pwd;
     private CustomDialog dialog;
     private boolean mIsLoadSuccess;
     private View mErrorView;
     private WebSettings mWebSettings;
+    private String token;
+    private String url;
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_js_interface, container, false);
-        // EventBus.getDefault().register(getActivity());
         mUnbinder = ButterKnife.bind(this, view);
         mDialog = new LoaddingDialog(getActivity());
         WX_APPID = "wx53ba9da9956a74aa";
@@ -141,12 +149,25 @@ public class JsInterfaceFragment extends BaseFragment<JsInterfaceContract.Presen
         api.registerApp(WX_APPID);
         mobile = SharedPreferencesUtils.getString(getActivity(), "phone");
         pwd = SharedPreferencesUtils.getString(getActivity(), "pwd");
-        url = "http://aqe365.wbteam.cn/app/index.php?i=1&c=entry&m=ewei_shopv2&do=mobile&r=member&mobile=" + mobile + "&pwd= " + pwd + " &act=auto";
+        token = SharedPreferencesUtils.getString(getActivity(), "token");
+        //  token="ODcyMHlwMEx5SHB5bTc0bmg5SUpiU0w2aGxDWWdoUkZPL1ZzRUVzeThjNnVTL3VLV0VSMU15bk9ReGJoWWN3YmUrVQ==";
+        String Login = SharedPreferencesUtils.getString(getActivity(), "login");
+        LogUtils.d("Login-->" + Login);
+        LogUtils.d("token-->" + token);
+        if ("1".equals(Login)) {
+            url = Consts.HOME_HOST + "app/index.php?i=1&c=entry&m=ewei_shopv2&do=mobile";
+
+        } else {
+            url = Consts.HOME_HOST + "app/index.php?i=1&c=entry&m=ewei_shopv2&do=mobile&token=" + token;
+            // url="http://aoquan.maimaitoo.com/app/index.php?i=1&c=entry&m=ewei_shopv2&do=mobile&r=member&mobile=" + mobile + "&pwd=" + pwd + "&act=auto";
+        }
+        if("2".equals(Login)){
+            mWebView.clearCache(true);
+        }
         error.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 ll_control_error.setVisibility(View.GONE);
-               // loading_over.setVisibility(View.VISIBLE);
                 mWebView.reload();
             }
         });
@@ -177,6 +198,14 @@ public class JsInterfaceFragment extends BaseFragment<JsInterfaceContract.Presen
         EventBus.getDefault().unregister(this);
     }
 
+    @Override
+    public void renderUrl(@NonNull String url) {
+        LogUtils.d("TAGURL-->" + url);
+
+        mWebView.loadUrl(url);
+
+    }
+
 
     private void setupUI() {
         mWebView.getSettings().setJavaScriptEnabled(true);
@@ -186,9 +215,17 @@ public class JsInterfaceFragment extends BaseFragment<JsInterfaceContract.Presen
         mWebSettings.setSupportZoom(false);          //允许缩放
         mWebSettings.setBuiltInZoomControls(false);  //原网页基础上缩放
         mWebSettings.setUseWideViewPort(false);      //任意比例缩放
+        mWebView.setWebChromeClient(new WebChromeClient() {
+            @Override
+            public boolean onJsAlert(WebView view, String url, String message, JsResult result) {
+                result.confirm();
+                return super.onJsAlert(view, url, message, result);
+            }
+        });
         mWebView.setWebViewClient(new WebViewClient() {
             @Override
             public boolean shouldOverrideUrlLoading(WebView view, String url) {
+                LogUtils.d("URL-->" + url);
                 view.loadUrl(url);
 
                 return true;
@@ -197,7 +234,7 @@ public class JsInterfaceFragment extends BaseFragment<JsInterfaceContract.Presen
             @Override
             public void onPageStarted(WebView view, String url, Bitmap favicon) {
                 super.onPageStarted(view, url, favicon);
-                mDialog.show();
+                //  mDialog.show();
 
             }
 
@@ -243,47 +280,6 @@ public class JsInterfaceFragment extends BaseFragment<JsInterfaceContract.Presen
 
     }
 
- //   boolean mIsErrorPage;
-//    protected void showErrorPage() {
-//        LinearLayout webParentView = (LinearLayout) mWebView.getParent();
-//        initErrorPage();//初始化自定义页面
-//        while (webParentView.getChildCount() > 1) {
-//            webParentView.removeViewAt(0);
-//        }
-//        @SuppressWarnings("deprecation")
-//        LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(ViewPager.LayoutParams.FILL_PARENT, ViewPager.LayoutParams.FILL_PARENT);
-//        webParentView.addView(mErrorView, 0, lp);
-//        mIsErrorPage = true;
-//    }
-//
-//    /****
-//     * 把系统自身请求失败时的网页隐藏
-//     */
-//    protected void hideErrorPage() {
-//        LinearLayout webParentView = (LinearLayout) mWebView.getParent();
-//        mIsErrorPage = false;
-//        while (webParentView.getChildCount() > 1) {
-//            webParentView.removeViewAt(0);
-//        }
-//    }
-//
-//    /***
-//     * 显示加载失败时自定义的网页
-//     */
-//    protected void initErrorPage() {
-//        if (mErrorView == null) {
-//            mErrorView = View.inflate(getActivity(), R.layout.layout_load_error, null);
-//            RelativeLayout layout = (RelativeLayout) mErrorView.findViewById(R.id.online_error_btn_retry);
-//            layout.setOnClickListener(new View.OnClickListener() {
-//                public void onClick(View v) {
-//                    //  mWebView.reload();
-//                    // mErrorView.setVisibility(View.GONE);
-//                    mWebView.loadUrl(url);
-//                }
-//            });
-//            mErrorView.setOnClickListener(null);
-//        }
-//    }
 
     @Override
     public void showWeChatPay(String str) {
@@ -313,13 +309,6 @@ public class JsInterfaceFragment extends BaseFragment<JsInterfaceContract.Presen
         } catch (JSONException e) {
             e.printStackTrace();
         }
-
-    }
-
-    @Override
-    public void renderUrl(@NonNull String url) {
-
-        mWebView.loadUrl(url);
 
     }
 
@@ -395,6 +384,60 @@ public class JsInterfaceFragment extends BaseFragment<JsInterfaceContract.Presen
         request.sign = sign;
         request.timeStamp = timeStamp;
         api.sendReq(request);
+    }
+
+    @Override
+    public void appShare(String str) {
+        super.appShare(str);
+        LogUtils.d("支付宝888" + str);
+        try {
+            JSONObject object = new JSONObject(str);
+            String title = object.optString("title");
+            String desc = object.optString("desc");
+            String text = object.optString("text");
+            String imgPaths = object.optString("imgPaths");
+            String url = object.optString("url");
+            showShare(title, desc, text, imgPaths, url);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        //alipay(str);
+
+    }
+
+    /**
+     * 商品詳情分享
+     *
+     * @param title
+     * @param desc
+     * @param text
+     * @param imgPaths
+     * @param url
+     */
+
+    private void showShare(String title, String desc, String text, String imgPaths, String url) {
+        Resources res = getActivity().getResources();
+        Bitmap bmp = BitmapFactory.decodeResource(res, R.mipmap.ic_launcher);
+        OnekeyShare oks = new OnekeyShare();
+        //关闭sso授权
+        oks.disableSSOWhenAuthorize();
+
+        // title标题，微信、QQ和QQ空间等平台使用
+        oks.setTitle(title);
+        // titleUrl QQ和QQ空间跳转链接
+        oks.setTitleUrl(url);
+        // text是分享文本，所有平台都需要这个字段
+        oks.setText(text);
+        // imagePath是图片的本地路径，Linked-In以外的平台都支持此参数
+        //oks.setImageData(bmp);
+        oks.setImageUrl(imgPaths);
+
+        oks.setSite(getActivity().getString(R.string.app_name));
+        // url在微信、微博，Facebook等平台中使用
+        oks.setUrl(url);
+        // comment是我对这条分享的评论，仅在人人网使用
+        // 启动分享GUI
+        oks.show(getActivity());
     }
 
 }

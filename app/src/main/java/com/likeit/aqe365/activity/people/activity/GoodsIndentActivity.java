@@ -39,7 +39,7 @@ public class GoodsIndentActivity extends BaseActivity {
     private void initView() {
         setBackView();
         setTitle(getResources().getString(R.string.app_people_indent_title));
-        mTabLayout = findViewById(R.id.indent_TabLayout);
+            mTabLayout = findViewById(R.id.indent_TabLayout);
         mViewPager = findViewById(R.id.viewpager);
         mTabLayout.setTabMode(TabLayout.MODE_FIXED);
         mTabLayout.setupWithViewPager(mViewPager);

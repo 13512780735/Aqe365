@@ -9,8 +9,13 @@ import android.widget.TextView;
 
 import com.likeit.aqe365.R;
 import com.likeit.aqe365.activity.FrameActivity;
+import com.likeit.aqe365.activity.login.activity.LoginActivity;
 import com.likeit.aqe365.base.BaseFragment;
 import com.likeit.aqe365.constants.Constants;
+import com.likeit.aqe365.utils.LogUtils;
+import com.likeit.aqe365.utils.SharedPreferencesUtils;
+import com.likeit.aqe365.view.CircleImageView;
+import com.nostra13.universalimageloader.core.ImageLoader;
 
 import static com.likeit.aqe365.Interface.BaseInterface.KEY_FRAGMENT;
 
@@ -22,6 +27,8 @@ public class ThirdLoginFragment extends BaseFragment implements View.OnClickList
 
     private TextView tv_relevance;
     private TextView tv_register_quick;
+    private CircleImageView iv_avatar;
+    private String avatarUrl;
 
     public static ThirdLoginFragment newInstance() {
         // Required empty public constructor
@@ -30,14 +37,21 @@ public class ThirdLoginFragment extends BaseFragment implements View.OnClickList
         fragment.setArguments(bundle);
         return fragment;
     }
-
+//
+//    @Override
+//    public void onStart() {
+//        super.onStart();
+//
+//    }
 
     public void initUI() {
         setBackView();
         setTitle("联合登录");
         tv_register_quick = findView(R.id.tv_register_quick);
         tv_relevance = findView(R.id.tv_relevance);
-
+        iv_avatar = findView(R.id.iv_avatar);
+        LogUtils.d("avatarUrl-->"+avatarUrl);
+        ImageLoader.getInstance().displayImage(avatarUrl, iv_avatar);
     }
 
     public void initData() {
@@ -75,6 +89,7 @@ public class ThirdLoginFragment extends BaseFragment implements View.OnClickList
 
     @Override
     protected void lazyLoad() {
+        avatarUrl = SharedPreferencesUtils.getString(getActivity(), "avatarUrl");
         initUI();
         addListeners();
         initData();

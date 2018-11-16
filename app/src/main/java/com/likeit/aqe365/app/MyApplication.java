@@ -6,6 +6,9 @@ import android.util.Log;
 
 
 import com.likeit.aqe365.R;
+import com.likeit.aqe365.activity.sort.product.image.GImageLoader;
+import com.likeit.aqe365.utils.SharedPreferencesUtils;
+import com.mob.MobSDK;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
@@ -13,6 +16,8 @@ import com.tencent.smtt.sdk.QbSdk;
 import com.uuzuche.lib_zxing.activity.ZXingLibrary;
 
 import java.io.File;
+
+import okhttp3.OkHttpClient;
 
 
 /**
@@ -41,11 +46,13 @@ public class MyApplication extends Application {
         initImageLoad();
         instance = this;
         applicationContext = this;
+        GImageLoader.init(this, new OkHttpClient.Builder().build());
         ZXingLibrary.initDisplayOpinion(this);
         initX5WebView();
+        MobSDK.init(this);//shareSDk初始化
         // DemoHelper.getInstance().init(mContext);
         //                                                           initX5WebView();
-
+        SharedPreferencesUtils.put(this, "isWeb", "2");//1.原生 2.半原生
     }
 
     public static MyApplication getInstance(Context mContext) {

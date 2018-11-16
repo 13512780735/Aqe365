@@ -46,8 +46,8 @@ public class MainActivity extends AbstractCommonTabLayout{
         } else {
             setSelectDefaultIndex(0);//设置默认的选项
         }
-        setUnReadMsg(3, 1);
-        setUnReadMsg(4, 2);
+//        setUnReadMsg(3, 1);
+//        setUnReadMsg(4, 2);
         // setUnReadMsg(2, 5, Color.parseColor("#6D8FB0"));
     }
 

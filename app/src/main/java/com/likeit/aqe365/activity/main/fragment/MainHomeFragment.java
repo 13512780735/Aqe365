@@ -95,8 +95,8 @@ public class MainHomeFragment extends BaseFragment implements EasyPermissions.Pe
     @BindView(R.id.userinfo_img)
     ImageView mUserinfoImg;
 
-    private int pageNum = 1;
     private static final int PAGE_SIZE = 6;//为什么是6呢？
+    private int pageNum = 1;
     private boolean isErr;
     private boolean mLoadMoreEndGone = false; //是否加载更多完毕
     private int mCurrentCounter = 0;
@@ -330,8 +330,6 @@ public class MainHomeFragment extends BaseFragment implements EasyPermissions.Pe
                 return new NetworkImageHolderView();
             }
         }, adList).setPageIndicator(new int[]{R.drawable.indicator_gray, R.drawable.indicator_red}).setPageIndicatorAlign(ConvenientBanner.PageIndicatorAlign.CENTER_HORIZONTAL).setScrollDuration(1500);
-
-
     }
 
 

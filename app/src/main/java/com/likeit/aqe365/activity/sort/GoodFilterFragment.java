@@ -1,23 +1,15 @@
 package com.likeit.aqe365.activity.sort;
 
 
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.design.widget.Snackbar;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.Window;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.likeit.aqe365.R;
-import com.likeit.aqe365.activity.sort.adapter.GoodFilterTagAdapter;
 import com.likeit.aqe365.activity.sort.bean.GoodFilterItemBean;
 import com.likeit.aqe365.utils.StatusBarUtil;
 import com.zhy.view.flowlayout.FlowLayout;
@@ -25,9 +17,8 @@ import com.zhy.view.flowlayout.TagAdapter;
 import com.zhy.view.flowlayout.TagFlowLayout;
 
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Set;
-import java.util.zip.Inflater;
+import java.util.logging.Logger;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -70,7 +61,6 @@ public class GoodFilterFragment extends DialogFragment {
 
 
     private void initData() {
-
     }
 
     private void initUI(final View view) {

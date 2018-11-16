@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ImageView
+        android:id="@+id/iv_nodata"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="@dimen/dp_40"
+        android:src="@mipmap/nogoods" />
+
+    <TextView
+        android:id="@+id/tv_01"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/iv_nodata"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="@dimen/dp_10"
+        android:text="您的购物车中没有商品哦！"
+        android:textSize="@dimen/sp_16" />
+
+    <TextView
+        android:id="@+id/tv_go_home"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="去首页逛逛吧"
+        android:textSize="@dimen/sp_16"
+        android:layout_below="@+id/tv_01"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="@dimen/dp_10"
+        android:textColor="@color/red_color"
+        android:paddingTop="@dimen/dp_5"
+        android:paddingBottom="@dimen/dp_5"
+        android:paddingRight="@dimen/dp_20"
+        android:paddingLeft="@dimen/dp_20"
+        android:layout_marginBottom="@dimen/dp_40"
+        android:background="@drawable/shape_button_red_border_bg_15" />
+</RelativeLayout>

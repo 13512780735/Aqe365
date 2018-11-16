@@ -58,6 +58,7 @@ public class RegisterFragment extends BaseFragment implements View.OnClickListen
     private String password;
     private String code;
     private String pwd_confirm;
+    private String isWeb;
 
 
     public static RegisterFragment newInstance() {
@@ -69,6 +70,11 @@ public class RegisterFragment extends BaseFragment implements View.OnClickListen
         return fragment;
     }
 
+    @Override
+    public void onStart() {
+        super.onStart();
+        isWeb=SharedPreferencesUtils.getString(getContext(),"isWeb");
+    }
 
     public void initUI() {
         setBackView();
@@ -214,9 +220,13 @@ public class RegisterFragment extends BaseFragment implements View.OnClickListen
                     SharedPreferencesUtils.put(getActivity(), "pwd", password);
                     SharedPreferencesUtils.put(getActivity(), "token", baseResponse.getData().getToken());
                     // LogUtils.d(baseResponse.getData().getMember().getNickname());
-                    //startMainActivity();
-                    Intent intent = new Intent(getActivity(), JsInterfaceActivity.class);
-                    startActivity(intent);
+                    if ("1".equals(isWeb)) {
+                        startMainActivity();
+                    } else {
+                        startWebActivity();
+                    }
+
+
 
                 } else {
                     LoaddingDismiss();
@@ -226,7 +236,14 @@ public class RegisterFragment extends BaseFragment implements View.OnClickListen
         });
 
     }
-
+    private void startWebActivity() {
+        /**
+         * 跳转网页
+         */
+        SharedPreferencesUtils.put(getActivity(), "login", "2");
+        Intent intent = new Intent(getActivity(), JsInterfaceActivity.class);
+        startActivity(intent);
+    }
     private void startMainActivity() {
         Bundle bundle = new Bundle();
         bundle.putString("flag", "0");

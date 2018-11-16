@@ -15,6 +15,7 @@ import android.widget.TextView;
 
 import com.likeit.aqe365.R;
 import com.likeit.aqe365.activity.FrameActivity;
+import com.likeit.aqe365.activity.TestActivity;
 import com.likeit.aqe365.activity.cart.activity.SelectAddressActivity;
 import com.likeit.aqe365.activity.login.activity.LoginActivity;
 import com.likeit.aqe365.activity.people.activity.AfterSaleActivity;
@@ -210,7 +211,8 @@ public class MainPeopleFragment extends BaseFragment implements View.OnClickList
                 break;
             case R.id.tv_coupon://我的优惠卷
               //  startFrameActivity(Constants.FRAGMENT_PEOPLE_COUPON);
-                toActivity(MyCouponActivity.class);
+                //toActivity(MyCouponActivity.class);
+                toActivity(TestActivity.class);
                 break;
             case R.id.tv_integral://我的积分
                 startFrameActivity(Constants.FRAGMENT_PEOPLE_INTEGRAL);
